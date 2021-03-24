@@ -12,6 +12,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import com.example.scheduler.R
 import com.example.scheduler.core.*
 import com.example.scheduler.ui.home.HomeViewModel
@@ -48,7 +49,9 @@ class TemplateFragment : Fragment() {
     homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
 
     viewModel.templates.observe(viewLifecycleOwner, Observer<MutableList<ScheduleTemplate>> { templates -> showTemplateList(templates) })
-
+    addButton.setOnClickListener {
+      view?.findNavController()?.navigate(R.id.action_templateFragment_to_templateAddFragment)
+    }
     // showTemplateList(viewModel.templates.value!!)
     return root
   }

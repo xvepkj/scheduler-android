@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.scheduler.MainActivity
 import com.example.scheduler.R
 
 class TemplateAddFragment : Fragment() {
@@ -20,6 +21,7 @@ class TemplateAddFragment : Fragment() {
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
+    (activity as MainActivity?)?.supportActionBar?.title = "New Template"
     return inflater.inflate(R.layout.template_add_fragment, container, false)
   }
 

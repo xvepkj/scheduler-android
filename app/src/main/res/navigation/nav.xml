@@ -19,5 +19,14 @@
         android:id="@+id/templateFragment"
         android:name="com.example.scheduler.ui.templates.main.TemplateFragment"
         android:label="template_fragment"
-        tools:layout="@layout/template_fragment" />
+        tools:layout="@layout/template_fragment" >
+        <action
+            android:id="@+id/action_templateFragment_to_templateAddFragment"
+            app:destination="@id/templateAddFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/templateAddFragment"
+        android:name="com.example.scheduler.ui.templates.add.TemplateAddFragment"
+        android:label="template_add_fragment"
+        tools:layout="@layout/template_add_fragment" />
 </navigation>

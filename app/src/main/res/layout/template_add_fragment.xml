@@ -1,13 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout4"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.templates.add.TemplateAddFragment">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:id="@+id/textView2"
+        android:layout_width="57dp"
+        android:layout_height="31dp"
+        android:text="Name"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/newtemplateScrollview"
+        app:layout_constraintEnd_toStartOf="@+id/newtemplatename"
+        app:layout_constraintHorizontal_bias="0.552"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.549" />
 
-</FrameLayout>
+    <EditText
+        android:id="@+id/newtemplatename"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="40dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/newtemplateScrollview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.875"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.131" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="94dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="288dp"
+        android:text="Activities"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/newtemplateScrollview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/newtemplateScrollview"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ScrollView
+        android:id="@+id/newtemplateScrollview"
+        android:layout_width="245dp"
+        android:layout_height="323dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="120dp"
+        android:background="#CBE6AA"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
+    <Button
+        android:id="@+id/newtemplateadd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="160dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="34dp"
+        android:text="Add"
+        app:layout_constraintBottom_toTopOf="@+id/newtemplateremove"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/newtemplateScrollview"
+        app:layout_constraintTop_toBottomOf="@+id/newtemplatename" />
+
+    <Button
+        android:id="@+id/newtemplateremove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="34dp"
+        android:layout_marginEnd="31dp"
+        android:layout_marginBottom="419dp"
+        android:text="Remove"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/newtemplateScrollview"
+        app:layout_constraintTop_toBottomOf="@+id/newtemplateadd" />
+
+    <Button
+        android:id="@+id/newtemplatetick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="33dp"
+        android:layout_marginBottom="44dp"
+        android:text="Tick"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/newtemplatecross"
+        app:layout_constraintTop_toBottomOf="@+id/newtemplateScrollview"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/newtemplatecross"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="164dp"
+        android:layout_marginBottom="44dp"
+        android:text="Cross"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/newtemplatetick"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newtemplateScrollview"
+        app:layout_constraintVertical_bias="0.0" />
+</androidx.constraintlayout.widget.ConstraintLayout>
