@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/calender"
-        android:title="TEST"
+        android:id="@+id/calendar"
+        android:title="Calendar"
         android:visible="true"
         android:icon="@android:drawable/ic_menu_my_calendar"
         app:showAsAction="always" />

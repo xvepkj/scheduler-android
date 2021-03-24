@@ -1,32 +1,84 @@
 package com.example.scheduler.ui.home
 
+import android.app.DatePickerDialog
+import android.os.Build
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.view.*
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import com.example.scheduler.MainActivity
 import com.example.scheduler.R
+import com.example.scheduler.core.Date
+import com.example.scheduler.core.ScheduledEvent
 
 class HomeFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = HomeFragment()
+  companion object {
+    fun newInstance() = HomeFragment()
+  }
+
+  private lateinit var viewModel: HomeViewModel
+
+  private lateinit var linearLayout: LinearLayout
+
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
+    val root = inflater.inflate(R.layout.home_fragment, container, false)
+
+    // Initialize UI elements
+    linearLayout = root.findViewById(R.id.homeLinearLayout)
+
+    setHasOptionsMenu(true)
+    (activity as MainActivity?)?.supportActionBar?.title = "Hello"
+
+    // viewModel related stuff
+    viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+    viewModel.schedule.observe(viewLifecycleOwner, Observer<List<ScheduledEvent>> { schedule -> loadSchedule(schedule)})
+
+    return root
+  }
+
+  override fun onActivityCreated(savedInstanceState: Bundle?) {
+    super.onActivityCreated(savedInstanceState)
+    // TODO: Use the ViewModel
+
+  }
+
+  @RequiresApi(Build.VERSION_CODES.N)
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    return when (item.itemId) {
+      R.id.calendar -> {
+        val datePicker = context?.let { DatePickerDialog(it) }
+        datePicker?.setOnDateSetListener { _, year, month, day ->
+          val d = Date(day, month + 1, year)
+          (activity as MainActivity?)?.supportActionBar?.title = d.toString()
+          viewModel.loadSchedule(d)
+        }
+        datePicker?.show()
+        true
+      }
+      else -> super.onOptionsItemSelected(item)
     }
+  }
 
-    private lateinit var viewModel: HomeViewModel
+  override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+    // Inflate the menu; this adds items to the action bar if it is present.
+    inflater.inflate(R.menu.home_menu, menu)
+  }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.home_fragment, container, false)
+  // Load schedule to UI
+  fun loadSchedule(schedule: List<ScheduledEvent>) {
+    linearLayout.removeAllViews()
+    for (event in schedule) {
+      val t = TextView(activity)
+      t.text = event.toString()
+      linearLayout.addView(t)
     }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
-
+  }
 }

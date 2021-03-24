@@ -1,8 +1,5 @@
 package com.example.scheduler.core
 
-import java.time.Duration
-import java.util.*
-
 class Worker {
   private var pool: MutableList<ActiveTemplate> = mutableListOf()
 

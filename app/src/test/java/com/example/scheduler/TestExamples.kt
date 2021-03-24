@@ -106,4 +106,38 @@ class TestExamples {
     println(schedule7)
     assert(schedule7.size == 3)
   }
+
+  @Test
+  fun test4() {
+    // Repeating and non-repeating mixed
+    val activeTemplate1 = ActiveTemplate(templateSingle1, true)
+    val activeTemplate2 = ActiveTemplate(templateSingle2, false)
+    activeTemplate1.setRepeatCriteria(
+      RepeatCriteria(
+        Date(24,3,2021),
+        RepeatType.FREQUENCY,
+        mutableListOf(2)
+      )
+    )
+    activeTemplate2.addDay(Date(25, 3, 2021))
+    activeTemplate2.addDay(Date(26, 3, 2021))
+
+    val worker = Worker()
+    worker.addToPool(activeTemplate1)
+    worker.addToPool(activeTemplate2)
+
+    var schedule: List<ScheduledEvent>
+
+    schedule = worker.generate(Date(24, 3, 2021))
+    println(schedule)
+    assert(schedule.size == 1)
+
+    schedule = worker.generate(Date(25, 3, 2021))
+    println(schedule)
+    assert(schedule.size == 1)
+
+    schedule = worker.generate(Date(26, 3, 2021))
+    println(schedule)
+    assert(schedule.size == 2)
+  }
 }
