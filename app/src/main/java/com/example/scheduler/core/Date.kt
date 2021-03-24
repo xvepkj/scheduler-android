@@ -17,9 +17,16 @@ class Date (val day: Int, val month: Int, val year: Int){
     if(day > other.day)return 1
     return 0
   }
+
+  override operator fun equals(other: Any?) =
+    when (other) {
+      is Date -> Triple(other.day, other.month, other.year) == Triple(day, month, year)
+      else -> false
+    }
+
   fun getCalendar() : Calendar{
     val cal = Calendar.getInstance()
-    cal.set(year,month,day)
+    cal.set(year,month-1,day)
     cal.set(Calendar.MILLISECOND,0)
     cal.set(Calendar.HOUR,0)
     cal.set(Calendar.MINUTE,0)
@@ -27,11 +34,10 @@ class Date (val day: Int, val month: Int, val year: Int){
     return cal
   }
   companion object {
-    fun difference(d1 : Date,d2 : Date) : Long{
+    fun difference(d1 : Date,d2 : Date) : Int {
       val t1 = d1.getCalendar().timeInMillis
       val t2 = d2.getCalendar().timeInMillis
-      return abs(t1-t2) /(24*60*60*1000)
-
+      return (abs(t1-t2) /(24*60*60*1000)).toInt()
     }
   }
 }

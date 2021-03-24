@@ -3,7 +3,7 @@ package com.example.scheduler.core
 class ScheduleTemplate {
   private val _events: MutableList<ScheduledEvent> = mutableListOf<ScheduledEvent>()
   val events : List<ScheduledEvent>
-    get() = events
+    get() = _events
   fun add (event: ScheduledEvent) {
     _events.add(event)
     // TODO: Validation, events should be non-intersecting

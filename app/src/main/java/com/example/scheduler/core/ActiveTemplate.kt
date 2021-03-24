@@ -12,6 +12,12 @@ class ActiveTemplate(val template: ScheduleTemplate, val repeats: Boolean) {
     _repeatCriteria = r
   }
 
+  fun satisfies (date: Date): Boolean {
+    return if (repeats)
+      repeatCriteria.satisfies(date)
+    else daySelection.indexOf(date) != -1
+  }
+
   // For selection only
   fun addDay(d : Date) {
     _daySelection.add(d)

@@ -9,6 +9,6 @@ class ScheduledEvent (
         //TODO Validation
     }
 
-    override fun toString() = "Name: $name,Start: $startTime,End: $endTime"
+    override fun toString() = "($name, $startTime, $endTime)"
 
 }
