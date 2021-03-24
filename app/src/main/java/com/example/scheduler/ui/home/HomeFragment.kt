@@ -38,9 +38,9 @@ class HomeFragment : Fragment() {
     (activity as MainActivity?)?.supportActionBar?.title = "Hello"
 
     // viewModel related stuff
-    viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-    viewModel.schedule.observe(viewLifecycleOwner, Observer<List<ScheduledEvent>> { schedule -> loadSchedule(schedule)})
-
+    viewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
+    viewModel.schedule.observe(viewLifecycleOwner, Observer<List<ScheduledEvent>> { schedule -> loadScheduleToUI(schedule)})
+    loadSchedule(Date.current())
     return root
   }
 
@@ -57,8 +57,7 @@ class HomeFragment : Fragment() {
         val datePicker = context?.let { DatePickerDialog(it) }
         datePicker?.setOnDateSetListener { _, year, month, day ->
           val d = Date(day, month + 1, year)
-          (activity as MainActivity?)?.supportActionBar?.title = d.toString()
-          viewModel.loadSchedule(d)
+          loadSchedule(d)
         }
         datePicker?.show()
         true
@@ -72,8 +71,13 @@ class HomeFragment : Fragment() {
     inflater.inflate(R.menu.home_menu, menu)
   }
 
+  fun loadSchedule(d: Date) {
+    (activity as MainActivity?)?.supportActionBar?.title = d.toString()
+    viewModel.loadSchedule(d)
+  }
+
   // Load schedule to UI
-  fun loadSchedule(schedule: List<ScheduledEvent>) {
+  fun loadScheduleToUI(schedule: List<ScheduledEvent>) {
     linearLayout.removeAllViews()
     for (event in schedule) {
       val t = TextView(activity)

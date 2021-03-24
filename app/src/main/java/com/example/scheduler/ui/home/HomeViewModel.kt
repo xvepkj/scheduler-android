@@ -1,5 +1,6 @@
 package com.example.scheduler.ui.home
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -36,6 +37,10 @@ class HomeViewModel : ViewModel() {
 
     worker.addToPool(activeTemplate1)
     worker.addToPool(activeTemplate2)
+  }
+
+  fun addToPool (activeTemplate: ActiveTemplate) {
+    worker.addToPool(activeTemplate)
   }
 
   fun loadSchedule (d : Date) {

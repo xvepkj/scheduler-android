@@ -15,4 +15,9 @@
         android:name="com.example.scheduler.ui.home.HomeFragment"
         android:label="home_fragment"
         tools:layout="@layout/home_fragment" />
+    <fragment
+        android:id="@+id/templateFragment"
+        android:name="com.example.scheduler.ui.templates.main.TemplateFragment"
+        android:label="template_fragment"
+        tools:layout="@layout/template_fragment" />
 </navigation>

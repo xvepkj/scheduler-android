@@ -51,5 +51,14 @@ class Date (val day: Int, val month: Int, val year: Int){
       assert(diff % millisInDay == 0L) // for local testing only
       return (diff / millisInDay).toInt()
     }
+
+    fun current(): Date {
+      val cal = Calendar.getInstance()
+      return Date(
+        cal.get(Calendar.DAY_OF_MONTH),
+        cal.get(Calendar.MONTH) + 1,
+        cal.get(Calendar.YEAR)
+      )
+    }
   }
 }

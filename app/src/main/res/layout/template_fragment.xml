@@ -5,4 +5,86 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.templates.main.TemplateFragment"/>
+    tools:context=".ui.templates.main.TemplateFragment">
+
+    <ScrollView
+        android:id="@+id/templateListScrollView"
+        android:layout_width="343dp"
+        android:layout_height="307dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="350dp"
+        android:background="#FFE3E3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/templateListLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
+    <ScrollView
+        android:id="@+id/templateDescScrollView"
+        android:layout_width="327dp"
+        android:layout_height="247dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="98dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="#FFF4D2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/templateListScrollView">
+
+        <LinearLayout
+            android:id="@+id/templateDescLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
+    <Button
+        android:id="@+id/templateAddButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="Add"
+        app:layout_constraintBottom_toTopOf="@+id/templateDescScrollView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/templateListScrollView"
+        app:layout_constraintVertical_bias="0.47" />
+
+    <Button
+        android:id="@+id/templateRemoveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="Remove"
+        app:layout_constraintBottom_toTopOf="@+id/templateDescScrollView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/templateListScrollView" />
+
+    <Button
+        android:id="@+id/templateApplyButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="20dp"
+        android:text="Apply"
+        app:layout_constraintBottom_toTopOf="@+id/templateDescScrollView"
+        app:layout_constraintEnd_toStartOf="@+id/templateRemoveButton"
+        app:layout_constraintStart_toEndOf="@+id/templateAddButton"
+        app:layout_constraintTop_toBottomOf="@+id/templateListScrollView" />
+</androidx.constraintlayout.widget.ConstraintLayout>
