@@ -1,15 +1,16 @@
 package com.example.scheduler.core
 
 class ScheduleTemplate {
-  private val events: MutableList<ScheduledEvent> = mutableListOf<ScheduledEvent>()
-
+  private val _events: MutableList<ScheduledEvent> = mutableListOf<ScheduledEvent>()
+  val events : List<ScheduledEvent>
+    get() = events
   fun add (event: ScheduledEvent) {
-    events.add(event)
+    _events.add(event)
     // TODO: Validation, events should be non-intersecting
   }
 
   fun remove (index: Int) {
-    events.removeAt(index)
+    _events.removeAt(index)
     // TODO: Validation of index
   }
 
@@ -17,4 +18,5 @@ class ScheduleTemplate {
     // TODO
     return ScheduleTemplate()
   }
+  override fun toString() = events.toString()
 }

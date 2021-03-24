@@ -1,21 +1,30 @@
 package com.example.scheduler.core
 
 class ActiveTemplate(val template: ScheduleTemplate, val repeats: Boolean) {
-  private lateinit var repeatCriteria: RepeatCriteria
-  private var daySelection: MutableList<String> = mutableListOf<String>()
-
+  private lateinit var _repeatCriteria: RepeatCriteria
+  private var _daySelection: MutableList<Date> = mutableListOf<Date>()
+  val repeatCriteria: RepeatCriteria
+    get() = _repeatCriteria
+  val daySelection:List<Date>
+    get() = _daySelection
   // For repeat only
   fun setRepeatCriteria (r: RepeatCriteria) {
-    repeatCriteria = r
+    _repeatCriteria = r
   }
 
   // For selection only
-  fun addDay(d : String) {
-    // TODO
+  fun addDay(d : Date) {
+    _daySelection.add(d)
+    // TODO Validation
   }
-
   // For selection only
-  fun removeDay(d : String) {
+  fun removeDay(d : Date) {
+    for(i in 0 until daySelection.size)
+      if(daySelection[i] ==d) {
+        _daySelection.removeAt(i)
+        break
+      }
     // TODO
   }
+  override fun toString() = "$template,$repeats,$repeatCriteria,$daySelection"
 }
