@@ -26,4 +26,8 @@ class TemplateViewModel : ViewModel() {
     _templates.value!!.add(template1)
     _templates.value!!.add(template2)
   }
+
+  fun addTemplate (template: ScheduleTemplate) {
+    _templates.value?.add(template)
+  }
 }
