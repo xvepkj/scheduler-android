@@ -25,6 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Repeat"
+            android:checked="true"
             android:textSize="18sp" />
 
         <RadioButton
@@ -58,6 +59,7 @@
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="150dp"
         android:orientation="vertical"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -115,7 +117,8 @@
             android:visibility="gone" />
 
     </LinearLayout>
-    <LinearLayout
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/templatecustomview"
         android:layout_width="407dp"
         android:layout_height="510dp"
@@ -123,11 +126,51 @@
         android:layout_marginTop="1dp"
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="150dp"
-        android:orientation="vertical"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider"/>
+        app:layout_constraintTop_toBottomOf="@+id/divider">
+
+
+        <ScrollView
+            android:id="@+id/scrollView2"
+            android:layout_width="261dp"
+            android:layout_height="346dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="93dp"
+            android:layout_marginEnd="131dp"
+            android:layout_marginBottom="71dp"
+            android:background="#F8D1FF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:id="@+id/applyCustomDatesList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="96dp"
+                android:orientation="vertical" />
+        </ScrollView>
+
+        <Button
+            android:id="@+id/applyCustomAddDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="87dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="375dp"
+            android:text="Add date"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/scrollView2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
         android:id="@+id/button4"
@@ -137,12 +180,12 @@
         android:gravity="bottom"
         android:text="CROSS"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button5"
+        app:layout_constraintEnd_toStartOf="@+id/applyTemplateButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/applyTemplateButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="160dp"

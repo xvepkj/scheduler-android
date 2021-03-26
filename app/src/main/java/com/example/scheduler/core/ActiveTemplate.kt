@@ -32,5 +32,5 @@ class ActiveTemplate(val template: ScheduleTemplate, val repeats: Boolean) {
       }
     // TODO
   }
-  override fun toString() = "$template,$repeats,$repeatCriteria,$daySelection"
+  override fun toString() = "$template,$repeats,${if (repeats) repeatCriteria else ""},$daySelection"
 }

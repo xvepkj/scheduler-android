@@ -1,19 +1,27 @@
 package com.example.scheduler.ui.templates.add
 
+import android.app.DatePickerDialog
+import android.os.Build
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.RadioButton
+import android.widget.*
+import androidx.annotation.RequiresApi
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.navigation.fragment.findNavController
 import ca.antonious.materialdaypicker.MaterialDayPicker
 import com.example.scheduler.R
+import com.example.scheduler.core.ActiveTemplate
+import com.example.scheduler.core.Date
+import com.example.scheduler.core.RepeatCriteria
+import com.example.scheduler.core.RepeatType
+import com.example.scheduler.ui.home.HomeViewModel
 
 class TemplateApplyFragment : Fragment() {
 
@@ -21,9 +29,12 @@ class TemplateApplyFragment : Fragment() {
     fun newInstance() = TemplateApplyFragment()
   }
 
+  private lateinit var customAddDateButton: Button
+  private lateinit var customDateLinearLayout: LinearLayout
   private lateinit var viewModel: TemplateApplyViewModel
+  private lateinit var homeViewModel: HomeViewModel
   private  lateinit var repeatView : LinearLayout
-  private  lateinit var customview : LinearLayout
+  private  lateinit var customview : ConstraintLayout
   private lateinit var repeat : RadioButton
   private lateinit var customselec : RadioButton
   private lateinit var weekly : RadioButton
@@ -31,7 +42,9 @@ class TemplateApplyFragment : Fragment() {
   private lateinit var frequency : RadioButton
   private lateinit var enterfrequency : EditText
   private lateinit var daypicker : MaterialDayPicker
+  private lateinit var applyButton: Button
 
+  @RequiresApi(Build.VERSION_CODES.N)
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
@@ -46,13 +59,12 @@ class TemplateApplyFragment : Fragment() {
     frequency = root.findViewById(R.id.templateapplyfrequency)
     enterfrequency = root.findViewById(R.id.enterfrequency)
     daypicker = root.findViewById(R.id.day_picker)
-    return root
-  }
+    applyButton = root.findViewById(R.id.applyTemplateButton)
+    customAddDateButton = root.findViewById(R.id.applyCustomAddDate)
+    customDateLinearLayout = root.findViewById(R.id.applyCustomDatesList)
 
-  override fun onActivityCreated(savedInstanceState: Bundle?) {
-    super.onActivityCreated(savedInstanceState)
-    viewModel = ViewModelProvider(this).get(TemplateApplyViewModel::class.java)
-    // TODO: Use the ViewModel
+    viewModel = ViewModelProvider(requireActivity()).get(TemplateApplyViewModel::class.java)
+    homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
     repeat.setOnClickListener(){
       repeatView.visibility = VISIBLE
       customview.visibility = GONE
@@ -73,6 +85,73 @@ class TemplateApplyFragment : Fragment() {
       enterfrequency.visibility=GONE
       daypicker.visibility= GONE
     }
+
+    applyButton.setOnClickListener {
+      val repeats = repeat.isChecked
+      val activeTemplate = ActiveTemplate(viewModel.template, repeats)
+      if (repeats) {
+        val repeatType = when {
+          weekly.isChecked -> RepeatType.WEEKLY
+          monthly.isChecked -> RepeatType.MONTHLY
+          frequency.isChecked -> RepeatType.FREQUENCY
+          else -> RepeatType.MONTHLY // For now
+        }
+        val list: MutableList<Int> = mutableListOf()
+        when (repeatType) {
+          RepeatType.WEEKLY -> {
+            for (d in daypicker.selectedDays) {
+              list.add(
+                when(d) {
+                  MaterialDayPicker.Weekday.SUNDAY -> 1
+                  MaterialDayPicker.Weekday.MONDAY -> 2
+                  MaterialDayPicker.Weekday.TUESDAY -> 3
+                  MaterialDayPicker.Weekday.WEDNESDAY -> 4
+                  MaterialDayPicker.Weekday.THURSDAY -> 5
+                  MaterialDayPicker.Weekday.FRIDAY -> 6
+                  MaterialDayPicker.Weekday.SATURDAY -> 7
+                }
+              )
+            }
+          }
+          RepeatType.FREQUENCY -> list.add(enterfrequency.text.toString().toInt())
+          RepeatType.MONTHLY -> list.add(Date.current().day) // TODO
+        }
+        activeTemplate.setRepeatCriteria(RepeatCriteria(Date.current(), repeatType, list))
+      } else {
+        for (d in viewModel.customDatesList) {
+          activeTemplate.addDay(d)
+        }
+      }
+      Log.d("DBG", activeTemplate.toString())
+      homeViewModel.addToPool(activeTemplate)
+      findNavController().navigate(R.id.action_templateApplyFragment_to_homeFragment)
+    }
+
+    customAddDateButton.setOnClickListener {
+      val datePicker = context?.let { DatePickerDialog(it) }
+      datePicker?.setOnDateSetListener { _, year, month, day ->
+        val d = Date(day, month + 1, year)
+        viewModel.customDatesList.add(d)
+        refreshCustomDatesList()
+      }
+      datePicker?.show()
+    }
+
+    return root
+  }
+
+  fun refreshCustomDatesList() {
+    customDateLinearLayout.removeAllViews()
+    for (d in viewModel.customDatesList) {
+      val textView = TextView(activity)
+      textView.text = d.toString()
+      customDateLinearLayout.addView(textView)
+    }
+  }
+
+  override fun onActivityCreated(savedInstanceState: Bundle?) {
+    super.onActivityCreated(savedInstanceState)
+    // TODO: Use the ViewModel
   }
 
 }

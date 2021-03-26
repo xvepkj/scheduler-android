@@ -16,6 +16,7 @@ import androidx.navigation.findNavController
 import com.example.scheduler.R
 import com.example.scheduler.core.*
 import com.example.scheduler.ui.home.HomeViewModel
+import com.example.scheduler.ui.templates.add.TemplateApplyViewModel
 
 class TemplateFragment : Fragment() {
 
@@ -24,7 +25,7 @@ class TemplateFragment : Fragment() {
   }
 
   private lateinit var viewModel: TemplateViewModel
-  private lateinit var homeViewModel: HomeViewModel
+  private lateinit var applyViewModel: TemplateApplyViewModel
 
   // UI Components
   private lateinit var listLinearLayout: LinearLayout
@@ -46,11 +47,15 @@ class TemplateFragment : Fragment() {
     applyButton.isEnabled = false
 
     viewModel = ViewModelProvider(requireActivity()).get(TemplateViewModel::class.java)
-    homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
+    applyViewModel = ViewModelProvider(requireActivity()).get(TemplateApplyViewModel::class.java)
 
     viewModel.templates.observe(viewLifecycleOwner, Observer<MutableList<ScheduleTemplate>> { templates -> showTemplateList(templates) })
     addButton.setOnClickListener {
       view?.findNavController()?.navigate(R.id.action_templateFragment_to_templateAddFragment)
+    }
+
+    applyButton.setOnClickListener {
+      view?.findNavController()?.navigate(R.id.action_templateFragment_to_templateApplyFragment)
     }
     // showTemplateList(viewModel.templates.value!!)
     return root
@@ -76,14 +81,9 @@ class TemplateFragment : Fragment() {
   fun showTemplateDesc(index: Int) {
     descLinearLayout.removeAllViews()
     applyButton.isEnabled = true
-    applyButton.setOnClickListener {
-      val activeTemplate = ActiveTemplate(viewModel.templates.value?.get(index)!!, true)
-      activeTemplate.setRepeatCriteria(RepeatCriteria(Date.current(), RepeatType.FREQUENCY, mutableListOf(2)))
-      Log.d("DBG", activeTemplate.toString())
-      homeViewModel.addToPool(activeTemplate)
-    }
     val template = viewModel.templates.value?.get(index)
-    for (event in template!!.events) {
+    applyViewModel.template = template!!
+      for (event in template!!.events) {
       val textView = TextView(activity)
       textView.text = event.toString()
       descLinearLayout.addView(textView)

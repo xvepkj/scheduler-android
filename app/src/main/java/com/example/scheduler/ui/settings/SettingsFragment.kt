@@ -26,9 +26,6 @@ class SettingsFragment : Fragment() {
                             savedInstanceState: Bundle?): View? {
     val root = inflater.inflate(R.layout.settings_fragment, container, false)
     val button :Button = root.findViewById(R.id.button)
-    button.setOnClickListener {
-      findNavController().navigate(R.id.action_settingsFragment_to_templateApplyFragment)
-    }
     return root
   }
 
