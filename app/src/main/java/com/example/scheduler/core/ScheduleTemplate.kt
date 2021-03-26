@@ -1,6 +1,6 @@
 package com.example.scheduler.core
 
-class ScheduleTemplate {
+class ScheduleTemplate (val name: String){
   private val _events: MutableList<ScheduledEvent> = mutableListOf<ScheduledEvent>()
   val events : List<ScheduledEvent>
     get() = _events
@@ -14,9 +14,10 @@ class ScheduleTemplate {
     // TODO: Validation of index
   }
 
-  fun clone(): ScheduleTemplate {
+  fun clone(cloneName: String): ScheduleTemplate {
     // TODO
-    return ScheduleTemplate()
+    return ScheduleTemplate(cloneName)
   }
+
   override fun toString() = events.toString()
 }

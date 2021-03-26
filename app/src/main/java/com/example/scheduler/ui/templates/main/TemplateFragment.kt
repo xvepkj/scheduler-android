@@ -15,6 +15,8 @@ import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.example.scheduler.R
 import com.example.scheduler.core.*
+import com.example.scheduler.databinding.TemplateAddFragmentBinding
+import com.example.scheduler.databinding.TemplateFragmentBinding
 import com.example.scheduler.ui.home.HomeViewModel
 import com.example.scheduler.ui.templates.add.TemplateApplyViewModel
 
@@ -24,41 +26,32 @@ class TemplateFragment : Fragment() {
     fun newInstance() = TemplateFragment()
   }
 
+  private var _binding: TemplateFragmentBinding? = null
+  private val binding get() = _binding!!
+
   private lateinit var viewModel: TemplateViewModel
   private lateinit var applyViewModel: TemplateApplyViewModel
 
-  // UI Components
-  private lateinit var listLinearLayout: LinearLayout
-  private lateinit var descLinearLayout: LinearLayout
-  private lateinit var addButton: Button
-  private lateinit var removeButton: Button
-  private lateinit var applyButton: Button
-
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    val root = inflater.inflate(R.layout.template_fragment, container, false)
-
-    // Set UI Components
-    listLinearLayout = root.findViewById(R.id.templateListLinearLayout)
-    descLinearLayout = root.findViewById(R.id.templateDescLinearLayout)
-    addButton = root.findViewById(R.id.templateAddButton)
-    removeButton = root.findViewById(R.id.templateRemoveButton)
-    applyButton = root.findViewById(R.id.templateApplyButton)
-    applyButton.isEnabled = false
+  override fun onCreateView(
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
+    _binding = TemplateFragmentBinding.inflate(inflater, container, false)
 
     viewModel = ViewModelProvider(requireActivity()).get(TemplateViewModel::class.java)
     applyViewModel = ViewModelProvider(requireActivity()).get(TemplateApplyViewModel::class.java)
 
-    viewModel.templates.observe(viewLifecycleOwner, Observer<MutableList<ScheduleTemplate>> { templates -> showTemplateList(templates) })
-    addButton.setOnClickListener {
+    binding.templateApplyButton.isEnabled = false
+    binding.templateAddButton.setOnClickListener {
       view?.findNavController()?.navigate(R.id.action_templateFragment_to_templateAddFragment)
     }
 
-    applyButton.setOnClickListener {
+    binding.templateApplyButton.setOnClickListener {
       view?.findNavController()?.navigate(R.id.action_templateFragment_to_templateApplyFragment)
     }
-    // showTemplateList(viewModel.templates.value!!)
-    return root
+    showTemplateList(viewModel.getTemplateNames())
+    return binding.root
   }
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -66,27 +59,27 @@ class TemplateFragment : Fragment() {
     // TODO: Use the ViewModel
   }
 
-  fun showTemplateList(templates: List<ScheduleTemplate>) {
-    listLinearLayout.removeAllViews()
-    for (i in templates.indices) {
+  fun showTemplateList(names: List<String>) {
+    binding.templateListLinearLayout.removeAllViews()
+    for (name in names) {
       val textView = TextView(activity)
-      textView.text = "Template $i"
+      textView.text = name
       textView.setOnClickListener {
-        showTemplateDesc(i)
+        showTemplateDesc(name)
       }
-      listLinearLayout.addView(textView)
+      binding.templateListLinearLayout.addView(textView)
     }
   }
 
-  fun showTemplateDesc(index: Int) {
-    descLinearLayout.removeAllViews()
-    applyButton.isEnabled = true
-    val template = viewModel.templates.value?.get(index)
-    applyViewModel.template = template!!
-      for (event in template!!.events) {
+  fun showTemplateDesc(name: String) {
+    binding.templateDescLinearLayout.removeAllViews()
+    binding.templateApplyButton.isEnabled = true
+    val template = viewModel.getTemplate(name)
+    applyViewModel.template = template
+      for (event in template.events) {
       val textView = TextView(activity)
       textView.text = event.toString()
-      descLinearLayout.addView(textView)
+      binding.templateDescLinearLayout.addView(textView)
     }
   }
 }

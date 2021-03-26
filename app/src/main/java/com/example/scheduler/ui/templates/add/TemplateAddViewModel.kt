@@ -7,26 +7,11 @@ import com.example.scheduler.core.ScheduleTemplate
 import com.example.scheduler.core.ScheduledEvent
 
 class TemplateAddViewModel : ViewModel() {
-  // TODO: Implement the ViewModel
-  private var _template : MutableLiveData<ScheduleTemplate> = MutableLiveData()
-  val template: LiveData<ScheduleTemplate>
-    get() = _template
 
-  init {
-    _template.value = ScheduleTemplate()
-  }
-
-  fun addEvent (event: ScheduledEvent) {
-    val tmp = _template.value
-    tmp?.add(event)
-    _template.value = tmp
-  }
-
-  fun removeEvent (index: Int) {
-    _template.value?.remove(index)
-  }
+  private var _events : MutableLiveData<MutableList<ScheduledEvent>> = MutableLiveData(mutableListOf())
+  val events get() = _events
 
   fun clear() {
-    _template.value = ScheduleTemplate()
+    _events.value?.clear()
   }
 }

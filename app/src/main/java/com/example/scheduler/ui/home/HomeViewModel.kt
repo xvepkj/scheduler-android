@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel
 import com.example.scheduler.core.*
 
 class HomeViewModel : ViewModel() {
+
+
   private val _worker: Worker = Worker()
   val worker: Worker
     get() = _worker
@@ -18,8 +20,8 @@ class HomeViewModel : ViewModel() {
   init {
     _schedule.value = mutableListOf()
 
-    val templateSingle1 = ScheduleTemplate()
-    val templateSingle2 = ScheduleTemplate()
+    val templateSingle1 = ScheduleTemplate("test_template_1")
+    val templateSingle2 = ScheduleTemplate("test_template_2")
     templateSingle1.add(ScheduledEvent("single1", Time(10, 0), Time(11, 0)))
     templateSingle2.add(ScheduledEvent("single2", Time(10, 0), Time(11, 0)))
 

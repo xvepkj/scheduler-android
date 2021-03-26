@@ -6,6 +6,6 @@ import com.example.scheduler.core.Date
 import com.example.scheduler.core.ScheduleTemplate
 
 class TemplateApplyViewModel : ViewModel() {
-  var template = ScheduleTemplate()
+  var template = ScheduleTemplate("test")
   var customDatesList: MutableList<Date> = mutableListOf()
 }

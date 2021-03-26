@@ -15,6 +15,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
+import io.paperdb.Paper
 
 class MainActivity : AppCompatActivity() {
 
@@ -44,6 +45,8 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
+        // Initialize database
+        Paper.init(applicationContext)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

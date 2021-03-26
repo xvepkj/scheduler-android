@@ -73,7 +73,7 @@ class EventAddFragment : Fragment() {
     }
 
     addButton.setOnClickListener {
-      templateAddViewModel.addEvent(ScheduledEvent(nameEditText.text.toString(), viewModel.startTime, viewModel.endTime))
+      templateAddViewModel.events.value?.add(ScheduledEvent(nameEditText.text.toString(), viewModel.startTime, viewModel.endTime))
       viewModel.startTime = Time(0, 0)
       viewModel.endTime = Time(0, 0)
       nameEditText.setText("")

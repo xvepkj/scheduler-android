@@ -15,7 +15,8 @@ import com.example.scheduler.MainActivity
 import com.example.scheduler.R
 import com.example.scheduler.core.ScheduleTemplate
 import com.example.scheduler.core.ScheduledEvent
-import com.example.scheduler.core.Time
+import com.example.scheduler.databinding.TemplateAddFragmentBinding
+import com.example.scheduler.databinding.TemplateFragmentBinding
 import com.example.scheduler.ui.templates.main.TemplateViewModel
 
 class TemplateAddFragment : Fragment() {
@@ -24,52 +25,41 @@ class TemplateAddFragment : Fragment() {
     fun newInstance() = TemplateAddFragment()
   }
 
+  private var _binding: TemplateAddFragmentBinding? = null
+  private val binding get() = _binding!!
+
   private lateinit var viewModel: TemplateAddViewModel
   private lateinit var templateViewModel: TemplateViewModel
 
-  private lateinit var linearLayout: LinearLayout
-  private lateinit var addEventButton: Button
-  private lateinit var removeEventButton: Button
-  private lateinit var addTemplateButton: Button
-  private lateinit var cancelButton: Button
-
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
+    inflater: LayoutInflater,
+    container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    val root = inflater.inflate(R.layout.template_add_fragment, container, false)
-
-    // UI elements
-    linearLayout = root.findViewById(R.id.newtemplateLinearLayout)
-    addEventButton = root.findViewById(R.id.newtemplateadd)
-    removeEventButton = root.findViewById(R.id.newtemplateremove)
-    addTemplateButton = root.findViewById(R.id.newtemplatetick)
-    cancelButton = root.findViewById(R.id.newtemplatecross)
+    _binding = TemplateAddFragmentBinding.inflate(inflater, container, false)
 
     (activity as MainActivity?)?.supportActionBar?.title = "New Template"
     viewModel = ViewModelProvider(requireActivity()).get(TemplateAddViewModel::class.java)
     templateViewModel = ViewModelProvider(requireActivity()).get(TemplateViewModel::class.java)
 
-    viewModel.template.observe(viewLifecycleOwner, Observer<ScheduleTemplate> {
-      template -> showTemplate(template)
+    viewModel.events.observe(viewLifecycleOwner, Observer<List<ScheduledEvent>> {
+      events -> showEvents(events)
     })
 
-    addEventButton.setOnClickListener {
+    binding.templateAddEventAdd.setOnClickListener {
       // viewModel.addEvent(ScheduledEvent("test", Time(0, 0), Time(1, 0)))
       findNavController().navigate(R.id.action_templateAddFragment_to_eventAddFragment)
     }
 
-    addTemplateButton.setOnClickListener {
-      templateViewModel.addTemplate(viewModel.template.value!!)
+    binding.templateAddFinish.setOnClickListener {
+      val newTemplate = ScheduleTemplate(binding.templateAddNameField.text.toString())
+      for (e in viewModel.events.value!!) newTemplate.add(e)
+      templateViewModel.addTemplate(newTemplate)
       viewModel.clear()
       findNavController().navigate(R.id.action_templateAddFragment_to_templateFragment)
     }
 
-    cancelButton.setOnClickListener {
-      findNavController().navigate(R.id.action_templateAddFragment_to_templateFragment)
-    }
-
-    return root
+    return binding.root
   }
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -77,12 +67,12 @@ class TemplateAddFragment : Fragment() {
     // TODO: Use the ViewModel
   }
 
-  fun showTemplate(template: ScheduleTemplate) {
-    linearLayout.removeAllViews()
-    for (event in template.events) {
+  fun showEvents(events: List<ScheduledEvent>) {
+    binding.templateAddEventList.removeAllViews()
+    for (event in events) {
       val textView = TextView(activity)
       textView.text = event.toString()
-      linearLayout.addView(textView)
+      binding.templateAddEventList.addView(textView)
     }
   }
 }
