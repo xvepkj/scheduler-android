@@ -20,4 +20,8 @@ class RepeatCriteria (val startDate: Date,
       RepeatType.MONTHLY -> list.contains(date.day)
     }
   }
+
+  override fun toString(): String {
+    return "(start:$startDate, ${repeatType.toString()}, $list)"
+  }
 }

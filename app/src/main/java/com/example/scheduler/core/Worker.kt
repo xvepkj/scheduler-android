@@ -19,4 +19,8 @@ class Worker {
   fun removeFromPool (index: Int) {
     pool.removeAt(index)
   }
+
+  fun getPool(): List<ActiveTemplate> {
+    return pool
+  }
 }

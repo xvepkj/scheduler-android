@@ -25,7 +25,10 @@ class SettingsFragment : Fragment() {
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
     val root = inflater.inflate(R.layout.settings_fragment, container, false)
-    val button :Button = root.findViewById(R.id.button)
+    val button:Button = root.findViewById(R.id.button)
+    button.setOnClickListener {
+      findNavController().navigate(R.id.action_settingsFragment_to_templatePoolFragment)
+    }
     return root
   }
 
