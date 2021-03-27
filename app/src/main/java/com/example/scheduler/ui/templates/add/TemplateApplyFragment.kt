@@ -43,6 +43,7 @@ class TemplateApplyFragment : Fragment() {
   private lateinit var enterfrequency : EditText
   private lateinit var daypicker : MaterialDayPicker
   private lateinit var applyButton: Button
+  private lateinit var datepicker : LinearLayout
 
   @RequiresApi(Build.VERSION_CODES.N)
   override fun onCreateView(
@@ -59,10 +60,10 @@ class TemplateApplyFragment : Fragment() {
     frequency = root.findViewById(R.id.templateapplyfrequency)
     enterfrequency = root.findViewById(R.id.enterfrequency)
     daypicker = root.findViewById(R.id.day_picker)
+    datepicker = root.findViewById(R.id.datepickerlayout)
     applyButton = root.findViewById(R.id.applyTemplateButton)
     customAddDateButton = root.findViewById(R.id.applyCustomAddDate)
     customDateLinearLayout = root.findViewById(R.id.applyCustomDatesList)
-
     viewModel = ViewModelProvider(requireActivity()).get(TemplateApplyViewModel::class.java)
     homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
     repeat.setOnClickListener(){
@@ -76,14 +77,17 @@ class TemplateApplyFragment : Fragment() {
     weekly.setOnClickListener(){
       enterfrequency.visibility=GONE
       daypicker.visibility= VISIBLE
+      datepicker.visibility=GONE
     }
     frequency.setOnClickListener(){
       enterfrequency.visibility= VISIBLE
       daypicker.visibility= GONE
+      datepicker.visibility=GONE
     }
     monthly.setOnClickListener(){
       enterfrequency.visibility=GONE
       daypicker.visibility= GONE
+      datepicker.visibility= VISIBLE
     }
 
     applyButton.setOnClickListener {
@@ -114,7 +118,14 @@ class TemplateApplyFragment : Fragment() {
             }
           }
           RepeatType.FREQUENCY -> list.add(enterfrequency.text.toString().toInt())
-          RepeatType.MONTHLY -> list.add(Date.current().day) // TODO
+          RepeatType.MONTHLY -> {
+            for(i in 1..30) {
+              val currentdate = "date$i"
+              val button: ToggleButton? = activity?.findViewById<ToggleButton>(resources.getIdentifier(currentdate, "id", requireActivity().packageName))
+              if(button!!.isChecked)
+                list.add(i)
+            }
+          }
         }
         activeTemplate.setRepeatCriteria(RepeatCriteria(Date.current(), repeatType, list))
       } else {
