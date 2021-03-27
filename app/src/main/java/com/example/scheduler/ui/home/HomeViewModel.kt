@@ -5,47 +5,36 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.scheduler.core.*
+import io.paperdb.Book
+import io.paperdb.Paper
 
 class HomeViewModel : ViewModel() {
 
-
-  private val _worker: Worker = Worker()
   val worker: Worker
-    get() = _worker
+    get() = Paper.book().read("worker")
 
   private val _schedule: MutableLiveData<List<ScheduledEvent>> = MutableLiveData()
   val schedule: MutableLiveData<List<ScheduledEvent>>
     get() = _schedule
 
   init {
+    if (!Paper.book().contains("worker")) {
+      Paper.book().write("worker", Worker())
+    }
     _schedule.value = mutableListOf()
-
-    val templateSingle1 = ScheduleTemplate("test_template_1")
-    val templateSingle2 = ScheduleTemplate("test_template_2")
-    templateSingle1.add(ScheduledEvent("single1", Time(10, 0), Time(11, 0)))
-    templateSingle2.add(ScheduledEvent("single2", Time(10, 0), Time(11, 0)))
-
-    val activeTemplate1 = ActiveTemplate(templateSingle1, true)
-    val activeTemplate2 = ActiveTemplate(templateSingle2, false)
-    activeTemplate1.setRepeatCriteria(
-      RepeatCriteria(
-        Date(24,3,2021),
-        RepeatType.FREQUENCY,
-        mutableListOf(2)
-      )
-    )
-    activeTemplate2.addDay(Date(25, 3, 2021))
-    activeTemplate2.addDay(Date(26, 3, 2021))
-
-    worker.addToPool(activeTemplate1)
-    worker.addToPool(activeTemplate2)
   }
 
   fun addToPool (activeTemplate: ActiveTemplate) {
-    worker.addToPool(activeTemplate)
+    val w = worker
+    w.addToPool(activeTemplate)
+    updateWorker(w)
   }
 
   fun loadSchedule (d : Date) {
-    _schedule.value = _worker.generate(d)
+    _schedule.value = worker.generate(d)
+  }
+
+  fun updateWorker (w: Worker) {
+    Paper.book().write("worker", w)
   }
 }
