@@ -5,7 +5,6 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.graphics.Color
 import android.os.Build
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.view.*
 import android.widget.LinearLayout
@@ -13,6 +12,7 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.scheduler.MainActivity
 import com.example.scheduler.R
 import com.example.scheduler.core.Date
@@ -43,8 +43,10 @@ class HomeFragment : Fragment() {
     // viewModel related stuff
     viewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
     viewModel.schedule.observe(viewLifecycleOwner, Observer<List<ScheduledEvent>> { schedule -> loadScheduleToUI(schedule)})
-    createChannel(getString(R.string.default_channel_id), "channelName")
     loadSchedule(Date.current())
+
+    createChannel("Default Noti Channel", "channelName")
+
     return root
   }
 
@@ -104,7 +106,7 @@ class HomeFragment : Fragment() {
       notificationChannel.enableLights(true)
       notificationChannel.lightColor = Color.RED
       notificationChannel.enableVibration(true)
-      notificationChannel.description = "Time for breakfast"
+      notificationChannel.description = "Schedule Stuff"
 
       val notificationManager = requireActivity().getSystemService(
         NotificationManager::class.java

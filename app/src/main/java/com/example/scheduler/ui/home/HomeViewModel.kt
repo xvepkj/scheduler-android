@@ -7,9 +7,7 @@ import android.content.Context.ALARM_SERVICE
 import android.content.Intent
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.scheduler.core.*
 import com.example.scheduler.core.Date
 import com.example.scheduler.util.AlarmReceiver
@@ -82,7 +80,6 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
     }
     // for events with start time > current time, set alarms
   }
-
   private fun setAlarm(event: ScheduledEvent, id: Int) {
     val contentIntent = Intent(app.applicationContext, AlarmReceiver::class.java)
     contentIntent.putExtra("event", event.toString())
@@ -99,7 +96,7 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
     todayCal.set(Calendar.MINUTE, event.startTime.m)
 
     // var triggerTime = System.currentTimeMillis() + t
-    val triggerTime = todayCal.getTimeInMillis()
+    val triggerTime = todayCal.timeInMillis
     Log.d("DBG", "alarm after ${(triggerTime - System.currentTimeMillis()) / 1000} seconds")
 
     alarmManager.setWindow(AlarmManager.RTC_WAKEUP, triggerTime,1000L, contentPendingIntent)

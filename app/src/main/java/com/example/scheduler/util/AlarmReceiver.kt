@@ -8,14 +8,15 @@ import android.content.Intent
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.example.scheduler.MainActivity
-import com.example.scheduler.R
+import android.R as R1
 
 class AlarmReceiver : BroadcastReceiver() {
 
   private lateinit var mNotificationManager: NotificationManager
+  private val NOTIFICATION_ID = 0
 
   // Notification channel ID.
-  private val PRIMARY_CHANNEL_ID = R.string.default_channel_id.toString()
+  private val PRIMARY_CHANNEL_ID = "Default Noti Channel"
 
   override fun onReceive(context: Context, intent: Intent) {
     // This method is called when the BroadcastReceiver is receiving an Intent broadcast.
@@ -35,7 +36,7 @@ class AlarmReceiver : BroadcastReceiver() {
     )
 
     val builder = NotificationCompat.Builder(context, PRIMARY_CHANNEL_ID)
-      .setSmallIcon(R.drawable.circle_toggle_button)
+      .setSmallIcon(R1.drawable.sym_def_app_icon)
       .setContentTitle("EVENT")
       .setContentText(contentIntent.getStringExtra("event"))
       .setContentIntent(contentPendingIntent)
