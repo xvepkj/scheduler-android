@@ -1,17 +1,30 @@
 package com.example.scheduler.ui.home
 
+import android.app.AlarmManager
+import android.app.Application
+import android.app.PendingIntent
+import android.content.Context.ALARM_SERVICE
+import android.content.Intent
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.scheduler.core.*
+import com.example.scheduler.core.Date
+import com.example.scheduler.util.AlarmReceiver
 import io.paperdb.Book
 import io.paperdb.Paper
+import java.util.*
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(val app: Application) : AndroidViewModel(app) {
 
   val worker: Worker
     get() = Paper.book().read("worker")
+
+  private val history: Book = Paper.book("history")
+
+  private val pendingIntents: MutableList<PendingIntent> = mutableListOf()
 
   private val _schedule: MutableLiveData<List<ScheduledEvent>> = MutableLiveData()
   val schedule: MutableLiveData<List<ScheduledEvent>>
@@ -30,11 +43,65 @@ class HomeViewModel : ViewModel() {
     updateWorker(w)
   }
 
-  fun loadSchedule (d : Date) {
-    _schedule.value = worker.generate(d)
+  fun loadSchedule (date : Date) {
+    val d = date.toString()
+    _schedule.value =
+      if (date < Date.current()) {
+        // load history
+        if (!history.contains(d)) mutableListOf()
+        else history.read(d)
+      // } else if (date == Date.current()) {
+      //   // current day
+      //   if (!history.contains(d)) {
+      //     history.write(d, worker.generate(date))
+      //   }
+      //   history.read(d)
+      } else {
+        worker.generate(date)
+      }
   }
 
   fun updateWorker (w: Worker) {
     Paper.book().write("worker", w)
+  }
+
+  fun setAlarms() {
+    // set alarms for events of current date
+
+    // remove all alarms: for each id in ids, remove alarm
+    val alarmManager = app.getSystemService(ALARM_SERVICE) as AlarmManager
+    for (p in pendingIntents) alarmManager.cancel(p)
+    pendingIntents.clear()
+
+    // Get today's schedule: from history
+    // val todaySchedule: List<ScheduledEvent> = history.read(Date.current().toString())
+    val todaySchedule = worker.generate(Date.current()) // for now
+    for (i in todaySchedule.indices) {
+      val e = todaySchedule[i]
+      if (e.startTime > Time.now()) setAlarm(todaySchedule[i], i)
+    }
+    // for events with start time > current time, set alarms
+  }
+
+  private fun setAlarm(event: ScheduledEvent, id: Int) {
+    val contentIntent = Intent(app.applicationContext, AlarmReceiver::class.java)
+    contentIntent.putExtra("event", event.toString())
+    val contentPendingIntent = PendingIntent.getBroadcast(
+      app.applicationContext,
+      id,
+      contentIntent,
+      PendingIntent.FLAG_UPDATE_CURRENT
+    )
+    pendingIntents.add(contentPendingIntent)
+    val alarmManager = app.getSystemService(ALARM_SERVICE) as AlarmManager
+    val todayCal = Date.current().getCalendar()
+    todayCal.set(Calendar.HOUR_OF_DAY, event.startTime.h)
+    todayCal.set(Calendar.MINUTE, event.startTime.m)
+
+    // var triggerTime = System.currentTimeMillis() + t
+    val triggerTime = todayCal.getTimeInMillis()
+    Log.d("DBG", "alarm after ${(triggerTime - System.currentTimeMillis()) / 1000} seconds")
+
+    alarmManager.setWindow(AlarmManager.RTC_WAKEUP, triggerTime,1000L, contentPendingIntent)
   }
 }

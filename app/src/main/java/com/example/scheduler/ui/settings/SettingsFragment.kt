@@ -11,6 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.scheduler.R
+import com.example.scheduler.ui.home.HomeViewModel
 
 class SettingsFragment : Fragment() {
 
@@ -28,6 +29,10 @@ class SettingsFragment : Fragment() {
     val button:Button = root.findViewById(R.id.button)
     button.setOnClickListener {
       findNavController().navigate(R.id.action_settingsFragment_to_templatePoolFragment)
+    }
+    val homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
+    root.findViewById<Button>(R.id.buttonSetAlarms).setOnClickListener {
+      homeViewModel.setAlarms()
     }
     return root
   }

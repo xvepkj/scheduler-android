@@ -1,6 +1,9 @@
 package com.example.scheduler.ui.home
 
 import android.app.DatePickerDialog
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.graphics.Color
 import android.os.Build
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -40,6 +43,7 @@ class HomeFragment : Fragment() {
     // viewModel related stuff
     viewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
     viewModel.schedule.observe(viewLifecycleOwner, Observer<List<ScheduledEvent>> { schedule -> loadScheduleToUI(schedule)})
+    createChannel(getString(R.string.default_channel_id), "channelName")
     loadSchedule(Date.current())
     return root
   }
@@ -84,5 +88,29 @@ class HomeFragment : Fragment() {
       t.text = event.toString()
       linearLayout.addView(t)
     }
+  }
+
+  private fun createChannel(channelId: String, channelName: String) {
+    // TODO: Step 1.6 START create a channel
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+      val notificationChannel = NotificationChannel(
+        channelId,
+        channelName,
+        // TODO: Step 2.4 change importance
+        NotificationManager.IMPORTANCE_HIGH
+      )
+      // TODO: Step 2.6 disable badges for this channel
+
+      notificationChannel.enableLights(true)
+      notificationChannel.lightColor = Color.RED
+      notificationChannel.enableVibration(true)
+      notificationChannel.description = "Time for breakfast"
+
+      val notificationManager = requireActivity().getSystemService(
+        NotificationManager::class.java
+      )
+      notificationManager.createNotificationChannel(notificationChannel)
+    }
+    // TODO: Step 1.6 END create channel
   }
 }
