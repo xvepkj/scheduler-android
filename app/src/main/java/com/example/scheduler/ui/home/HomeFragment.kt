@@ -45,7 +45,6 @@ class HomeFragment : Fragment() {
     viewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
     viewModel.schedule.observe(viewLifecycleOwner, Observer<List<ScheduledEvent>> { schedule -> loadScheduleToUI(schedule)})
     loadSchedule(Date.current())
-    Log.d("DBG","home"+getString(R.string.default_channel_id))
     createChannel(getString(R.string.default_channel_id), "channelName")
 
     return root

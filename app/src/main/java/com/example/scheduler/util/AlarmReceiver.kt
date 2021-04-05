@@ -19,15 +19,14 @@ class AlarmReceiver : BroadcastReceiver()  {
     // This method is called when the BroadcastReceiver is receiving an Intent broadcast.
     Log.d("DBG", "Received")
     mNotificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-    deliverNotification(context)
+    deliverNotification(context, intent)
   }
 
-  private fun deliverNotification(context: Context) {
+  private fun deliverNotification(context: Context, receivedIntent: Intent) {
+    val NOTIFICATION_ID = receivedIntent.getIntExtra("id", 0)
+
     val PRIMARY_CHANNEL_ID = context.getString(R.string.default_channel_id)
     val contentIntent = Intent(context, MainActivity::class.java)
-    Log.d("DBG", contentIntent.getStringExtra("event").toString())
-    Log.d("DBG", "alarm$PRIMARY_CHANNEL_ID")
-    val NOTIFICATION_ID = contentIntent.getIntExtra("id", 0)
     val contentPendingIntent = PendingIntent.getActivity(
       context,
       NOTIFICATION_ID,
@@ -38,7 +37,7 @@ class AlarmReceiver : BroadcastReceiver()  {
     val builder = NotificationCompat.Builder(context, PRIMARY_CHANNEL_ID)
       .setSmallIcon(R1.drawable.sym_def_app_icon)
       .setContentTitle("EVENT")
-      .setContentText(contentIntent.getStringExtra("event").toString())
+      .setContentText(receivedIntent.getStringExtra("event").toString())
       .setContentIntent(contentPendingIntent)
       .setPriority(NotificationCompat.PRIORITY_HIGH)
       .setAutoCancel(true)
