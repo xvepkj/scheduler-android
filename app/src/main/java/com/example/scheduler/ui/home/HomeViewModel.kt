@@ -11,6 +11,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.scheduler.core.*
 import com.example.scheduler.core.Date
 import com.example.scheduler.util.AlarmReceiver
+import com.example.scheduler.util.DailyUpdateReceiver
 import io.paperdb.Book
 import io.paperdb.Paper
 import java.util.*
@@ -32,7 +33,56 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
     if (!Paper.book().contains("worker")) {
       Paper.book().write("worker", Worker())
     }
+    if (!Paper.book().contains("pendingIntents")) {
+      Paper.book().write("pendingIntents", mutableListOf<PendingIntent>())
+    }
     _schedule.value = mutableListOf()
+
+    if (!Paper.book().contains("initialized")) {
+      setupDailyUpdater()
+      Paper.book().write("initialized", true)
+    }
+  }
+
+  fun setupDailyUpdater() {
+    val alarmManager = app.getSystemService(ALARM_SERVICE) as AlarmManager
+    val contentIntent = Intent(app.applicationContext, DailyUpdateReceiver::class.java)
+    val contentPendingIntent = PendingIntent.getBroadcast(
+      app.applicationContext,
+      0,
+      contentIntent,
+      PendingIntent.FLAG_UPDATE_CURRENT
+    )
+
+    val cal = Date.current().getCalendar()
+    cal.set(Calendar.HOUR_OF_DAY, 19)
+    cal.set(Calendar.MINUTE, 5)
+    Log.d("DBG", "Daily updater: ${cal.timeInMillis}, ${System.currentTimeMillis()}")
+    alarmManager.setRepeating(
+      AlarmManager.RTC_WAKEUP,
+      cal.timeInMillis,
+      AlarmManager.INTERVAL_DAY,
+      contentPendingIntent
+    )
+  }
+
+  fun forceUpdate() {
+    val alarmManager = app.getSystemService(ALARM_SERVICE) as AlarmManager
+    val contentIntent = Intent(app.applicationContext, DailyUpdateReceiver::class.java)
+    val contentPendingIntent = PendingIntent.getBroadcast(
+      app.applicationContext,
+      0,
+      contentIntent,
+      PendingIntent.FLAG_UPDATE_CURRENT
+    )
+
+    Log.d("DBG", "Force update")
+    alarmManager.setWindow(
+      AlarmManager.RTC_WAKEUP,
+      System.currentTimeMillis(),
+      1000L,
+      contentPendingIntent
+    )
   }
 
   fun addToPool (activeTemplate: ActiveTemplate) {
@@ -63,6 +113,7 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
     Paper.book().write("worker", w)
   }
 
+  /*
   fun setAlarms() {
     // set alarms for events of current date
 
@@ -101,4 +152,5 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
 
     alarmManager.setWindow(AlarmManager.RTC_WAKEUP, triggerTime,1000L, contentPendingIntent)
   }
+   */
 }

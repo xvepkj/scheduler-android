@@ -10,6 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Scheduler">
         <receiver
+            android:name=".util.DailyUpdateReceiver"
+            android:enabled="true"
+            android:exported="true"></receiver>
+        <receiver
             android:name=".util.AlarmReceiver"
             android:enabled="true"
             android:exported="false" />

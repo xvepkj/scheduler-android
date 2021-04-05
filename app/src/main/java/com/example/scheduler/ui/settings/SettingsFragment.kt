@@ -30,7 +30,7 @@ class SettingsFragment : Fragment() {
     }
     val homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
     root.findViewById<Button>(R.id.buttonSetAlarms).setOnClickListener {
-      homeViewModel.setAlarms()
+      homeViewModel.forceUpdate()
     }
     return root
   }
