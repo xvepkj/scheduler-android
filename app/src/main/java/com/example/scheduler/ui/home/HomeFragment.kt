@@ -6,6 +6,7 @@ import android.app.NotificationManager
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -44,8 +45,8 @@ class HomeFragment : Fragment() {
     viewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
     viewModel.schedule.observe(viewLifecycleOwner, Observer<List<ScheduledEvent>> { schedule -> loadScheduleToUI(schedule)})
     loadSchedule(Date.current())
-
-    createChannel("Default Noti Channel", "channelName")
+    Log.d("DBG","home"+getString(R.string.default_channel_id))
+    createChannel(getString(R.string.default_channel_id), "channelName")
 
     return root
   }

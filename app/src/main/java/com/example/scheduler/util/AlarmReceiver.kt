@@ -8,15 +8,12 @@ import android.content.Intent
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.example.scheduler.MainActivity
+import com.example.scheduler.R
 import android.R as R1
 
-class AlarmReceiver : BroadcastReceiver() {
-
+class AlarmReceiver : BroadcastReceiver()  {
   private lateinit var mNotificationManager: NotificationManager
   private val NOTIFICATION_ID = 0
-
-  // Notification channel ID.
-  private val PRIMARY_CHANNEL_ID = "Default Noti Channel"
 
   override fun onReceive(context: Context, intent: Intent) {
     // This method is called when the BroadcastReceiver is receiving an Intent broadcast.
@@ -26,7 +23,10 @@ class AlarmReceiver : BroadcastReceiver() {
   }
 
   private fun deliverNotification(context: Context) {
+    val PRIMARY_CHANNEL_ID = context.getString(R.string.default_channel_id)
     val contentIntent = Intent(context, MainActivity::class.java)
+    Log.d("DBG", contentIntent.getStringExtra("event").toString())
+    Log.d("DBG", "alarm$PRIMARY_CHANNEL_ID")
     val NOTIFICATION_ID = contentIntent.getIntExtra("id", 0)
     val contentPendingIntent = PendingIntent.getActivity(
       context,
@@ -38,7 +38,7 @@ class AlarmReceiver : BroadcastReceiver() {
     val builder = NotificationCompat.Builder(context, PRIMARY_CHANNEL_ID)
       .setSmallIcon(R1.drawable.sym_def_app_icon)
       .setContentTitle("EVENT")
-      .setContentText(contentIntent.getStringExtra("event"))
+      .setContentText(contentIntent.getStringExtra("event").toString())
       .setContentIntent(contentPendingIntent)
       .setPriority(NotificationCompat.PRIORITY_HIGH)
       .setAutoCancel(true)
