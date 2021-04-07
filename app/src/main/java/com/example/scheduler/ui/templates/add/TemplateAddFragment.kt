@@ -1,6 +1,7 @@
 package com.example.scheduler.ui.templates.add
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,11 +12,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.scheduler.MainActivity
 import com.example.scheduler.R
+import com.example.scheduler.core.Date
 import com.example.scheduler.core.ScheduleTemplate
 import com.example.scheduler.core.ScheduledEvent
 import com.example.scheduler.databinding.TemplateAddFragmentBinding
 import com.example.scheduler.ui.home.HomeFragment
 import com.example.scheduler.ui.templates.main.TemplateViewModel
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class TemplateAddFragment : Fragment() {
 
@@ -29,6 +32,7 @@ class TemplateAddFragment : Fragment() {
   private lateinit var viewModel: TemplateAddViewModel
   private lateinit var templateViewModel: TemplateViewModel
 
+
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
@@ -40,13 +44,17 @@ class TemplateAddFragment : Fragment() {
     viewModel = ViewModelProvider(requireActivity()).get(TemplateAddViewModel::class.java)
     templateViewModel = ViewModelProvider(requireActivity()).get(TemplateViewModel::class.java)
 
-    viewModel.events.observe(viewLifecycleOwner, Observer<List<ScheduledEvent>> {
-      events -> showEvents(events)
+    viewModel.events.observe(viewLifecycleOwner, Observer<List<ScheduledEvent>> { events ->
+      showEvents(
+        events
+      )
     })
-
+    Log.d("DBG",viewModel.template_name)
+    binding.templateAddNameField.setText(viewModel.template_name)
     binding.templateAddEventAdd.setOnClickListener {
       // viewModel.addEvent(ScheduledEvent("test", Time(0, 0), Time(1, 0)))
       HomeFragment.fromhome = false
+      viewModel.template_name = binding.templateAddNameField.text.toString()
       findNavController().navigate(R.id.action_templateAddFragment_to_eventAddFragment)
     }
 
@@ -60,7 +68,6 @@ class TemplateAddFragment : Fragment() {
 
     return binding.root
   }
-
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
     // TODO: Use the ViewModel
@@ -68,10 +75,19 @@ class TemplateAddFragment : Fragment() {
 
   fun showEvents(events: List<ScheduledEvent>) {
     binding.templateAddEventList.removeAllViews()
-    for (event in events) {
-      val textView = TextView(activity)
-      textView.text = event.toString()
-      binding.templateAddEventList.addView(textView)
+    for (i in events.indices) {
+      val event = events[i]
+      val view: View = layoutInflater.inflate(R.layout.event, null)
+      val t = view.findViewById<TextView>(R.id.eventdetails)
+      val crossbutton = view.findViewById<FloatingActionButton>(R.id.removeevent)
+      t.text = event.toString()
+      if(HomeFragment.selecteddate != Date.current())
+        crossbutton.hide()
+      crossbutton.setOnClickListener{
+        viewModel.events.value?.removeAt(i)
+        showEvents(events)
+      }
+      binding.templateAddEventList.addView(view)
     }
   }
 }

@@ -1,23 +1,15 @@
 package com.example.scheduler.ui.templates.main
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.scheduler.R
-import com.example.scheduler.core.*
-import com.example.scheduler.databinding.TemplateAddFragmentBinding
 import com.example.scheduler.databinding.TemplateFragmentBinding
-import com.example.scheduler.ui.home.HomeViewModel
 import com.example.scheduler.ui.templates.add.TemplateApplyViewModel
 
 class TemplateFragment : Fragment() {
@@ -31,6 +23,7 @@ class TemplateFragment : Fragment() {
 
   private lateinit var viewModel: TemplateViewModel
   private lateinit var applyViewModel: TemplateApplyViewModel
+
 
   override fun onCreateView(
     inflater: LayoutInflater,

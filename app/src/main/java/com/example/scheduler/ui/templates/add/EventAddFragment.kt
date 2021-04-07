@@ -2,7 +2,6 @@ package com.example.scheduler.ui.templates.add
 
 import android.app.TimePickerDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -82,11 +81,9 @@ class EventAddFragment : Fragment() {
          templateAddViewModel.events.value?.add(ScheduledEvent(nameEditText.text.toString(), viewModel.startTime, viewModel.endTime))
       else
          homeViewModel.addCustomEvent(ScheduledEvent(nameEditText.text.toString(), viewModel.startTime, viewModel.endTime))
-        Log.d("DBG","Eh")
       viewModel.startTime = Time(0, 0)
       viewModel.endTime = Time(0, 0)
       nameEditText.setText("")
-      Log.d("DBG", HomeFragment.fromhome.toString())
       if(!HomeFragment.fromhome)
         findNavController().navigate(R.id.action_eventAddFragment_to_templateAddFragment)
       else

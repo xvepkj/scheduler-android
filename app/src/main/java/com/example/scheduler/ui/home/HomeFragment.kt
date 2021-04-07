@@ -34,8 +34,8 @@ class HomeFragment : Fragment() {
   private lateinit var addcustomevent : FloatingActionButton
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?
+          inflater: LayoutInflater, container: ViewGroup?,
+          savedInstanceState: Bundle?
   ): View? {
     val root = inflater.inflate(R.layout.home_fragment, container, false)
 
@@ -47,7 +47,7 @@ class HomeFragment : Fragment() {
 
     // viewModel related stuff
     viewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
-    viewModel.schedule.observe(viewLifecycleOwner, Observer<List<ScheduledEvent>> { schedule -> loadScheduleToUI(schedule)})
+    viewModel.schedule.observe(viewLifecycleOwner, Observer<List<ScheduledEvent>> { schedule -> loadScheduleToUI(schedule) })
     loadSchedule(Date.current())
     addcustomevent = root.findViewById(R.id.addcustomevent)
     addcustomevent.setOnClickListener{
@@ -95,10 +95,19 @@ class HomeFragment : Fragment() {
   // Load schedule to UI
   fun loadScheduleToUI(schedule: List<ScheduledEvent>) {
     linearLayout.removeAllViews()
-    for (event in schedule) {
-      val t = TextView(activity)
+    for (i in schedule.indices) {
+      val event = schedule[i]
+      val view: View = layoutInflater.inflate(R.layout.event, null)
+      val t = view.findViewById<TextView>(R.id.eventdetails)
+      val crossbutton = view.findViewById<FloatingActionButton>(R.id.removeevent)
       t.text = event.toString()
-      linearLayout.addView(t)
+      if(selecteddate!=Date.current())
+          crossbutton.hide()
+      crossbutton.setOnClickListener{
+          viewModel.removeEventFromToday(i)
+          loadSchedule(Date.current())
+      }
+      linearLayout.addView(view)
     }
   }
 
@@ -106,10 +115,10 @@ class HomeFragment : Fragment() {
     // TODO: Step 1.6 START create a channel
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
       val notificationChannel = NotificationChannel(
-        channelId,
-        channelName,
-        // TODO: Step 2.4 change importance
-        NotificationManager.IMPORTANCE_HIGH
+              channelId,
+              channelName,
+              // TODO: Step 2.4 change importance
+              NotificationManager.IMPORTANCE_HIGH
       )
       // TODO: Step 2.6 disable badges for this channel
 
@@ -119,7 +128,7 @@ class HomeFragment : Fragment() {
       notificationChannel.description = "Schedule Stuff"
 
       val notificationManager = requireActivity().getSystemService(
-        NotificationManager::class.java
+              NotificationManager::class.java
       )
       notificationManager.createNotificationChannel(notificationChannel)
     }

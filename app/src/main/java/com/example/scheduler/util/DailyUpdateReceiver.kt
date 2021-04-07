@@ -42,9 +42,17 @@ class DailyUpdateReceiver : BroadcastReceiver() {
 
     // remove all alarms: for each id in ids, remove alarm
     val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-    for (p in pendingIntents) alarmManager.cancel(p)
+    for (i in pendingIntents.indices) {
+      val contentIntent = Intent(context.applicationContext, AlarmReceiver::class.java)
+      val p = PendingIntent.getBroadcast(
+        context.applicationContext,
+        i,
+        contentIntent,
+        PendingIntent.FLAG_UPDATE_CURRENT
+      )
+      alarmManager.cancel(p)
+    }
     pendingIntents.clear()
-
     // Get today's schedule: from history
     val today = Date.current()
     if (!history.contains(today.toString())) {

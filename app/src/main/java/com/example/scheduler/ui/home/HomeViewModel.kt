@@ -126,6 +126,13 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
       Log.d("DBG","TODO")
     }
   }
+  fun removeEventFromToday(i : Int){
+    val d = Date.current().toString()
+    val his : MutableList<ScheduledEvent> = history.read(d)
+    his.removeAt(i).toString()
+    history.write(d,his)
+    forceUpdate()
+  }
   fun updateWorker (w: Worker) {
     Paper.book().write("worker", w)
   }

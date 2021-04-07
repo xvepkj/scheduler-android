@@ -24,7 +24,6 @@ class AlarmReceiver : BroadcastReceiver()  {
 
   private fun deliverNotification(context: Context, receivedIntent: Intent) {
     val NOTIFICATION_ID = receivedIntent.getIntExtra("id", 0)
-
     val PRIMARY_CHANNEL_ID = context.getString(R.string.default_channel_id)
     val contentIntent = Intent(context, MainActivity::class.java)
     val contentPendingIntent = PendingIntent.getActivity(
