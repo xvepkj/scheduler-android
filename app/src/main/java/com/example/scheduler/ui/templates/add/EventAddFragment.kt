@@ -1,19 +1,22 @@
 package com.example.scheduler.ui.templates.add
 
 import android.app.TimePickerDialog
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.scheduler.R
 import com.example.scheduler.core.ScheduledEvent
 import com.example.scheduler.core.Time
+import com.example.scheduler.ui.home.HomeFragment
+import com.example.scheduler.ui.home.HomeViewModel
 
 class EventAddFragment : Fragment() {
 
@@ -23,6 +26,7 @@ class EventAddFragment : Fragment() {
 
   private lateinit var viewModel: EventAddViewModel
   private lateinit var templateAddViewModel: TemplateAddViewModel
+  private lateinit var homeViewModel : HomeViewModel
 
   private lateinit var startTimeTextView: TextView
   private lateinit var endTimeTextView: TextView
@@ -42,6 +46,7 @@ class EventAddFragment : Fragment() {
 
     viewModel = ViewModelProvider(this).get(EventAddViewModel::class.java)
     templateAddViewModel = ViewModelProvider(requireActivity()).get(TemplateAddViewModel::class.java)
+    homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
 
     setStartTime(Time(0, 0))
     setEndTime(Time(0, 0))
@@ -73,11 +78,19 @@ class EventAddFragment : Fragment() {
     }
 
     addButton.setOnClickListener {
-      templateAddViewModel.events.value?.add(ScheduledEvent(nameEditText.text.toString(), viewModel.startTime, viewModel.endTime))
+      if(!HomeFragment.fromhome)
+         templateAddViewModel.events.value?.add(ScheduledEvent(nameEditText.text.toString(), viewModel.startTime, viewModel.endTime))
+      else
+         homeViewModel.addCustomEvent(ScheduledEvent(nameEditText.text.toString(), viewModel.startTime, viewModel.endTime))
+        Log.d("DBG","Eh")
       viewModel.startTime = Time(0, 0)
       viewModel.endTime = Time(0, 0)
       nameEditText.setText("")
-      findNavController().navigate(R.id.action_eventAddFragment_to_templateAddFragment)
+      Log.d("DBG", HomeFragment.fromhome.toString())
+      if(!HomeFragment.fromhome)
+        findNavController().navigate(R.id.action_eventAddFragment_to_templateAddFragment)
+      else
+        findNavController().navigate(R.id.action_eventAddFragment_to_homeFragment)
     }
     return root
   }

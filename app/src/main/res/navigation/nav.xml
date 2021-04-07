@@ -18,7 +18,11 @@
         android:id="@+id/homeFragment"
         android:name="com.example.scheduler.ui.home.HomeFragment"
         android:label="home_fragment"
-        tools:layout="@layout/home_fragment" />
+        tools:layout="@layout/home_fragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_eventAddFragment"
+            app:destination="@id/eventAddFragment" />
+    </fragment>
     <fragment
         android:id="@+id/templateFragment"
         android:name="com.example.scheduler.ui.templates.main.TemplateFragment"
@@ -51,6 +55,9 @@
         <action
             android:id="@+id/action_eventAddFragment_to_templateAddFragment"
             app:destination="@id/templateAddFragment" />
+        <action
+            android:id="@+id/action_eventAddFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/templateApplyFragment"

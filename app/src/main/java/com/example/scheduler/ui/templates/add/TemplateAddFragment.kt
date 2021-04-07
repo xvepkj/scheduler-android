@@ -14,6 +14,7 @@ import com.example.scheduler.R
 import com.example.scheduler.core.ScheduleTemplate
 import com.example.scheduler.core.ScheduledEvent
 import com.example.scheduler.databinding.TemplateAddFragmentBinding
+import com.example.scheduler.ui.home.HomeFragment
 import com.example.scheduler.ui.templates.main.TemplateViewModel
 
 class TemplateAddFragment : Fragment() {
@@ -45,6 +46,7 @@ class TemplateAddFragment : Fragment() {
 
     binding.templateAddEventAdd.setOnClickListener {
       // viewModel.addEvent(ScheduledEvent("test", Time(0, 0), Time(1, 0)))
+      HomeFragment.fromhome = false
       findNavController().navigate(R.id.action_templateAddFragment_to_eventAddFragment)
     }
 

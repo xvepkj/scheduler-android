@@ -8,9 +8,10 @@ import android.content.Intent
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.example.scheduler.core.*
+import com.example.scheduler.core.ActiveTemplate
 import com.example.scheduler.core.Date
-import com.example.scheduler.util.AlarmReceiver
+import com.example.scheduler.core.ScheduledEvent
+import com.example.scheduler.core.Worker
 import com.example.scheduler.util.DailyUpdateReceiver
 import io.paperdb.Book
 import io.paperdb.Paper
@@ -98,17 +99,29 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
         // load history
         if (!history.contains(d)) mutableListOf()
         else history.read(d)
-      // } else if (date == Date.current()) {
-      //   // current day
-      //   if (!history.contains(d)) {
-      //     history.write(d, worker.generate(date))
-      //   }
-      //   history.read(d)
+       } else if (date == Date.current()) {
+         // current day
+         if (!history.contains(d)) {
+           history.write(d, worker.generate(date))
+         }
+         history.read(d)
       } else {
         worker.generate(date)
       }
   }
-
+  fun addCustomEvent(e : ScheduledEvent){
+    val date = HomeFragment.selecteddate
+    val d = date.toString()
+    if(date == Date.current()){
+      val his : MutableList<ScheduledEvent> = history.read(d)
+      Log.d("DBG",his.toString())
+      his.add(e)
+      history.write(d,his)
+    }
+    else {
+      Log.d("DBG","TODO")
+    }
+  }
   fun updateWorker (w: Worker) {
     Paper.book().write("worker", w)
   }

@@ -6,7 +6,6 @@ import android.app.NotificationManager
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -14,20 +13,25 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.scheduler.MainActivity
 import com.example.scheduler.R
 import com.example.scheduler.core.Date
 import com.example.scheduler.core.ScheduledEvent
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class HomeFragment : Fragment() {
 
   companion object {
     fun newInstance() = HomeFragment()
+    var fromhome : Boolean = false
+    var selecteddate : Date = Date.current()
   }
 
   private lateinit var viewModel: HomeViewModel
 
   private lateinit var linearLayout: LinearLayout
+  private lateinit var addcustomevent : FloatingActionButton
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
@@ -45,6 +49,11 @@ class HomeFragment : Fragment() {
     viewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
     viewModel.schedule.observe(viewLifecycleOwner, Observer<List<ScheduledEvent>> { schedule -> loadScheduleToUI(schedule)})
     loadSchedule(Date.current())
+    addcustomevent = root.findViewById(R.id.addcustomevent)
+    addcustomevent.setOnClickListener{
+      fromhome = true
+      findNavController().navigate(R.id.action_homeFragment_to_eventAddFragment)
+    }
     createChannel(getString(R.string.default_channel_id), "channelName")
 
     return root
@@ -63,6 +72,7 @@ class HomeFragment : Fragment() {
         val datePicker = context?.let { DatePickerDialog(it) }
         datePicker?.setOnDateSetListener { _, year, month, day ->
           val d = Date(day, month + 1, year)
+          selecteddate = d
           loadSchedule(d)
         }
         datePicker?.show()
@@ -115,4 +125,5 @@ class HomeFragment : Fragment() {
     }
     // TODO: Step 1.6 END create channel
   }
+
 }
