@@ -10,12 +10,14 @@ import com.example.scheduler.core.Date
 import com.example.scheduler.core.ScheduledEvent
 import com.example.scheduler.core.Time
 import com.example.scheduler.core.Worker
+import io.paperdb.Book
 import io.paperdb.Paper
 import java.util.*
 
 class DailyUpdateReceiver : BroadcastReceiver() {
 
   private lateinit var worker: Worker
+  private lateinit var history: Book
   private lateinit var context: Context
   private lateinit var pendingIntents: MutableList<PendingIntent>
 
@@ -26,6 +28,7 @@ class DailyUpdateReceiver : BroadcastReceiver() {
     Paper.init(context)
 
     worker = Paper.book().read("worker")
+    history = Paper.book("history")
     this.context = context
     setAlarms()
   }
@@ -43,8 +46,12 @@ class DailyUpdateReceiver : BroadcastReceiver() {
     pendingIntents.clear()
 
     // Get today's schedule: from history
-    // val todaySchedule: List<ScheduledEvent> = history.read(Date.current().toString())
-    val todaySchedule = worker.generate(Date.current()) // for now
+    val today = Date.current()
+    if (!history.contains(today.toString())) {
+      history.write(today.toString(), worker.generate(today))
+    }
+    val todaySchedule: List<ScheduledEvent> = history.read(today.toString())
+
     Log.d("DBG", "Today's events: $todaySchedule")
     for (i in todaySchedule.indices) {
       val e = todaySchedule[i]

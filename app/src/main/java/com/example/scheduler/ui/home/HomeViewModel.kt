@@ -8,10 +8,8 @@ import android.content.Intent
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.example.scheduler.core.ActiveTemplate
+import com.example.scheduler.core.*
 import com.example.scheduler.core.Date
-import com.example.scheduler.core.ScheduledEvent
-import com.example.scheduler.core.Worker
 import com.example.scheduler.util.DailyUpdateReceiver
 import io.paperdb.Book
 import io.paperdb.Paper
@@ -117,8 +115,14 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
       Log.d("DBG",his.toString())
       his.add(e)
       history.write(d,his)
+      forceUpdate()
     }
     else {
+      val template = ScheduleTemplate("")
+      template.add(e)
+      val activeTemplate = ActiveTemplate(template, false)
+      activeTemplate.addDay(date)
+      addToPool(activeTemplate)
       Log.d("DBG","TODO")
     }
   }
