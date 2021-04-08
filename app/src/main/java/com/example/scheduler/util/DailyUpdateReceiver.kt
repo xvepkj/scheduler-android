@@ -1,5 +1,4 @@
 package com.example.scheduler.util
-
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.BroadcastReceiver
@@ -24,7 +23,6 @@ class DailyUpdateReceiver : BroadcastReceiver() {
   override fun onReceive(context: Context, intent: Intent) {
     // This method is called when the BroadcastReceiver is receiving an Intent broadcast.
     Log.d("DBG", "Updating")
-
     Paper.init(context)
 
     worker = Paper.book().read("worker")
@@ -32,27 +30,25 @@ class DailyUpdateReceiver : BroadcastReceiver() {
     this.context = context
     setAlarms()
   }
-
   fun setAlarms() {
     // set alarms for events of current date
     Log.d("DBG", "Setting alarms")
-
     // retrieve
     pendingIntents = Paper.book().read("pendingIntents")
-
     // remove all alarms: for each id in ids, remove alarm
-    val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-    for (i in pendingIntents.indices) {
+    for (i in pendingIntents.indices){
+      val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
       val contentIntent = Intent(context.applicationContext, AlarmReceiver::class.java)
-      val p = PendingIntent.getBroadcast(
+      val contentPendingIntent = PendingIntent.getBroadcast(
         context.applicationContext,
         i,
         contentIntent,
         PendingIntent.FLAG_UPDATE_CURRENT
       )
-      alarmManager.cancel(p)
+      alarmManager.cancel(contentPendingIntent)
     }
     pendingIntents.clear()
+
     // Get today's schedule: from history
     val today = Date.current()
     if (!history.contains(today.toString())) {
@@ -66,12 +62,9 @@ class DailyUpdateReceiver : BroadcastReceiver() {
       // for events with start time > current time, set alarms
       if (e.startTime >= Time.now()) setAlarm(todaySchedule[i], i)
     }
-
     // persist
     Paper.book().write("pendingIntents", pendingIntents)
-
   }
-
   private fun setAlarm(event: ScheduledEvent, id: Int) {
     Log.d("DBG", "Event: $event")
     val contentIntent = Intent(context.applicationContext, AlarmReceiver::class.java)
@@ -87,12 +80,9 @@ class DailyUpdateReceiver : BroadcastReceiver() {
     val todayCal = Date.current().getCalendar()
     todayCal.set(Calendar.HOUR_OF_DAY, event.startTime.h)
     todayCal.set(Calendar.MINUTE, event.startTime.m)
-
     // var triggerTime = System.currentTimeMillis() + t
     val triggerTime = todayCal.timeInMillis
     Log.d("DBG", "alarm after ${(triggerTime - System.currentTimeMillis()) / 1000} seconds")
-
     alarmManager.setWindow(AlarmManager.RTC_WAKEUP, triggerTime,1000L, contentPendingIntent)
   }
-
 }

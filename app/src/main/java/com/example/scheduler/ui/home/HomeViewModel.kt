@@ -54,8 +54,8 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
     )
 
     val cal = Date.current().getCalendar()
-    cal.set(Calendar.HOUR_OF_DAY, 19)
-    cal.set(Calendar.MINUTE, 5)
+    cal.set(Calendar.HOUR_OF_DAY, 0)
+    cal.set(Calendar.MINUTE, 22)
     Log.d("DBG", "Daily updater: ${cal.timeInMillis}, ${System.currentTimeMillis()}")
     alarmManager.setRepeating(
       AlarmManager.RTC_WAKEUP,
