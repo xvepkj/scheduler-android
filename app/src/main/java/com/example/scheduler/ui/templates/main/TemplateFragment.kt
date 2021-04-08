@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.scheduler.R
 import com.example.scheduler.databinding.TemplateFragmentBinding
+import com.example.scheduler.ui.home.HomeViewModel
 import com.example.scheduler.ui.templates.add.TemplateApplyViewModel
 
 class TemplateFragment : Fragment() {
@@ -23,7 +24,8 @@ class TemplateFragment : Fragment() {
 
   private lateinit var viewModel: TemplateViewModel
   private lateinit var applyViewModel: TemplateApplyViewModel
-
+  private lateinit var homeViewModel: HomeViewModel
+  private lateinit var templateViewModel: TemplateViewModel
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -34,6 +36,8 @@ class TemplateFragment : Fragment() {
 
     viewModel = ViewModelProvider(requireActivity()).get(TemplateViewModel::class.java)
     applyViewModel = ViewModelProvider(requireActivity()).get(TemplateApplyViewModel::class.java)
+    homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
+    templateViewModel = ViewModelProvider(requireActivity()).get(TemplateViewModel::class.java)
 
     binding.templateApplyButton.isEnabled = false
     binding.templateAddButton.setOnClickListener {
@@ -42,6 +46,15 @@ class TemplateFragment : Fragment() {
 
     binding.templateApplyButton.setOnClickListener {
       view?.findNavController()?.navigate(R.id.action_templateFragment_to_templateApplyFragment)
+    }
+    binding.templateRemoveButton.setOnClickListener{
+      var currentlyapplied : Boolean = false
+      for(active_template in homeViewModel.worker.getPool())
+        if(active_template.template.name == applyViewModel.template.name)
+          currentlyapplied = true
+      if(!currentlyapplied)
+        templateViewModel.removeTemplate(applyViewModel.template)
+      showTemplateList(viewModel.getTemplateNames())
     }
     showTemplateList(viewModel.getTemplateNames())
     return binding.root

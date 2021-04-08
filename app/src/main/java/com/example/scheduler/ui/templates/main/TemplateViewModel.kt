@@ -1,12 +1,8 @@
 package com.example.scheduler.ui.templates.main
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.scheduler.core.ScheduleTemplate
-import com.example.scheduler.core.ScheduledEvent
-import com.example.scheduler.core.Time
 import io.paperdb.Book
 import io.paperdb.Paper
 
@@ -24,5 +20,8 @@ class TemplateViewModel : ViewModel() {
 
   fun getTemplateNames(): List<String> {
     return templateBook.allKeys
+  }
+  fun removeTemplate(template: ScheduleTemplate){
+    templateBook.delete(template.name)
   }
 }

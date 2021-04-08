@@ -49,6 +49,7 @@ class HomeFragment : Fragment() {
     viewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
     viewModel.schedule.observe(viewLifecycleOwner, Observer<List<ScheduledEvent>> { schedule -> loadScheduleToUI(schedule) })
     loadSchedule(Date.current())
+    selecteddate = Date.current()
     addcustomevent = root.findViewById(R.id.addcustomevent)
     addcustomevent.setOnClickListener{
       fromhome = true
