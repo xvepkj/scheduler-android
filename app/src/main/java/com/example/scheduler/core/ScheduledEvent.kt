@@ -11,4 +11,6 @@ class ScheduledEvent (
 
     override fun toString() = "($name, $startTime, $endTime)"
 
+    /* Extra info */
+   var index = -1
 }

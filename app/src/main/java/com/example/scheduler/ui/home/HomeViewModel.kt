@@ -21,8 +21,7 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
     get() = Paper.book().read("worker")
 
   private val history: Book = Paper.book("history")
-
-  private val pendingIntents: MutableList<PendingIntent> = mutableListOf()
+  private val extraEvents: Book = Paper.book("extraEvents")
 
   private val _schedule: MutableLiveData<List<ScheduledEvent>> = MutableLiveData()
   val schedule: MutableLiveData<List<ScheduledEvent>>
@@ -31,9 +30,6 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
   init {
     if (!Paper.book().contains("worker")) {
       Paper.book().write("worker", Worker())
-    }
-    if (!Paper.book().contains("pendingIntents")) {
-      Paper.book().write("pendingIntents", mutableListOf<PendingIntent>())
     }
     _schedule.value = mutableListOf()
 
@@ -102,14 +98,27 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
         // load history
         if (!history.contains(d)) mutableListOf()
         else history.read(d)
-       } else if (date == Date.current()) {
-         // current day
-         if (!history.contains(d)) {
-           history.write(d, worker.generate(date))
-         }
-         history.read(d)
+      } else if (date == Date.current()) {
+        // current day
+        if (!history.contains(d)) {
+          val s : MutableList<ScheduledEvent> = mutableListOf()
+          if (extraEvents.contains(d)) {
+            s.addAll(extraEvents.read(d))
+            extraEvents.delete(d)
+          }
+          s.addAll(worker.generate(date))
+          history.write(d, s)
+        }
+        history.read(d)
       } else {
-        worker.generate(date)
+        val s = mutableListOf<ScheduledEvent>()
+        if (extraEvents.contains(d)) {
+          val events: MutableList<ScheduledEvent> = extraEvents.read(d)
+          for (i in events.indices) events[i].index = i
+          s.addAll(events)
+        }
+        s.addAll(worker.generate(date))
+        s
       }
   }
   fun addCustomEvent(e : ScheduledEvent, date : Date){
@@ -122,14 +131,15 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
       forceUpdate()
     }
     else {
-      val template = ScheduleTemplate("")
-      template.add(e)
-      val activeTemplate = ActiveTemplate(template, false)
-      activeTemplate.addDay(date)
-      addToPool(activeTemplate)
-      Log.d("DBG","TODO")
+      /* add to extraEvents */
+      val events: MutableList<ScheduledEvent> =
+        if (extraEvents.contains(d)) extraEvents.read(d)
+        else mutableListOf()
+      events.add(e)
+      extraEvents.write(d, events)
     }
   }
+
   fun removeEventFromToday(i : Int){
     val d = Date.current().toString()
     val his : MutableList<ScheduledEvent> = history.read(d)

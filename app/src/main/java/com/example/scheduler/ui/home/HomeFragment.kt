@@ -102,7 +102,7 @@ class HomeFragment : Fragment() {
       val t = view.findViewById<TextView>(R.id.eventdetails)
       val crossbutton = view.findViewById<FloatingActionButton>(R.id.removeevent)
       t.text = event.toString()
-      if(selecteddate!=Date.current())
+      if(selecteddate!=Date.current() || event.index == -1)
           crossbutton.hide()
       crossbutton.setOnClickListener{
           viewModel.removeEventFromToday(i)

@@ -17,6 +17,7 @@ class DailyUpdateReceiver : BroadcastReceiver() {
 
   private lateinit var worker: Worker
   private lateinit var history: Book
+  private lateinit var extraEvents: Book
   private lateinit var context: Context
   private lateinit var pendingIntents: MutableList<PendingIntent>
 
@@ -27,6 +28,7 @@ class DailyUpdateReceiver : BroadcastReceiver() {
 
     worker = Paper.book().read("worker")
     history = Paper.book("history")
+    extraEvents = Paper.book("extraEvents")
     this.context = context
     setAlarms()
   }
@@ -52,7 +54,14 @@ class DailyUpdateReceiver : BroadcastReceiver() {
     // Get today's schedule: from history
     val today = Date.current()
     if (!history.contains(today.toString())) {
-      history.write(today.toString(), worker.generate(today))
+      val d = today.toString()
+      val s : MutableList<ScheduledEvent> = mutableListOf()
+      if (extraEvents.contains(d)) {
+        s.addAll(extraEvents.read(d))
+        extraEvents.delete(d)
+      }
+      s.addAll(worker.generate(today))
+      history.write(d, s)
     }
     val todaySchedule: List<ScheduledEvent> = history.read(today.toString())
 
