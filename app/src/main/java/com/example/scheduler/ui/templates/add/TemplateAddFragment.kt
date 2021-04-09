@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.scheduler.MainActivity
 import com.example.scheduler.R
-import com.example.scheduler.core.Date
 import com.example.scheduler.core.ScheduleTemplate
 import com.example.scheduler.core.ScheduledEvent
 import com.example.scheduler.databinding.TemplateAddFragmentBinding
@@ -81,8 +80,6 @@ class TemplateAddFragment : Fragment() {
       val t = view.findViewById<TextView>(R.id.eventdetails)
       val crossbutton = view.findViewById<FloatingActionButton>(R.id.removeevent)
       t.text = event.toString()
-      if(HomeFragment.selecteddate != Date.current())
-        crossbutton.hide()
       crossbutton.setOnClickListener{
         viewModel.events.value?.removeAt(i)
         showEvents(events)

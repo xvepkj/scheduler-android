@@ -36,7 +36,10 @@ class DailyUpdateReceiver : BroadcastReceiver() {
     // set alarms for events of current date
     Log.d("DBG", "Setting alarms")
     // retrieve
-    pendingIntents = Paper.book().read("pendingIntents")
+    if(!Paper.book().contains("pendingIntents"))
+      pendingIntents = mutableListOf()
+    else
+      pendingIntents = Paper.book().read("pendingIntents")
     // remove all alarms: for each id in ids, remove alarm
     for (i in pendingIntents.indices){
       val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager

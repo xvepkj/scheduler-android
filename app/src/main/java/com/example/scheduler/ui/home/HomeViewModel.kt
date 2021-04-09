@@ -8,8 +8,10 @@ import android.content.Intent
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.example.scheduler.core.*
+import com.example.scheduler.core.ActiveTemplate
 import com.example.scheduler.core.Date
+import com.example.scheduler.core.ScheduledEvent
+import com.example.scheduler.core.Worker
 import com.example.scheduler.util.DailyUpdateReceiver
 import io.paperdb.Book
 import io.paperdb.Paper
@@ -140,12 +142,20 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
     }
   }
 
-  fun removeEventFromToday(i : Int){
-    val d = Date.current().toString()
-    val his : MutableList<ScheduledEvent> = history.read(d)
-    his.removeAt(i).toString()
-    history.write(d,his)
-    forceUpdate()
+  fun removeEvent(i : Int,date : Date){
+    Log.d("DBG",date.toString())
+    val d = date.toString()
+    if(date == Date.current()){
+      val his : MutableList<ScheduledEvent> = history.read(d.toString())
+      his.removeAt(i).toString()
+      history.write(d.toString(),his)
+      forceUpdate()
+    }
+    else {
+      val events: MutableList<ScheduledEvent> = extraEvents.read(d.toString())
+      events.removeAt(i)
+      extraEvents.write(d.toString(),events)
+    }
   }
   fun updateWorker (w: Worker) {
     Paper.book().write("worker", w)
