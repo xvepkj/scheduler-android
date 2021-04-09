@@ -80,7 +80,10 @@ class EventAddFragment : Fragment() {
       if(!HomeFragment.fromhome)
          templateAddViewModel.events.value?.add(ScheduledEvent(nameEditText.text.toString(), viewModel.startTime, viewModel.endTime))
       else
-         homeViewModel.addCustomEvent(ScheduledEvent(nameEditText.text.toString(), viewModel.startTime, viewModel.endTime))
+         homeViewModel.addCustomEvent(
+           ScheduledEvent(nameEditText.text.toString(), viewModel.startTime, viewModel.endTime),
+           HomeFragment.selecteddate
+         )
       viewModel.startTime = Time(0, 0)
       viewModel.endTime = Time(0, 0)
       nameEditText.setText("")

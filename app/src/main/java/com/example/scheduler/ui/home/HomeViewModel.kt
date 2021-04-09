@@ -85,6 +85,11 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
   }
 
   fun addToPool (activeTemplate: ActiveTemplate) {
+    if (activeTemplate.satisfies(Date.current())) {
+      for (e in activeTemplate.template.events) {
+        addCustomEvent(e, Date.current())
+      }
+    }
     val w = worker
     w.addToPool(activeTemplate)
     updateWorker(w)
@@ -107,8 +112,7 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
         worker.generate(date)
       }
   }
-  fun addCustomEvent(e : ScheduledEvent){
-    val date = HomeFragment.selecteddate
+  fun addCustomEvent(e : ScheduledEvent, date : Date){
     val d = date.toString()
     if(date == Date.current()){
       val his : MutableList<ScheduledEvent> = history.read(d)
