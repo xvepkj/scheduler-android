@@ -73,12 +73,13 @@
         android:id="@+id/template_add_finish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="132dp"
+        android:layout_marginStart="55dp"
         android:layout_marginEnd="132dp"
-        android:layout_marginBottom="46dp"
+        android:layout_marginBottom="44dp"
         android:text="Add template"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -94,5 +95,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/template_add_name_field" />
+
+    <Button
+        android:id="@+id/templateEditFinish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="31dp"
+        android:layout_marginBottom="44dp"
+        android:text="Edit Template"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/template_add_finish"
+        app:layout_constraintTop_toBottomOf="@+id/template_add_event_remove" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

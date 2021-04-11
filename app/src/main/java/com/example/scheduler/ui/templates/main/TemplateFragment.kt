@@ -4,13 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.scheduler.R
 import com.example.scheduler.databinding.TemplateFragmentBinding
 import com.example.scheduler.ui.home.HomeViewModel
+import com.example.scheduler.ui.templates.add.TemplateAddFragment
+import com.example.scheduler.ui.templates.add.TemplateAddViewModel
 import com.example.scheduler.ui.templates.add.TemplateApplyViewModel
 
 class TemplateFragment : Fragment() {
@@ -26,6 +30,7 @@ class TemplateFragment : Fragment() {
   private lateinit var applyViewModel: TemplateApplyViewModel
   private lateinit var homeViewModel: HomeViewModel
   private lateinit var templateViewModel: TemplateViewModel
+  private lateinit var templateAddViewModel: TemplateAddViewModel
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -38,14 +43,20 @@ class TemplateFragment : Fragment() {
     applyViewModel = ViewModelProvider(requireActivity()).get(TemplateApplyViewModel::class.java)
     homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
     templateViewModel = ViewModelProvider(requireActivity()).get(TemplateViewModel::class.java)
+    templateAddViewModel = ViewModelProvider(requireActivity()).get(TemplateAddViewModel::class.java)
 
     binding.templateApplyButton.isEnabled = false
+    binding.templateEditButton.isEnabled = false
     binding.templateAddButton.setOnClickListener {
       view?.findNavController()?.navigate(R.id.action_templateFragment_to_templateAddFragment)
     }
-
     binding.templateApplyButton.setOnClickListener {
       view?.findNavController()?.navigate(R.id.action_templateFragment_to_templateApplyFragment)
+    }
+    binding.templateEditButton.setOnClickListener{
+      templateAddViewModel.template_name = applyViewModel.template.name
+      templateAddViewModel.events.value = applyViewModel.template.events.toMutableList()
+      view?.findNavController()?.navigate(R.id.action_templateFragment_to_templateAddFragment)
     }
     binding.templateRemoveButton.setOnClickListener{
       var currentlyapplied : Boolean = false
@@ -80,6 +91,8 @@ class TemplateFragment : Fragment() {
   fun showTemplateDesc(name: String) {
     binding.templateDescLinearLayout.removeAllViews()
     binding.templateApplyButton.isEnabled = true
+    binding.templateEditButton.isEnabled = true
+
     val template = viewModel.getTemplate(name)
     applyViewModel.template = template
       for (event in template.events) {

@@ -30,7 +30,7 @@ class TemplateAddFragment : Fragment() {
 
   private lateinit var viewModel: TemplateAddViewModel
   private lateinit var templateViewModel: TemplateViewModel
-
+  private lateinit var templateApplyViewModel: TemplateApplyViewModel
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -42,7 +42,7 @@ class TemplateAddFragment : Fragment() {
     (activity as MainActivity?)?.supportActionBar?.title = "New Template"
     viewModel = ViewModelProvider(requireActivity()).get(TemplateAddViewModel::class.java)
     templateViewModel = ViewModelProvider(requireActivity()).get(TemplateViewModel::class.java)
-
+    templateApplyViewModel= ViewModelProvider(requireActivity()).get(TemplateApplyViewModel::class.java)
     viewModel.events.observe(viewLifecycleOwner, Observer<List<ScheduledEvent>> { events ->
       showEvents(
         events
@@ -65,6 +65,14 @@ class TemplateAddFragment : Fragment() {
       findNavController().navigate(R.id.action_templateAddFragment_to_templateFragment)
     }
 
+    binding.templateEditFinish.setOnClickListener {
+      val newTemplate = ScheduleTemplate(binding.templateAddNameField.text.toString())
+      for (e in viewModel.events.value!!) newTemplate.add(e)
+      templateViewModel.removeTemplate(templateApplyViewModel.template)
+      templateViewModel.addTemplate(newTemplate)
+      viewModel.clear()
+      findNavController().navigate(R.id.action_templateAddFragment_to_templateFragment)
+    }
     return binding.root
   }
   override fun onActivityCreated(savedInstanceState: Bundle?) {
