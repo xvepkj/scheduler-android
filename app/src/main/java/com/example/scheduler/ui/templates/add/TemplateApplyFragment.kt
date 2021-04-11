@@ -92,7 +92,7 @@ class TemplateApplyFragment : Fragment() {
 
     applyButton.setOnClickListener {
       val repeats = repeat.isChecked
-      val activeTemplate = ActiveTemplate(viewModel.template, repeats)
+      val activeTemplate = ActiveTemplate(viewModel.template.name, repeats)
       if (repeats) {
         val repeatType = when {
           weekly.isChecked -> RepeatType.WEEKLY

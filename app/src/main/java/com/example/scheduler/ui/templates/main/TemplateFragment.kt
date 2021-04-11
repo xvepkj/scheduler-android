@@ -50,7 +50,7 @@ class TemplateFragment : Fragment() {
     binding.templateRemoveButton.setOnClickListener{
       var currentlyapplied : Boolean = false
       for(active_template in homeViewModel.worker.getPool())
-        if(active_template.template.name == applyViewModel.template.name)
+        if(active_template.templatename == applyViewModel.template.name)
           currentlyapplied = true
       if(!currentlyapplied)
         templateViewModel.removeTemplate(applyViewModel.template)

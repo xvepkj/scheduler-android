@@ -10,7 +10,10 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.scheduler.R
 import com.example.scheduler.core.ActiveTemplate
+import com.example.scheduler.core.Date
+import com.example.scheduler.ui.home.HomeFragment
 import com.example.scheduler.ui.home.HomeViewModel
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class TemplatePoolFragment : Fragment() {
 
@@ -44,10 +47,17 @@ class TemplatePoolFragment : Fragment() {
 
   fun showList(pool: List<ActiveTemplate>) {
     linearLayout.removeAllViews()
-    for (activeTemplate in pool) {
-      val textView = TextView(activity)
-      textView.text = activeTemplate.toString()
-      linearLayout.addView(textView)
+    for (i in pool.indices) {
+      val activeTemplate : ActiveTemplate = pool[i]
+      val view: View = layoutInflater.inflate(R.layout.event, null)
+      val t = view.findViewById<TextView>(R.id.eventdetails)
+      val crossbutton = view.findViewById<FloatingActionButton>(R.id.removeevent)
+      t.text = activeTemplate.toString()
+      crossbutton.setOnClickListener{
+        homeViewModel.removeFromPool(i)
+        showList(homeViewModel.worker.getPool())
+      }
+      linearLayout.addView(view)
     }
   }
 

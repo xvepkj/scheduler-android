@@ -8,10 +8,8 @@ import android.content.Intent
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.example.scheduler.core.ActiveTemplate
+import com.example.scheduler.core.*
 import com.example.scheduler.core.Date
-import com.example.scheduler.core.ScheduledEvent
-import com.example.scheduler.core.Worker
 import com.example.scheduler.util.DailyUpdateReceiver
 import io.paperdb.Book
 import io.paperdb.Paper
@@ -84,7 +82,8 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
 
   fun addToPool (activeTemplate: ActiveTemplate) {
     if (activeTemplate.satisfies(Date.current())) {
-      for (e in activeTemplate.template.events) {
+      val template : ScheduleTemplate = Paper.book("templates").read(activeTemplate.templatename)
+      for (e in template.events) {
         addCustomEvent(e, Date.current())
       }
     }
@@ -92,7 +91,11 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
     w.addToPool(activeTemplate)
     updateWorker(w)
   }
-
+  fun removeFromPool(index : Int){
+    val w = worker
+    w.removeFromPool(index)
+    updateWorker(w)
+  }
   fun loadSchedule (date : Date) {
     val d = date.toString()
     _schedule.value =

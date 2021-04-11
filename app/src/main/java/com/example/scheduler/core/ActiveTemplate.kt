@@ -1,6 +1,6 @@
 package com.example.scheduler.core
 
-class ActiveTemplate(val template: ScheduleTemplate, val repeats: Boolean) {
+class ActiveTemplate(val templatename: String, val repeats: Boolean) {
   private lateinit var _repeatCriteria: RepeatCriteria
   private var _daySelection: MutableList<Date> = mutableListOf<Date>()
   val repeatCriteria: RepeatCriteria
@@ -32,5 +32,5 @@ class ActiveTemplate(val template: ScheduleTemplate, val repeats: Boolean) {
       }
     // TODO
   }
-  override fun toString() = "$template,$repeats,${if (repeats) repeatCriteria else ""},$daySelection"
+  override fun toString() = "$templatename,$repeats,${if (repeats) repeatCriteria else ""},$daySelection"
 }
