@@ -1,5 +1,6 @@
 package com.example.scheduler.ui.templates.main
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -81,6 +82,7 @@ class TemplateFragment : Fragment() {
     for (name in names) {
       val textView = TextView(activity)
       textView.text = name
+      textView.setTextColor(Color.parseColor("#000000"));
       textView.setOnClickListener {
         showTemplateDesc(name)
       }
@@ -98,7 +100,8 @@ class TemplateFragment : Fragment() {
       for (event in template.events) {
       val textView = TextView(activity)
       textView.text = event.toString()
-      binding.templateDescLinearLayout.addView(textView)
+        textView.setTextColor(Color.parseColor("#000000"));
+        binding.templateDescLinearLayout.addView(textView)
     }
   }
 }
