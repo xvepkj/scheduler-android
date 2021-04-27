@@ -5,16 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.example.scheduler.R
 import com.example.scheduler.databinding.TemplateFragmentBinding
 import com.example.scheduler.ui.home.HomeViewModel
-import com.example.scheduler.ui.templates.add.TemplateAddFragment
 import com.example.scheduler.ui.templates.add.TemplateAddViewModel
 import com.example.scheduler.ui.templates.add.TemplateApplyViewModel
 
@@ -22,6 +20,7 @@ class TemplateFragment : Fragment() {
 
   companion object {
     fun newInstance() = TemplateFragment()
+    var TemplateEdit : Boolean = false
   }
 
   private var _binding: TemplateFragmentBinding? = null
@@ -32,7 +31,7 @@ class TemplateFragment : Fragment() {
   private lateinit var homeViewModel: HomeViewModel
   private lateinit var templateViewModel: TemplateViewModel
   private lateinit var templateAddViewModel: TemplateAddViewModel
-
+  private lateinit var templateName : EditText
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
@@ -49,12 +48,15 @@ class TemplateFragment : Fragment() {
     binding.templateApplyButton.isEnabled = false
     binding.templateEditButton.isEnabled = false
     binding.templateAddButton.setOnClickListener {
+      TemplateEdit=false
+      templateAddViewModel.clear()
       view?.findNavController()?.navigate(R.id.action_templateFragment_to_templateAddFragment)
     }
     binding.templateApplyButton.setOnClickListener {
       view?.findNavController()?.navigate(R.id.action_templateFragment_to_templateApplyFragment)
     }
     binding.templateEditButton.setOnClickListener{
+      TemplateEdit=true
       templateAddViewModel.template_name = applyViewModel.template.name
       templateAddViewModel.events.value = applyViewModel.template.events.toMutableList()
       view?.findNavController()?.navigate(R.id.action_templateFragment_to_templateAddFragment)

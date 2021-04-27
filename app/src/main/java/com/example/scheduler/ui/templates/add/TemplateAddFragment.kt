@@ -16,6 +16,7 @@ import com.example.scheduler.core.ScheduleTemplate
 import com.example.scheduler.core.ScheduledEvent
 import com.example.scheduler.databinding.TemplateAddFragmentBinding
 import com.example.scheduler.ui.home.HomeFragment
+import com.example.scheduler.ui.templates.main.TemplateFragment
 import com.example.scheduler.ui.templates.main.TemplateViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -49,6 +50,9 @@ class TemplateAddFragment : Fragment() {
       )
     })
     Log.d("DBG",viewModel.template_name)
+    binding.templateAddNameField.isEnabled = !TemplateFragment.TemplateEdit
+    binding.templateAddFinish.isEnabled = !TemplateFragment.TemplateEdit
+    binding.templateEditFinish.isEnabled = TemplateFragment.TemplateEdit
     binding.templateAddNameField.setText(viewModel.template_name)
     binding.templateAddEventAdd.setOnClickListener {
       // viewModel.addEvent(ScheduledEvent("test", Time(0, 0), Time(1, 0)))
