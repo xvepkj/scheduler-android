@@ -125,6 +125,7 @@ class HomeFragment : Fragment() {
             viewModel.removeEvent(i,selecteddate)
           else
             viewModel.removeEvent(event.index, selecteddate)
+          selecteddate= Date.current()
           loadSchedule(Date.current())
       }
       linearLayout.addView(view)
