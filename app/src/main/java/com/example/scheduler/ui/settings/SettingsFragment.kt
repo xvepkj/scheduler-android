@@ -8,6 +8,7 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.scheduler.MainActivity
 import com.example.scheduler.R
 import com.example.scheduler.ui.home.HomeViewModel
 
@@ -23,6 +24,7 @@ class SettingsFragment : Fragment() {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
+    (activity as MainActivity?)?.supportActionBar?.title = "Settings"
     val root = inflater.inflate(R.layout.settings_fragment, container, false)
     val button:Button = root.findViewById(R.id.button)
     button.setOnClickListener {

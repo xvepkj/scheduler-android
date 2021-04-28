@@ -5,7 +5,7 @@
     android:id="@+id/item_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#F298B6">
+    android:background="#ffcccb">
 
     <TextView
         android:id="@+id/eventdetails"
@@ -19,20 +19,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.354" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/removeevent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="292dp"
-        android:clickable="true"
-        android:scaleX=".7"
-        android:scaleY=".7"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_delete" />
 
     <View
         android:id="@+id/divider2"
@@ -51,12 +37,27 @@
         android:layout_height="29dp"
         android:layout_marginStart="87dp"
         android:layout_marginTop="11dp"
-        android:layout_marginEnd="24dp"
         android:layout_marginBottom="11dp"
         android:visibility="gone"
+        app:buttonTint="#ba6b6c"
         app:layout_constraintBottom_toTopOf="@+id/divider2"
-        app:layout_constraintEnd_toStartOf="@+id/removeevent"
         app:layout_constraintStart_toEndOf="@+id/eventdetails"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/removeevent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="37dp"
+        android:layout_marginBottom="5dp"
+        android:background="#ffcccb"
+        android:tint="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/divider2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tracked_checkbox"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_bin" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

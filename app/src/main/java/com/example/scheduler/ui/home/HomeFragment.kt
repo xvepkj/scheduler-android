@@ -8,8 +8,10 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.CheckBox
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
@@ -104,11 +106,11 @@ class HomeFragment : Fragment() {
       val event = schedule[i]
       val view: View = layoutInflater.inflate(R.layout.event, null)
       val t = view.findViewById<TextView>(R.id.eventdetails)
-      val crossbutton = view.findViewById<FloatingActionButton>(R.id.removeevent)
+      val crossbutton = view.findViewById<ImageButton>(R.id.removeevent)
       val tracked_checkbutton = view.findViewById<CheckBox>(R.id.tracked_checkbox)
       t.text = event.toString()
       if(selecteddate!=Date.current() && event.index == -1)
-          crossbutton.hide()
+          crossbutton.visibility= GONE
       if(event.eventType==EventType.TRACKED){
         tracked_checkbutton.visibility = VISIBLE
         if(selecteddate!=Date.current())

@@ -1,19 +1,17 @@
 package com.example.scheduler.ui.templates.pool
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.scheduler.R
 import com.example.scheduler.core.ActiveTemplate
-import com.example.scheduler.core.Date
-import com.example.scheduler.ui.home.HomeFragment
 import com.example.scheduler.ui.home.HomeViewModel
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class TemplatePoolFragment : Fragment() {
 
@@ -51,7 +49,7 @@ class TemplatePoolFragment : Fragment() {
       val activeTemplate : ActiveTemplate = pool[i]
       val view: View = layoutInflater.inflate(R.layout.event, null)
       val t = view.findViewById<TextView>(R.id.eventdetails)
-      val crossbutton = view.findViewById<FloatingActionButton>(R.id.removeevent)
+      val crossbutton = view.findViewById<ImageButton>(R.id.removeevent)
       t.text = activeTemplate.toString()
       crossbutton.setOnClickListener{
         homeViewModel.removeFromPool(i)

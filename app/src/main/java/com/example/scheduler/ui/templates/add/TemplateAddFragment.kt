@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -18,7 +19,6 @@ import com.example.scheduler.databinding.TemplateAddFragmentBinding
 import com.example.scheduler.ui.home.HomeFragment
 import com.example.scheduler.ui.templates.main.TemplateFragment
 import com.example.scheduler.ui.templates.main.TemplateViewModel
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class TemplateAddFragment : Fragment() {
 
@@ -39,8 +39,10 @@ class TemplateAddFragment : Fragment() {
     savedInstanceState: Bundle?
   ): View? {
     _binding = TemplateAddFragmentBinding.inflate(inflater, container, false)
-
-    (activity as MainActivity?)?.supportActionBar?.title = "New Template"
+    if(TemplateFragment.TemplateEdit)
+      (activity as MainActivity?)?.supportActionBar?.title = "Edit Template"
+    else
+      (activity as MainActivity?)?.supportActionBar?.title = "New Template"
     viewModel = ViewModelProvider(requireActivity()).get(TemplateAddViewModel::class.java)
     templateViewModel = ViewModelProvider(requireActivity()).get(TemplateViewModel::class.java)
     templateApplyViewModel= ViewModelProvider(requireActivity()).get(TemplateApplyViewModel::class.java)
@@ -90,7 +92,7 @@ class TemplateAddFragment : Fragment() {
       val event = events[i]
       val view: View = layoutInflater.inflate(R.layout.event, null)
       val t = view.findViewById<TextView>(R.id.eventdetails)
-      val crossbutton = view.findViewById<FloatingActionButton>(R.id.removeevent)
+      val crossbutton = view.findViewById<ImageButton>(R.id.removeevent)
       t.text = event.toString()
       crossbutton.setOnClickListener{
         viewModel.events.value?.removeAt(i)

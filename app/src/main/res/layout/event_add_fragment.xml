@@ -82,18 +82,21 @@
             android:id="@+id/untracked"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/dark_pink"
             android:text="Untracked" />
 
         <RadioButton
             android:id="@+id/tracked"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/dark_pink"
             android:text="Tracked" />
 
         <RadioButton
             android:id="@+id/logged"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/dark_pink"
             android:text="Logged" />
     </RadioGroup>
 </androidx.constraintlayout.widget.ConstraintLayout>

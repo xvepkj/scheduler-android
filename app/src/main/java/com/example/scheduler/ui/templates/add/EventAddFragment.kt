@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.scheduler.MainActivity
 import com.example.scheduler.R
 import com.example.scheduler.core.EventType
 import com.example.scheduler.core.ScheduledEvent
@@ -43,6 +44,7 @@ class EventAddFragment : Fragment() {
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
+    (activity as MainActivity?)?.supportActionBar?.title = "Add event"
     val root = inflater.inflate(R.layout.event_add_fragment, container, false)
     startTimeTextView = root.findViewById(R.id.eventAddStartTime)
     endTimeTextView = root.findViewById(R.id.eventAddEndTime)

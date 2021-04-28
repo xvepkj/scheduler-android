@@ -2,10 +2,8 @@ package com.example.scheduler.ui.templates.add
 
 import android.app.DatePickerDialog
 import android.os.Build
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -14,8 +12,11 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import ca.antonious.materialdaypicker.MaterialDayPicker
+import com.example.scheduler.MainActivity
 import com.example.scheduler.R
 import com.example.scheduler.core.ActiveTemplate
 import com.example.scheduler.core.Date
@@ -50,6 +51,7 @@ class TemplateApplyFragment : Fragment() {
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
+    (activity as MainActivity?)?.supportActionBar?.title = "Apply Template"
     val root =inflater.inflate(R.layout.template_apply_fragment, container, false)
     repeatView = root.findViewById(R.id.templateapplyrepeatview)
     customview = root.findViewById(R.id.templatecustomview)

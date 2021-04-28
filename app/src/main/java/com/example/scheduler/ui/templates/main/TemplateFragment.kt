@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import com.example.scheduler.MainActivity
 import com.example.scheduler.R
 import com.example.scheduler.databinding.TemplateFragmentBinding
 import com.example.scheduler.ui.home.HomeViewModel
@@ -37,6 +38,7 @@ class TemplateFragment : Fragment() {
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
+    (activity as MainActivity?)?.supportActionBar?.title = "Templates"
     _binding = TemplateFragmentBinding.inflate(inflater, container, false)
 
     viewModel = ViewModelProvider(requireActivity()).get(TemplateViewModel::class.java)
