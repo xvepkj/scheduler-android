@@ -45,4 +45,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <CheckBox
+        android:id="@+id/tracked_checkbox"
+        android:layout_width="30dp"
+        android:layout_height="29dp"
+        android:layout_marginStart="87dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="11dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/divider2"
+        app:layout_constraintEnd_toStartOf="@+id/removeevent"
+        app:layout_constraintStart_toEndOf="@+id/eventdetails"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

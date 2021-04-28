@@ -3,7 +3,8 @@ package com.example.scheduler.core
 class ScheduledEvent (
     var name: String,
     var startTime: Time,
-    var endTime: Time
+    var endTime: Time,
+    var eventType: EventType
 ){
     init{
         //TODO Validation
@@ -13,4 +14,5 @@ class ScheduledEvent (
 
     /* Extra info */
    var index = -1
+   var completed = 0
 }

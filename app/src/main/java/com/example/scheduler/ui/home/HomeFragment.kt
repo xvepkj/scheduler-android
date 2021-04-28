@@ -7,6 +7,8 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.*
+import android.view.View.VISIBLE
+import android.widget.CheckBox
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
@@ -17,6 +19,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.scheduler.MainActivity
 import com.example.scheduler.R
 import com.example.scheduler.core.Date
+import com.example.scheduler.core.EventType
 import com.example.scheduler.core.ScheduledEvent
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -101,9 +104,16 @@ class HomeFragment : Fragment() {
       val view: View = layoutInflater.inflate(R.layout.event, null)
       val t = view.findViewById<TextView>(R.id.eventdetails)
       val crossbutton = view.findViewById<FloatingActionButton>(R.id.removeevent)
+      val tracked_checkbutton = view.findViewById<CheckBox>(R.id.tracked_checkbox)
       t.text = event.toString()
       if(selecteddate!=Date.current() && event.index == -1)
           crossbutton.hide()
+      if(selecteddate<=Date.current() && event.eventType==EventType.TRACKED)
+        tracked_checkbutton.visibility = VISIBLE
+      tracked_checkbutton.isChecked = event.completed==1
+      tracked_checkbutton.setOnClickListener {
+        viewModel.updateEvent(i,if(tracked_checkbutton.isChecked) 1 else 0)
+      }
       crossbutton.setOnClickListener{
           if(selecteddate == Date.current())
             viewModel.removeEvent(i,selecteddate)

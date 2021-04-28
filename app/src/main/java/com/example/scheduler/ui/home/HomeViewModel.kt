@@ -160,6 +160,13 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
       extraEvents.write(d.toString(),events)
     }
   }
+  fun updateEvent (i : Int,completed_fraction : Int){
+    val his : MutableList<ScheduledEvent> = history.read(Date.current().toString())
+    val event = his[i]
+    event.completed=completed_fraction
+    his[i] = event
+    history.write(Date.current().toString(),his)
+  }
   fun updateWorker (w: Worker) {
     Paper.book().write("worker", w)
   }

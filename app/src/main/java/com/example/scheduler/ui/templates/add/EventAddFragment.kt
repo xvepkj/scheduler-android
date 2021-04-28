@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.RadioButton
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.scheduler.R
+import com.example.scheduler.core.EventType
 import com.example.scheduler.core.ScheduledEvent
 import com.example.scheduler.core.Time
 import com.example.scheduler.ui.home.HomeFragment
@@ -31,6 +33,10 @@ class EventAddFragment : Fragment() {
   private lateinit var endTimeTextView: TextView
   private lateinit var nameEditText: EditText
 
+  private lateinit var untracked : RadioButton
+  private lateinit var tracked : RadioButton
+  private lateinit var logged : RadioButton
+
   private lateinit var addButton: Button
 
   override fun onCreateView(
@@ -42,6 +48,11 @@ class EventAddFragment : Fragment() {
     endTimeTextView = root.findViewById(R.id.eventAddEndTime)
     nameEditText = root.findViewById(R.id.eventAddNameTextField)
     addButton = root.findViewById(R.id.eventAddAddButton)
+
+    untracked = root.findViewById(R.id.untracked)
+    tracked = root.findViewById(R.id.tracked)
+    logged = root.findViewById(R.id.logged)
+
 
     viewModel = ViewModelProvider(this).get(EventAddViewModel::class.java)
     templateAddViewModel = ViewModelProvider(requireActivity()).get(TemplateAddViewModel::class.java)
@@ -77,11 +88,17 @@ class EventAddFragment : Fragment() {
     }
 
     addButton.setOnClickListener {
+      val eventType = when {
+        untracked.isChecked -> EventType.UNTRACKED
+        tracked.isChecked -> EventType.TRACKED
+        logged.isChecked -> EventType.LOGGED
+        else -> EventType.UNTRACKED // For now
+      }
       if(!HomeFragment.fromhome)
-         templateAddViewModel.events.value?.add(ScheduledEvent(nameEditText.text.toString(), viewModel.startTime, viewModel.endTime))
+         templateAddViewModel.events.value?.add(ScheduledEvent(nameEditText.text.toString(), viewModel.startTime, viewModel.endTime,eventType))
       else
          homeViewModel.addCustomEvent(
-           ScheduledEvent(nameEditText.text.toString(), viewModel.startTime, viewModel.endTime),
+           ScheduledEvent(nameEditText.text.toString(), viewModel.startTime, viewModel.endTime,eventType),
            HomeFragment.selecteddate
          )
       viewModel.startTime = Time(0, 0)
