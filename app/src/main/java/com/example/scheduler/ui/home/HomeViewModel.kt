@@ -23,7 +23,7 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
   private val history: Book = Paper.book("history")
   private val extraEvents: Book = Paper.book("extraEvents")
 
-  private val _schedule: MutableLiveData<List<ScheduledEvent>> = MutableLiveData()
+  private var _schedule: MutableLiveData<List<ScheduledEvent>> = MutableLiveData()
   val schedule: MutableLiveData<List<ScheduledEvent>>
     get() = _schedule
 
@@ -125,6 +125,7 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
         s.addAll(worker.generate(date))
         s
       }
+    sortEvents()
   }
   fun addCustomEvent(e : ScheduledEvent, date : Date){
     val d = date.toString()
@@ -166,6 +167,9 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
     event.completed=completed_fraction
     his[i] = event
     history.write(Date.current().toString(),his)
+  }
+  fun sortEvents(){
+    _schedule.value = _schedule.value?.sortedBy { it.startTime }
   }
   fun updateWorker (w: Worker) {
     Paper.book().write("worker", w)
