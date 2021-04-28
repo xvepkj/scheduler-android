@@ -6,6 +6,7 @@ import android.app.NotificationManager
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.view.View.VISIBLE
 import android.widget.CheckBox
@@ -108,14 +109,16 @@ class HomeFragment : Fragment() {
       t.text = event.toString()
       if(selecteddate!=Date.current() && event.index == -1)
           crossbutton.hide()
-      if(selecteddate<=Date.current() && event.eventType==EventType.TRACKED){
+      if(event.eventType==EventType.TRACKED){
         tracked_checkbutton.visibility = VISIBLE
-        if(selecteddate<Date.current())
+        if(selecteddate!=Date.current())
           tracked_checkbutton.isEnabled=false
       }
       tracked_checkbutton.isChecked = event.completed==1
       tracked_checkbutton.setOnClickListener {
+        Log.d("DBG",tracked_checkbutton.isChecked.toString())
         viewModel.updateEvent(i,if(tracked_checkbutton.isChecked) 1 else 0)
+        loadSchedule(Date.current())
       }
       crossbutton.setOnClickListener{
           if(selecteddate == Date.current())

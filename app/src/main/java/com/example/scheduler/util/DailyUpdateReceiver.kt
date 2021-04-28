@@ -64,6 +64,7 @@ class DailyUpdateReceiver : BroadcastReceiver() {
         extraEvents.delete(d)
       }
       s.addAll(worker.generate(today))
+      s.sortBy { it.startTime }
       history.write(d, s)
     }
     val todaySchedule: List<ScheduledEvent> = history.read(today.toString())

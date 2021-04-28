@@ -112,6 +112,7 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
             extraEvents.delete(d)
           }
           s.addAll(worker.generate(date))
+          s.sortBy { it.startTime }
           history.write(d, s)
         }
         history.read(d)
@@ -123,9 +124,9 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
           s.addAll(events)
         }
         s.addAll(worker.generate(date))
+        s.sortBy { it.startTime }
         s
       }
-    sortEvents()
   }
   fun addCustomEvent(e : ScheduledEvent, date : Date){
     val d = date.toString()
@@ -133,6 +134,7 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
       val his : MutableList<ScheduledEvent> = history.read(d)
       Log.d("DBG",his.toString())
       his.add(e)
+      his.sortBy { it.startTime }
       history.write(d,his)
       forceUpdate()
     }
@@ -150,9 +152,10 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
     Log.d("DBG",date.toString())
     val d = date.toString()
     if(date == Date.current()){
-      val his : MutableList<ScheduledEvent> = history.read(d.toString())
+      val his : MutableList<ScheduledEvent> = history.read(d)
       his.removeAt(i).toString()
-      history.write(d.toString(),his)
+      his.sortBy { it.startTime }
+      history.write(d,his)
       forceUpdate()
     }
     else {
@@ -162,14 +165,14 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
     }
   }
   fun updateEvent (i : Int,completed_fraction : Int){
+    Log.d("DBG", "$i $completed_fraction")
     val his : MutableList<ScheduledEvent> = history.read(Date.current().toString())
+    Log.d("DBG", his.toString())
     val event = his[i]
     event.completed=completed_fraction
+    Log.d("DBG", event.toString())
     his[i] = event
     history.write(Date.current().toString(),his)
-  }
-  fun sortEvents(){
-    _schedule.value = _schedule.value?.sortedBy { it.startTime }
   }
   fun updateWorker (w: Worker) {
     Paper.book().write("worker", w)
