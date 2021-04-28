@@ -59,4 +59,7 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
     implementation 'io.paperdb:paperdb:2.7.1'
+    implementation 'com.google.android:flexbox:2.0.1'
+
+
 }
