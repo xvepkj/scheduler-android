@@ -5,6 +5,7 @@
     android:id="@+id/frameLayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".ui.settings.SettingsFragment">
 
     <Button
@@ -15,7 +16,10 @@
         android:layout_marginTop="239dp"
         android:layout_marginEnd="182dp"
         android:layout_marginBottom="444dp"
+        android:background="#000000"
         android:text="Active Templates"
+        android:textColor="#FFFFFF"
+        app:backgroundTint="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,7 +32,10 @@
         android:layout_marginStart="92dp"
         android:layout_marginTop="41dp"
         android:layout_marginEnd="191dp"
+        android:background="#000000"
         android:text="set alarms"
+        android:textColor="#FFFFFF"
+        app:backgroundTint="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button" />

@@ -12,4 +12,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="colorWhite">#FFFFFF</color>
 
+    <color name="daySelected">@color/light_pink</color>
+    <color name="daySelectedTextColor">@android:color/white</color>
+    <color name="dayDeselected">#3D3D3D</color>
+    <color name="dayDeselectedTextColor">@android:color/white</color>
 </resources>

@@ -5,14 +5,16 @@
     android:id="@+id/frameLayout4"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".ui.templates.add.TemplateAddFragment">
 
     <TextView
         android:layout_width="57dp"
         android:layout_height="31dp"
-        android:layout_marginStart="39dp"
-        android:layout_marginTop="84dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="88dp"
         android:text="Name"
+        android:textColor="#000000"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -21,15 +23,18 @@
         android:id="@+id/template_add_name_field"
         android:layout_width="259dp"
         android:layout_height="46dp"
-        android:layout_marginTop="69dp"
+        android:layout_marginTop="76dp"
         android:layout_marginEnd="40dp"
         android:ems="10"
         android:hint="Template Name"
         android:inputType="textPersonName"
+        android:textColor="#000000"
+        android:textColorHint="#6F6E6E"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
+        android:id="@+id/scrollView4"
         android:layout_width="332dp"
         android:layout_height="330dp"
         android:layout_marginStart="39dp"
@@ -53,34 +58,46 @@
         android:id="@+id/template_add_event_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="39dp"
-        android:layout_marginBottom="22dp"
+        android:layout_marginTop="480dp"
+        android:layout_marginEnd="200dp"
         android:text="Add event"
-        app:layout_constraintBottom_toTopOf="@+id/template_add_finish"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textColor="#FFFFFF"
+        app:backgroundTint="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/template_add_event_remove"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="22dp"
+        android:layout_marginStart="153dp"
+        android:layout_marginTop="550dp"
         android:text="Remove event"
+        android:textColor="#FFFFFF"
+        app:backgroundTint="#000000"
         app:layout_constraintBottom_toTopOf="@+id/template_add_finish"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/template_add_finish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="55dp"
+        android:layout_marginStart="37dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="132dp"
         android:layout_marginBottom="44dp"
         android:text="Add template"
+        android:textColor="#F9F9F9"
+        app:backgroundTint="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/template_add_event_add" />
 
     <TextView
         android:id="@+id/textView"
@@ -91,6 +108,7 @@
         android:layout_marginEnd="159dp"
         android:text="Activities"
         android:textAlignment="center"
+        android:textColor="#000000"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -100,11 +118,13 @@
         android:id="@+id/templateEditFinish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="29dp"
-        android:layout_marginTop="22dp"
-        android:layout_marginEnd="31dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="36dp"
         android:layout_marginBottom="44dp"
         android:text="Edit Template"
+        android:textColor="#FFFFFF"
+        app:backgroundTint="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/template_add_finish"

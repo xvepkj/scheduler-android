@@ -105,10 +105,14 @@ class HomeFragment : Fragment() {
     for (i in schedule.indices) {
       val event = schedule[i]
       val view: View = layoutInflater.inflate(R.layout.event, null)
-      val t = view.findViewById<TextView>(R.id.eventdetails)
+      val eventname = view.findViewById<TextView>(R.id.eventdetails)
+      val starttime = view.findViewById<TextView>(R.id.starttime)
+      val endtime = view.findViewById<TextView>(R.id.endtime)
       val crossbutton = view.findViewById<ImageButton>(R.id.removeevent)
       val tracked_checkbutton = view.findViewById<CheckBox>(R.id.tracked_checkbox)
-      t.text = event.toString()
+      eventname.text = event.name
+      starttime.text = event.startTime.toString()
+      endtime.text = event.endTime.toString()
       if(selecteddate!=Date.current() && event.index == -1)
           crossbutton.visibility= GONE
       if(event.eventType==EventType.TRACKED){

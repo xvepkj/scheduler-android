@@ -5,6 +5,7 @@
     android:id="@+id/frameLayout6"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#000000"
     tools:context=".ui.templates.add.TemplateApplyFragment">
 
     <RadioGroup
@@ -25,17 +26,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:buttonTint="@color/dark_pink"
-            android:text="Repeat"
             android:checked="true"
+            android:text="Repeat"
+            android:textColor="#FFFFFF"
             android:textSize="18sp" />
 
         <RadioButton
             android:id="@+id/templateapplycustomselec"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:buttonTint="@color/dark_pink"
             android:layout_marginTop="4dp"
+            android:buttonTint="@color/dark_pink"
             android:text="Custom Selection"
+            android:textColor="#F6F6F6"
             android:textSize="18sp" />
     </RadioGroup>
 
@@ -80,24 +83,27 @@
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/dark_pink"
                 android:text="Weekly"
+                android:textColor="#FFFFFF"
                 android:textSize="18sp" />
 
             <RadioButton
                 android:id="@+id/templateapplymonthly"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:buttonTint="@color/dark_pink"
                 android:layout_marginTop="4dp"
+                android:buttonTint="@color/dark_pink"
                 android:text="Monthly"
+                android:textColor="#FFFFFF"
                 android:textSize="18sp" />
 
             <RadioButton
                 android:id="@+id/templateapplyfrequency"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:buttonTint="@color/dark_pink"
                 android:layout_marginTop="4dp"
+                android:buttonTint="@color/dark_pink"
                 android:text="Frequency"
+                android:textColor="#FFFFFF"
                 android:textSize="18sp" />
 
         </RadioGroup>
@@ -125,6 +131,8 @@
             android:ems="10"
             android:hint="Frequency"
             android:inputType="textPersonName"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#767575"
             android:visibility="gone" />
 
         <ca.antonious.materialdaypicker.MaterialDayPicker
@@ -184,6 +192,7 @@
             android:layout_marginEnd="25dp"
             android:layout_marginBottom="375dp"
             android:text="Add date"
+            app:backgroundTint="#BA6B6C"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/scrollView2"
@@ -198,6 +207,7 @@
         android:layout_marginTop="430dp"
         android:gravity="bottom"
         android:text="CROSS"
+        app:backgroundTint="#BA6B6C"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/applyTemplateButton"
         app:layout_constraintStart_toStartOf="parent"
@@ -211,6 +221,7 @@
         android:layout_marginTop="430dp"
         android:gravity="bottom"
         android:text="TICK"
+        app:backgroundTint="#BA6B6C"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/button4"

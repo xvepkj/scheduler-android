@@ -86,6 +86,7 @@ class TemplateFragment : Fragment() {
     for (name in names) {
       val textView = TextView(activity)
       textView.text = name
+      textView.textSize= 20F
       textView.setTextColor(Color.parseColor("#000000"));
       textView.setOnClickListener {
         showTemplateDesc(name)

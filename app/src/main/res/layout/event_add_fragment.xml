@@ -5,6 +5,7 @@
     android:id="@+id/frameLayout5"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#000000"
     tools:context=".ui.templates.add.EventAddFragment">
 
     <EditText
@@ -18,6 +19,8 @@
         android:ems="10"
         android:hint="Event name"
         android:inputType="textPersonName"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#757575"
         app:layout_constraintBottom_toTopOf="@+id/eventAddStartTime"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +34,10 @@
         android:layout_marginTop="33dp"
         android:layout_marginEnd="256dp"
         android:layout_marginBottom="200dp"
+        android:background="@color/dark_pink"
         android:text="Add"
+        android:textColor="#FEFEFE"
+        app:backgroundTint="@color/dark_pink"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,6 +52,7 @@
         android:layout_marginEnd="240dp"
         android:layout_marginBottom="10dp"
         android:text="Start time"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/eventAddEndTime"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,6 +67,7 @@
         android:layout_marginEnd="240dp"
         android:layout_marginBottom="200dp"
         android:text="End time"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/eventAddAddButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -83,20 +91,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:buttonTint="@color/dark_pink"
-            android:text="Untracked" />
+            android:text="Untracked"
+            android:textColor="#FEFEFE" />
 
         <RadioButton
             android:id="@+id/tracked"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:buttonTint="@color/dark_pink"
-            android:text="Tracked" />
+            android:text="Tracked"
+            android:textColor="#FFFFFF" />
 
         <RadioButton
             android:id="@+id/logged"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:buttonTint="@color/dark_pink"
-            android:text="Logged" />
+            android:text="Logged"
+            android:textColor="#FFFFFF" />
     </RadioGroup>
 </androidx.constraintlayout.widget.ConstraintLayout>

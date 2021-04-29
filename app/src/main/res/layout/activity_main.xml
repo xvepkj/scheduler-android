@@ -23,5 +23,4 @@
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/header_navigation_header"
         app:menu="@menu/activity_main_drawer" />
-<!--    style="@style/Widget.Custom.MyDatePickerStyle"-->
 </androidx.drawerlayout.widget.DrawerLayout>
