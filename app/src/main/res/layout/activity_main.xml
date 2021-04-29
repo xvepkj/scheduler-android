@@ -20,10 +20,11 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:itemBackground="@drawable/drawer_selected_item"
-        app:itemTextColor="@color/item_text_color"
-        app:itemIconTint="@color/item_text_color"
+        android:background="#403F3F"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/header_navigation_header"
+        app:itemBackground="@drawable/drawer_selected_item"
+        app:itemIconTint="@color/item_text_color"
+        app:itemTextColor="@color/item_text_color"
         app:menu="@menu/activity_main_drawer" />
 </androidx.drawerlayout.widget.DrawerLayout>

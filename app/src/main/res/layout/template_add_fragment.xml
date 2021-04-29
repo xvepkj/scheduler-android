@@ -5,7 +5,7 @@
     android:id="@+id/frameLayout4"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@drawable/custom_background_gradient2"
     tools:context=".ui.templates.add.TemplateAddFragment">
 
     <TextView
@@ -15,7 +15,7 @@
         android:layout_marginTop="88dp"
         android:text="Name"
         android:textColor="#000000"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,17 +30,20 @@
         android:inputType="textPersonName"
         android:textColor="#000000"
         android:textColorHint="#6F6E6E"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
         android:id="@+id/scrollView4"
-        android:layout_width="332dp"
-        android:layout_height="330dp"
+        android:layout_width="363dp"
+        android:layout_height="358dp"
         android:layout_marginStart="39dp"
         android:layout_marginTop="7dp"
         android:layout_marginEnd="40dp"
+        android:layout_marginBottom="200dp"
         android:background="#ef9a9a"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView">
@@ -55,20 +58,6 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/template_add_event_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="480dp"
-        android:layout_marginEnd="200dp"
-        android:text="Add event"
-        android:textColor="#FFFFFF"
-        app:backgroundTint="#000000"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
         android:id="@+id/template_add_event_remove"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -76,58 +65,76 @@
         android:layout_marginTop="557dp"
         android:text="Remove event"
         android:textColor="#FFFFFF"
+        android:visibility="gone"
         app:backgroundTint="#000000"
-        app:layout_constraintBottom_toTopOf="@+id/template_add_finish"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/template_add_finish"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="37dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="132dp"
-        android:layout_marginBottom="44dp"
-        android:text="Add template"
-        android:textColor="#F9F9F9"
-        app:backgroundTint="@color/button_color"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/template_add_event_add" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="94dp"
         android:layout_height="39dp"
         android:layout_marginStart="158dp"
-        android:layout_marginTop="49dp"
+        android:layout_marginTop="110dp"
         android:layout_marginEnd="159dp"
+        android:layout_marginBottom="5dp"
         android:text="Activities"
         android:textAlignment="center"
         android:textColor="#000000"
-        android:textSize="18sp"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/template_add_name_field" />
 
-    <Button
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/template_add_event_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="270dp"
+        android:layout_marginTop="340dp"
+        android:clickable="true"
+        android:scaleX=".8"
+        android:scaleY=".8"
+        android:src="@android:drawable/ic_input_add"
+        app:backgroundTint="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/scrollView4"
+        app:layout_constraintStart_toStartOf="@+id/scrollView4"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/template_add_finish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="550dp"
+        android:background="#FFFFFF"
+        android:clickable="true"
+        android:scaleX="1.2"
+        android:scaleY="1.2"
+        android:src="@android:drawable/ic_input_add"
+        app:backgroundTint="#FFFEFE"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/scrollView4"
+        app:layout_constraintStart_toStartOf="@+id/scrollView4"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/templateEditFinish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginBottom="44dp"
-        android:text="Edit Template"
-        android:textColor="#FFFFFF"
-        app:backgroundTint="@color/button_color"
+        android:layout_marginTop="550dp"
+        android:background="#FFFFFF"
+        android:clickable="true"
+        android:scaleX="1.2"
+        android:scaleY="1.2"
+        android:visibility="gone"
+        app:backgroundTint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/template_add_finish"
-        app:layout_constraintTop_toBottomOf="@+id/template_add_event_remove" />
+        app:layout_constraintStart_toStartOf="@+id/scrollView4"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_edit_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

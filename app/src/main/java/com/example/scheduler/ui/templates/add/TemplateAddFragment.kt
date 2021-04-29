@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
@@ -39,10 +41,16 @@ class TemplateAddFragment : Fragment() {
     savedInstanceState: Bundle?
   ): View? {
     _binding = TemplateAddFragmentBinding.inflate(inflater, container, false)
-    if(TemplateFragment.TemplateEdit)
+    if(TemplateFragment.TemplateEdit) {
       (activity as MainActivity?)?.supportActionBar?.title = "Edit Template"
-    else
+      binding.templateEditFinish.visibility= VISIBLE
+      binding.templateAddFinish.visibility = GONE
+    }
+    else {
       (activity as MainActivity?)?.supportActionBar?.title = "New Template"
+      binding.templateEditFinish.visibility= GONE
+      binding.templateAddFinish.visibility = VISIBLE
+    }
     viewModel = ViewModelProvider(requireActivity()).get(TemplateAddViewModel::class.java)
     templateViewModel = ViewModelProvider(requireActivity()).get(TemplateViewModel::class.java)
     templateApplyViewModel= ViewModelProvider(requireActivity()).get(TemplateApplyViewModel::class.java)
