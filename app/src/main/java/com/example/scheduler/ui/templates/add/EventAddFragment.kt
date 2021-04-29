@@ -66,7 +66,7 @@ class EventAddFragment : Fragment() {
     startTimeTextView.setOnClickListener {
       val timePicker = context?.let {
         TimePickerDialog(
-          it,
+          it,R.style.DialogTheme,
           TimePickerDialog.OnTimeSetListener { _, h, m -> setStartTime(Time(h, m)) },
           viewModel.startTime.h,
           viewModel.startTime.m,
@@ -79,7 +79,7 @@ class EventAddFragment : Fragment() {
     endTimeTextView.setOnClickListener {
       val timePicker = context?.let {
         TimePickerDialog(
-          it,
+          it,R.style.DialogTheme,
           TimePickerDialog.OnTimeSetListener { _, h, m -> setEndTime(Time(h, m)) },
           viewModel.endTime.h,
           viewModel.endTime.m,

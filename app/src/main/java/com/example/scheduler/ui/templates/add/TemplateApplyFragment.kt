@@ -141,7 +141,7 @@ class TemplateApplyFragment : Fragment() {
     }
 
     customAddDateButton.setOnClickListener {
-      val datePicker = context?.let { DatePickerDialog(it) }
+      val datePicker = context?.let { DatePickerDialog(it,R.style.DialogTheme) }
       datePicker?.setOnDateSetListener { _, year, month, day ->
         val d = Date(day, month + 1, year)
         viewModel.customDatesList.add(d)

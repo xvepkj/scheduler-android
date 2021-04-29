@@ -7,19 +7,19 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/homeFragment"
-            android:icon="@android:drawable/sym_contact_card"
+            android:icon="@drawable/ic_home"
             android:title="HOME" />
         <item
             android:id="@+id/templateFragment"
-            android:icon="@android:drawable/sym_contact_card"
+            android:icon="@drawable/ic_menu_book"
             android:title="TEMPLATES" />
         <item
             android:id="@+id/nav_stats"
-            android:icon="@android:drawable/sym_contact_card"
+            android:icon="@drawable/ic_baseline_format_list_numbered_24"
             android:title="STATS" />
         <item
             android:id="@+id/settingsFragment"
-            android:icon="@android:drawable/sym_contact_card"
+            android:icon="@drawable/ic_settings"
             android:title="SETTINGS" />
     </group>
 </menu>

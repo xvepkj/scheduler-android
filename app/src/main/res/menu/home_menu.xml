@@ -5,6 +5,6 @@
         android:id="@+id/calendar"
         android:title="Calendar"
         android:visible="true"
-        android:icon="@android:drawable/ic_menu_my_calendar"
+        android:icon="@drawable/ic_calender"
         app:showAsAction="always" />
 </menu>

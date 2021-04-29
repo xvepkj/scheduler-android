@@ -49,6 +49,7 @@ class TemplateFragment : Fragment() {
 
     binding.templateApplyButton.isEnabled = false
     binding.templateEditButton.isEnabled = false
+    binding.templateRemoveButton.isEnabled = false
     binding.templateAddButton.setOnClickListener {
       TemplateEdit=false
       templateAddViewModel.clear()
@@ -99,6 +100,7 @@ class TemplateFragment : Fragment() {
     binding.templateDescLinearLayout.removeAllViews()
     binding.templateApplyButton.isEnabled = true
     binding.templateEditButton.isEnabled = true
+    binding.templateRemoveButton.isEnabled = true
 
     val template = viewModel.getTemplate(name)
     applyViewModel.template = template

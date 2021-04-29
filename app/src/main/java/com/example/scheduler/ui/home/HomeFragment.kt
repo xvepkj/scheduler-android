@@ -76,7 +76,7 @@ class HomeFragment : Fragment() {
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     return when (item.itemId) {
       R.id.calendar -> {
-        val datePicker = context?.let { DatePickerDialog(it) }
+        val datePicker = context?.let { DatePickerDialog(it,R.style.DialogTheme) }
         datePicker?.setOnDateSetListener { _, year, month, day ->
           val d = Date(day, month + 1, year)
           selecteddate = d
