@@ -7,12 +7,15 @@
 
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.example.scheduler.ui.settings.SettingsFragment"
+        android:name="com.example.scheduler.ui.settings.main.SettingsFragment"
         android:label="settings_fragment"
         tools:layout="@layout/settings_fragment" >
         <action
             android:id="@+id/action_settingsFragment_to_templatePoolFragment"
             app:destination="@id/templatePoolFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_blankFragment"
+            app:destination="@id/blankFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
@@ -73,4 +76,14 @@
         android:name="com.example.scheduler.ui.templates.pool.TemplatePoolFragment"
         android:label="template_pool_fragment"
         tools:layout="@layout/template_pool_fragment" />
+    <fragment
+        android:id="@+id/statisticsfragment"
+        android:name="com.example.scheduler.ui.Statistics.StatisticsFragment"
+        android:label="statistics_fragment"
+        tools:layout="@layout/statistics_fragment" />
+    <fragment
+        android:id="@+id/blankFragment"
+        android:name="com.example.scheduler.ui.settings.about.BlankFragment"
+        android:label="fragment_blank"
+        tools:layout="@layout/fragment_blank" />
 </navigation>

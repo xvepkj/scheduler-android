@@ -14,7 +14,7 @@
             android:icon="@drawable/ic_menu_book"
             android:title="TEMPLATES" />
         <item
-            android:id="@+id/nav_stats"
+            android:id="@+id/statisticsfragment"
             android:icon="@drawable/ic_baseline_format_list_numbered_24"
             android:title="STATS" />
         <item

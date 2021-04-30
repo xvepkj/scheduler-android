@@ -2,13 +2,13 @@ package com.example.scheduler.ui.templates.add
 
 import android.app.TimePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.RadioButton
-import android.widget.TextView
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -17,8 +17,10 @@ import com.example.scheduler.R
 import com.example.scheduler.core.EventType
 import com.example.scheduler.core.ScheduledEvent
 import com.example.scheduler.core.Time
+import com.example.scheduler.ui.Statistics.StatisticsViewModel
 import com.example.scheduler.ui.home.HomeFragment
 import com.example.scheduler.ui.home.HomeViewModel
+
 
 class EventAddFragment : Fragment() {
 
@@ -29,6 +31,7 @@ class EventAddFragment : Fragment() {
   private lateinit var viewModel: EventAddViewModel
   private lateinit var templateAddViewModel: TemplateAddViewModel
   private lateinit var homeViewModel : HomeViewModel
+  private lateinit var statisticsViewModel : StatisticsViewModel
 
   private lateinit var startTimeTextView: TextView
   private lateinit var endTimeTextView: TextView
@@ -59,14 +62,33 @@ class EventAddFragment : Fragment() {
     viewModel = ViewModelProvider(this).get(EventAddViewModel::class.java)
     templateAddViewModel = ViewModelProvider(requireActivity()).get(TemplateAddViewModel::class.java)
     homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
+    statisticsViewModel = ViewModelProvider(requireActivity()).get(StatisticsViewModel::class.java)
 
     setStartTime(Time(0, 0))
     setEndTime(Time(0, 0))
 
+    val spinner: Spinner = root.findViewById(R.id.select_Tag)
+    untracked.setOnClickListener{
+      spinner.visibility = GONE
+    }
+    tracked.setOnClickListener{
+      spinner.visibility = VISIBLE
+    }
+    logged.setOnClickListener{
+      spinner.visibility = VISIBLE
+    }
+    val array: Array<String> = statisticsViewModel.tags.toTypedArray()
+    Log.d("DBG",statisticsViewModel.tags.toString())
+    val adapter = ArrayAdapter<String>(
+      activity?.applicationContext!!,R.layout.spinner_main, array
+    )
+    adapter.setDropDownViewResource(R.layout.spinner_item);
+    spinner.adapter = adapter
+
     startTimeTextView.setOnClickListener {
       val timePicker = context?.let {
         TimePickerDialog(
-          it,R.style.DialogTheme,
+          it, R.style.DialogTheme,
           TimePickerDialog.OnTimeSetListener { _, h, m -> setStartTime(Time(h, m)) },
           viewModel.startTime.h,
           viewModel.startTime.m,
@@ -79,7 +101,7 @@ class EventAddFragment : Fragment() {
     endTimeTextView.setOnClickListener {
       val timePicker = context?.let {
         TimePickerDialog(
-          it,R.style.DialogTheme,
+          it, R.style.DialogTheme,
           TimePickerDialog.OnTimeSetListener { _, h, m -> setEndTime(Time(h, m)) },
           viewModel.endTime.h,
           viewModel.endTime.m,
@@ -97,10 +119,24 @@ class EventAddFragment : Fragment() {
         else -> EventType.UNTRACKED // For now
       }
       if(!HomeFragment.fromhome)
-         templateAddViewModel.events.value?.add(ScheduledEvent(nameEditText.text.toString(), viewModel.startTime, viewModel.endTime,eventType))
+         templateAddViewModel.events.value?.add(
+           ScheduledEvent(
+             nameEditText.text.toString(),
+             viewModel.startTime,
+             viewModel.endTime,
+             eventType,
+             spinner.selectedItem.toString()
+           )
+         )
       else
          homeViewModel.addCustomEvent(
-           ScheduledEvent(nameEditText.text.toString(), viewModel.startTime, viewModel.endTime,eventType),
+           ScheduledEvent(
+             nameEditText.text.toString(),
+             viewModel.startTime,
+             viewModel.endTime,
+             eventType,
+             spinner.selectedItem.toString()
+           ),
            HomeFragment.selecteddate
          )
       viewModel.startTime = Time(0, 0)
@@ -119,12 +155,12 @@ class EventAddFragment : Fragment() {
     // TODO: Use the ViewModel
   }
 
-  fun setStartTime (t : Time) {
+  fun setStartTime(t: Time) {
     viewModel.startTime = t
     startTimeTextView.text = t.toString()
   }
 
-  fun setEndTime (t: Time) {
+  fun setEndTime(t: Time) {
     viewModel.endTime = t
     endTimeTextView.text = t.toString()
   }

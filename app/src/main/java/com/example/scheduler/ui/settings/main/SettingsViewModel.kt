@@ -1,4 +1,4 @@
-package com.example.scheduler.ui.settings
+package com.example.scheduler.ui.settings.main
 
 import androidx.lifecycle.ViewModel
 
