@@ -5,6 +5,9 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.drawable.Drawable
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
@@ -35,6 +38,7 @@ class AlarmReceiver : BroadcastReceiver()  {
     )
     val eventArray = receivedIntent.getStringArrayExtra("event")
     val builder = NotificationCompat.Builder(context, PRIMARY_CHANNEL_ID)
+      .setLargeIcon(generateBitmapFromVectorDrawable(context,R.drawable.clock))
       .setSmallIcon(R.drawable.ic_baseline_access_time_filled_24)
       .setColor(ContextCompat.getColor(context, R.color.dark_pink))
       .setContentTitle(eventArray?.get(0))
@@ -44,5 +48,19 @@ class AlarmReceiver : BroadcastReceiver()  {
       .setAutoCancel(true)
       .setDefaults(NotificationCompat.DEFAULT_ALL)
     mNotificationManager.notify(NOTIFICATION_ID, builder.build());
+  }
+  fun generateBitmapFromVectorDrawable(context: Context, drawableId: Int): Bitmap {
+    val drawable = ContextCompat.getDrawable(context, drawableId) as Drawable
+    val bitmap = Bitmap.createBitmap(
+      drawable.intrinsicWidth,
+      drawable.intrinsicHeight,
+      Bitmap.Config.ARGB_8888
+    )
+
+    val canvas = Canvas(bitmap)
+    drawable.setBounds(0, 0, canvas.width, canvas.height)
+    drawable.draw(canvas)
+
+    return bitmap
   }
 }
