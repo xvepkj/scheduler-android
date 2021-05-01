@@ -53,6 +53,7 @@ class StatisticsFragment : Fragment() {
                     Log.d("DBG",newTagName)
                     viewModel.addTag(newTagName)
                     Log.d("DBG",viewModel.tags.toString())
+                    loadStatisticstoUI()
                 })
                 builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
 
