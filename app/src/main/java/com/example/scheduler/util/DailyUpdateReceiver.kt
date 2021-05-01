@@ -81,7 +81,7 @@ class DailyUpdateReceiver : BroadcastReceiver() {
   private fun setAlarm(event: ScheduledEvent, id: Int) {
     Log.d("DBG", "Event: $event")
     val contentIntent = Intent(context.applicationContext, AlarmReceiver::class.java)
-    contentIntent.putExtra("event", event.toString())
+    contentIntent.putExtra("event", arrayOf(event.name,event.startTime.toString(),event.endTime.toString()))
     val contentPendingIntent = PendingIntent.getBroadcast(
       context.applicationContext,
       id,

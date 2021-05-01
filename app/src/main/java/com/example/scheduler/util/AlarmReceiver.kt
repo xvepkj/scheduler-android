@@ -7,9 +7,9 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat
 import com.example.scheduler.MainActivity
 import com.example.scheduler.R
-import android.R as R1
 
 class AlarmReceiver : BroadcastReceiver()  {
   private lateinit var mNotificationManager: NotificationManager
@@ -22,6 +22,7 @@ class AlarmReceiver : BroadcastReceiver()  {
     deliverNotification(context, intent)
   }
 
+
   private fun deliverNotification(context: Context, receivedIntent: Intent) {
     val NOTIFICATION_ID = receivedIntent.getIntExtra("id", 0)
     val PRIMARY_CHANNEL_ID = context.getString(R.string.default_channel_id)
@@ -32,11 +33,12 @@ class AlarmReceiver : BroadcastReceiver()  {
       contentIntent,
       PendingIntent.FLAG_UPDATE_CURRENT
     )
-
+    val eventArray = receivedIntent.getStringArrayExtra("event")
     val builder = NotificationCompat.Builder(context, PRIMARY_CHANNEL_ID)
-      .setSmallIcon(R1.drawable.sym_def_app_icon)
-      .setContentTitle("EVENT")
-      .setContentText(receivedIntent.getStringExtra("event").toString())
+      .setSmallIcon(R.drawable.ic_baseline_access_time_filled_24)
+      .setColor(ContextCompat.getColor(context, R.color.dark_pink))
+      .setContentTitle(eventArray?.get(0))
+      .setContentText(eventArray?.get(1) + "       " +eventArray?.get(2))
       .setContentIntent(contentPendingIntent)
       .setPriority(NotificationCompat.PRIORITY_HIGH)
       .setAutoCancel(true)
