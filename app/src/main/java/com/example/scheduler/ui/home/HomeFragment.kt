@@ -25,6 +25,7 @@ import com.example.scheduler.core.Date
 import com.example.scheduler.core.EventType
 import com.example.scheduler.core.ScheduledEvent
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import org.w3c.dom.Text
 
 class HomeFragment : Fragment() {
 
@@ -110,6 +111,7 @@ class HomeFragment : Fragment() {
       val endtime = view.findViewById<TextView>(R.id.endtime)
       val crossbutton = view.findViewById<ImageButton>(R.id.removeevent)
       val tracked_checkbutton = view.findViewById<CheckBox>(R.id.tracked_checkbox)
+      val log_progress_text = view.findViewById<TextView>(R.id.log_progress_text)
       eventname.text = event.name
       starttime.text = event.startTime.toString()
       endtime.text = event.endTime.toString()
@@ -119,12 +121,18 @@ class HomeFragment : Fragment() {
         tracked_checkbutton.visibility = VISIBLE
         if(selecteddate!=Date.current())
           tracked_checkbutton.isEnabled=false
+      } else if (event.eventType == EventType.LOGGED) {
+        log_progress_text.visibility = VISIBLE
+        log_progress_text.setText(event.log_progress.toString())
       }
       tracked_checkbutton.isChecked = event.completed==1
       tracked_checkbutton.setOnClickListener {
         Log.d("DBG",tracked_checkbutton.isChecked.toString())
         viewModel.updateEvent(i,if(tracked_checkbutton.isChecked) 1 else 0)
         loadSchedule(Date.current())
+      }
+      log_progress_text.setOnClickListener {
+        findNavController().navigate(R.id.action_homeFragment_to_loggerFragment)
       }
       crossbutton.setOnClickListener{
           if(selecteddate == Date.current())

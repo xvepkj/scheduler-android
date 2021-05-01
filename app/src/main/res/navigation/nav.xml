@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_homeFragment_to_eventAddFragment"
             app:destination="@id/eventAddFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_loggerFragment"
+            app:destination="@id/loggerFragment" />
     </fragment>
     <fragment
         android:id="@+id/templateFragment"
@@ -86,4 +89,9 @@
         android:name="com.example.scheduler.ui.settings.about.BlankFragment"
         android:label="fragment_blank"
         tools:layout="@layout/fragment_blank" />
+    <fragment
+        android:id="@+id/loggerFragment"
+        android:name="com.example.scheduler.ui.logger.LoggerFragment"
+        android:label="logger_fragment"
+        tools:layout="@layout/logger_fragment" />
 </navigation>

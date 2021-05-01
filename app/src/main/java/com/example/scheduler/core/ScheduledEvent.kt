@@ -15,4 +15,5 @@ class ScheduledEvent (
     /* Extra info */
    var index = -1
    var completed = 0
+   var log_progress = 0.0
 }
