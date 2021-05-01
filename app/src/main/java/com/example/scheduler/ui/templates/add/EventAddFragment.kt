@@ -97,7 +97,6 @@ class EventAddFragment : Fragment() {
       }
       timePicker?.show()
     }
-
     endTimeTextView.setOnClickListener {
       val timePicker = context?.let {
         TimePickerDialog(

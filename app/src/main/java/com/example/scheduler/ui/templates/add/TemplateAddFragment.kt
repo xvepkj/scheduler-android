@@ -9,6 +9,7 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -60,6 +61,18 @@ class TemplateAddFragment : Fragment() {
       )
     })
     Log.d("DBG",viewModel.template_name)
+    val templateNames : List<String> = templateViewModel.getTemplateNames()
+    binding.templateAddNameField.doOnTextChanged{_,_,_,_ ->
+      val input = binding.templateAddNameField.text.toString()
+      for(templateName in templateNames) {
+        if (input.trim().equals(templateName, ignoreCase = true)) {
+          binding.templateAddNameField.error = "Template Name should be unique"
+          break
+        }
+        else
+          binding.templateAddNameField.error = null
+      }
+    }
     binding.templateAddNameField.isEnabled = !TemplateFragment.TemplateEdit
     binding.templateAddFinish.isEnabled = !TemplateFragment.TemplateEdit
     binding.templateEditFinish.isEnabled = TemplateFragment.TemplateEdit
