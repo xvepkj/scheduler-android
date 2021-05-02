@@ -24,6 +24,7 @@ import com.example.scheduler.R
 import com.example.scheduler.core.Date
 import com.example.scheduler.core.EventType
 import com.example.scheduler.core.ScheduledEvent
+import com.example.scheduler.ui.logger.LoggerViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.w3c.dom.Text
 
@@ -39,6 +40,7 @@ class HomeFragment : Fragment() {
 
   private lateinit var linearLayout: LinearLayout
   private lateinit var addcustomevent : FloatingActionButton
+  private lateinit var loggerViewModel: LoggerViewModel
 
   override fun onCreateView(
           inflater: LayoutInflater, container: ViewGroup?,
@@ -54,6 +56,8 @@ class HomeFragment : Fragment() {
 
     // viewModel related stuff
     viewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
+    loggerViewModel = ViewModelProvider(requireActivity()).get(LoggerViewModel::class.java)
+
     viewModel.schedule.observe(viewLifecycleOwner, Observer<List<ScheduledEvent>> { schedule -> loadScheduleToUI(schedule) })
     loadSchedule(Date.current())
     selecteddate = Date.current()
@@ -132,6 +136,7 @@ class HomeFragment : Fragment() {
         loadSchedule(Date.current())
       }
       log_progress_text.setOnClickListener {
+        viewModel.logged_event_index = i
         findNavController().navigate(R.id.action_homeFragment_to_loggerFragment)
       }
       crossbutton.setOnClickListener{

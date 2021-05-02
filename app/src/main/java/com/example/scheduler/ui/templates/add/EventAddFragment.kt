@@ -111,40 +111,44 @@ class EventAddFragment : Fragment() {
     }
 
     addButton.setOnClickListener {
-      val eventType = when {
-        untracked.isChecked -> EventType.UNTRACKED
-        tracked.isChecked -> EventType.TRACKED
-        logged.isChecked -> EventType.LOGGED
-        else -> EventType.UNTRACKED // For now
-      }
-      if(!HomeFragment.fromhome)
-         templateAddViewModel.events.value?.add(
-           ScheduledEvent(
-             nameEditText.text.toString(),
-             viewModel.startTime,
-             viewModel.endTime,
-             eventType,
-             spinner.selectedItem.toString()
+      if (viewModel.endTime < viewModel.startTime) {
+        Toast.makeText(context, "End time cannot be earlier than start time", Toast.LENGTH_SHORT).show()
+      } else {
+        val eventType = when {
+          untracked.isChecked -> EventType.UNTRACKED
+          tracked.isChecked -> EventType.TRACKED
+          logged.isChecked -> EventType.LOGGED
+          else -> EventType.UNTRACKED // For now
+        }
+        if(!HomeFragment.fromhome)
+           templateAddViewModel.events.value?.add(
+             ScheduledEvent(
+               nameEditText.text.toString(),
+               viewModel.startTime,
+               viewModel.endTime,
+               eventType,
+               spinner.selectedItem.toString()
+             )
            )
-         )
-      else
-         homeViewModel.addCustomEvent(
-           ScheduledEvent(
-             nameEditText.text.toString(),
-             viewModel.startTime,
-             viewModel.endTime,
-             eventType,
-             spinner.selectedItem.toString()
-           ),
-           HomeFragment.selecteddate
-         )
-      viewModel.startTime = Time(0, 0)
-      viewModel.endTime = Time(0, 0)
-      nameEditText.setText("")
-      if(!HomeFragment.fromhome)
-        findNavController().navigate(R.id.action_eventAddFragment_to_templateAddFragment)
-      else
-        findNavController().navigate(R.id.action_eventAddFragment_to_homeFragment)
+        else
+           homeViewModel.addCustomEvent(
+             ScheduledEvent(
+               nameEditText.text.toString(),
+               viewModel.startTime,
+               viewModel.endTime,
+               eventType,
+               spinner.selectedItem.toString()
+             ),
+             HomeFragment.selecteddate
+           )
+        viewModel.startTime = Time(0, 0)
+        viewModel.endTime = Time(0, 0)
+        nameEditText.setText("")
+        if(!HomeFragment.fromhome)
+          findNavController().navigate(R.id.action_eventAddFragment_to_templateAddFragment)
+        else
+          findNavController().navigate(R.id.action_eventAddFragment_to_homeFragment)
+      }
     }
     return root
   }

@@ -23,6 +23,8 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
   private val history: Book = Paper.book("history")
   private val extraEvents: Book = Paper.book("extraEvents")
 
+  var logged_event_index: Int = -1
+
   private var _schedule: MutableLiveData<List<ScheduledEvent>> = MutableLiveData()
   val schedule: MutableLiveData<List<ScheduledEvent>>
     get() = _schedule
@@ -208,6 +210,34 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
       Log.d("DBG",mapOfTag.toString())
       Paper.book().write(event.tag,mapOfTag)
   }
+
+
+  /* For retrieving logged event */
+  fun getLoggedEvent() : ScheduledEvent {
+    val his : MutableList<ScheduledEvent> = history.read(Date.current().toString())
+    return his[logged_event_index]
+  }
+
+  /* For logged events */
+  fun updateLoggedEventProgress (progress: Double) {
+    Log.d("DBG", "$logged_event_index $progress")
+    val his : MutableList<ScheduledEvent> = history.read(Date.current().toString())
+    Log.d("DBG", his.toString())
+    val event = his[logged_event_index]
+    val progress_change = progress - event.log_progress
+    event.log_progress = progress
+    Log.d("DBG", event.toString())
+    his[logged_event_index] = event
+    history.write(Date.current().toString(),his)
+    //Statistics Part
+    val mapOfTag : MutableMap<Date, Pair<Time, Time>> = Paper.book().read(event.tag)
+    val current = mapOfTag[Date.current()]!!
+    // TODO: Store statistics as long/long instead of time/time?
+    mapOfTag[Date.current()]=Pair(current.first + (event.endTime-event.startTime) * progress_change,current.second)
+    Log.d("DBG",mapOfTag.toString())
+    Paper.book().write(event.tag,mapOfTag)
+  }
+
   fun updateWorker (w: Worker) {
     Paper.book().write("worker", w)
   }

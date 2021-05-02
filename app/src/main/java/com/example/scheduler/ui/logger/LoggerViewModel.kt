@@ -35,9 +35,9 @@ class LoggerViewModel(private val app: Application) : AndroidViewModel(app) {
 
   private lateinit var timer : Timer
 
-  fun initialize(t: Long) {
+  fun initialize(elapsed : Long, t: Long) {
     _timerState.value = TIMER_PAUSED
-    _cur.value = 0L
+    _cur.value = elapsed
 
     lim = t
   }

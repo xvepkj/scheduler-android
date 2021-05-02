@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import com.example.scheduler.R
+import com.example.scheduler.ui.home.HomeViewModel
 
 class LoggerFragment : Fragment() {
 
@@ -18,6 +19,7 @@ class LoggerFragment : Fragment() {
   }
 
   private lateinit var viewModel: LoggerViewModel
+  private lateinit var homeViewModel: HomeViewModel
 
   private lateinit var eventNameText: TextView
   private lateinit var elapsedText: TextView
@@ -34,6 +36,8 @@ class LoggerFragment : Fragment() {
     button = root.findViewById(R.id.logger_start_pause_button)
 
     viewModel = ViewModelProvider(this).get(LoggerViewModel::class.java)
+    homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
+
 
     viewModel.timerState.observe(viewLifecycleOwner,
       Observer<Int> { state ->
@@ -61,13 +65,18 @@ class LoggerFragment : Fragment() {
       }
     }
 
+    val event = homeViewModel.getLoggedEvent()
+    eventNameText.setText(event.name)
+    val eventTotalTime = (event.endTime - event.startTime).toMillis()
+
     viewModel.cur.observe(viewLifecycleOwner,
       Observer<Long> {
         cur -> elapsedText.setText(cur.toString())
+        homeViewModel.updateLoggedEventProgress((1.0 * cur) / eventTotalTime)
       }
     )
 
-    viewModel.initialize(5000L)
+    viewModel.initialize((eventTotalTime * event.log_progress).toLong(), eventTotalTime)
     totalText.setText(viewModel.getLim().toString())
 
     return root
