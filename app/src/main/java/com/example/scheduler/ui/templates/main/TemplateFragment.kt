@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.scheduler.MainActivity
 import com.example.scheduler.R
 import com.example.scheduler.databinding.TemplateFragmentBinding
@@ -50,6 +52,10 @@ class TemplateFragment : Fragment() {
     binding.templateApplyButton.isEnabled = false
     binding.templateEditButton.isEnabled = false
     binding.templateRemoveButton.isEnabled = false
+
+    binding.activeTemplates.setOnClickListener{
+      findNavController().navigate(R.id.action_templateFragment_to_templatePoolFragment)
+    }
     binding.templateAddButton.setOnClickListener {
       TemplateEdit=false
       templateAddViewModel.clear()
@@ -71,6 +77,8 @@ class TemplateFragment : Fragment() {
           currentlyapplied = true
       if(!currentlyapplied)
         templateViewModel.removeTemplate(applyViewModel.template)
+      else
+        Toast.makeText(context,"This template is currently applied",Toast.LENGTH_SHORT).show()
       showTemplateList(viewModel.getTemplateNames())
     }
     showTemplateList(viewModel.getTemplateNames())

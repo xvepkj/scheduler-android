@@ -9,12 +9,12 @@
 
     <ScrollView
         android:id="@+id/scrollView3"
-        android:layout_width="322dp"
-        android:layout_height="401dp"
+        android:layout_width="353dp"
+        android:layout_height="458dp"
         android:layout_marginStart="35dp"
         android:layout_marginTop="19dp"
         android:layout_marginEnd="35dp"
-        android:layout_marginBottom="150dp"
+        android:layout_marginBottom="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

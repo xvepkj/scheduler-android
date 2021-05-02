@@ -132,4 +132,22 @@
         app:layout_constraintStart_toEndOf="@+id/templateRemoveButton"
         app:layout_constraintTop_toBottomOf="@+id/templateListScrollView"
         app:layout_constraintVertical_bias="0.0" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/active_templates"
+        android:layout_width="237dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="34dp"
+        android:layout_marginTop="33dp"
+        android:layout_marginBottom="40dp"
+        android:clickable="true"
+        android:text="Active Templates"
+        android:textColor="#FFFFFF"
+        app:backgroundTint="#000000"
+        app:icon="@drawable/ic_baseline_feedback_24"
+        app:iconTint="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/templateListScrollView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

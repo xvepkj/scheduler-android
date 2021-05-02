@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_templateFragment_to_templateApplyFragment"
             app:destination="@id/templateApplyFragment" />
+        <action
+            android:id="@+id/action_templateFragment_to_templatePoolFragment"
+            app:destination="@id/templatePoolFragment" />
     </fragment>
     <fragment
         android:id="@+id/templateAddFragment"
