@@ -26,7 +26,6 @@ import com.example.scheduler.core.EventType
 import com.example.scheduler.core.ScheduledEvent
 import com.example.scheduler.ui.logger.LoggerViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import org.w3c.dom.Text
 
 class HomeFragment : Fragment() {
 
@@ -126,8 +125,14 @@ class HomeFragment : Fragment() {
         if(selecteddate!=Date.current())
           tracked_checkbutton.isEnabled=false
       } else if (event.eventType == EventType.LOGGED) {
+        val number = event.log_progress*100.0
+        val number3digits:Double = String.format("%.3f", number).toDouble()
+        val number2digits:Double = String.format("%.2f", number3digits).toDouble()
+        val solution:Double = String.format("%.1f", number2digits).toDouble()
         log_progress_text.visibility = VISIBLE
-        log_progress_text.setText(event.log_progress.toString())
+        if(selecteddate!=Date.current())
+          log_progress_text.isEnabled=false
+        log_progress_text.setText(solution.toString())
       }
       tracked_checkbutton.isChecked = event.completed==1
       tracked_checkbutton.setOnClickListener {

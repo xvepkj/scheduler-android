@@ -1,6 +1,5 @@
 package com.example.scheduler.ui.Statistics
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.scheduler.core.Date
 import com.example.scheduler.core.Time
@@ -32,6 +31,10 @@ class StatisticsViewModel : ViewModel() {
       doneTime += statsMap[date]!!.first
       totalTime += statsMap[date]!!.second
     }
-    return Pair(tagName,"$doneTime / $totalTime")
+    var doneInTimeFormat = Time.timeFromMillis(doneTime)
+    var totalInTimeFormat = Time.timeFromMillis(totalTime)
+    var done : String = doneInTimeFormat.h.toString() + "h" + doneInTimeFormat.m.toString() + "m"
+    var total : String = totalInTimeFormat.h.toString() + "h" + totalInTimeFormat.m.toString() + "m"
+    return Pair(tagName,"$done / $total")
   }
 }

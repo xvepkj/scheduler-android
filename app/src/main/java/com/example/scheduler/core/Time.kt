@@ -1,6 +1,5 @@
 package com.example.scheduler.core
 
-import java.lang.Math.round
 import java.util.*
 
 class Time (val h: Int, val m: Int) : Comparable<Time> {
@@ -23,7 +22,7 @@ class Time (val h: Int, val m: Int) : Comparable<Time> {
     }
 
     fun timeFromMillis(ms: Long): Time {
-      val x = ms / 1000000L
+      val x = ms / 60000L
       return Time((x / 60).toInt(), (x % 60).toInt())
     }
   }
