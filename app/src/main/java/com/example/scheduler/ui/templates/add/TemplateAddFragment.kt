@@ -65,7 +65,7 @@ class TemplateAddFragment : Fragment() {
     binding.templateAddNameField.doOnTextChanged{_,_,_,_ ->
       val input = binding.templateAddNameField.text.toString()
       for(templateName in templateNames) {
-        if (input.trim().equals(templateName, ignoreCase = true)) {
+        if (!TemplateFragment.TemplateEdit && input.trim().equals(templateName, ignoreCase = true)) {
           binding.templateAddNameField.error = "Template Name should be unique"
           break
         }
