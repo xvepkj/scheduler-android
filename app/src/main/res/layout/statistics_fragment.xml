@@ -26,21 +26,35 @@
 
     <ScrollView
         android:id="@+id/scroolview2"
-        android:layout_width="181dp"
+        android:layout_width="362dp"
         android:layout_height="486dp"
         android:layout_marginStart="20dp"
-        android:layout_marginEnd="190dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="54dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+
         <LinearLayout
-            android:id="@+id/statisticsList"
+            android:id="@+id/ln"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/statisticsList"
+                android:layout_width="181dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:id="@+id/statisticsList2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </LinearLayout>
     </ScrollView>
 
     <TextView
@@ -76,23 +90,5 @@
         app:layout_constraintStart_toEndOf="@+id/textView3"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ScrollView
-        android:id="@+id/scroolview"
-        android:layout_width="181dp"
-        android:layout_height="486dp"
-        android:layout_marginStart="190dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="54dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-            android:id="@+id/statisticsList2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
