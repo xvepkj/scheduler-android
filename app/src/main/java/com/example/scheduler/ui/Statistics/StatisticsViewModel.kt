@@ -7,31 +7,31 @@ import com.example.scheduler.core.Time
 import io.paperdb.Paper
 
 class StatisticsViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
-    val tags : MutableList<String>
-        get() = Paper.book().read("tags")
+  // TODO: Implement the ViewModel
+  val tags : MutableList<String>
+    get() = Paper.book("tags").read("list")
 
-    init {
-        if (!Paper.book().contains("tags")) {
-            Paper.book().write("tags", mutableListOf<String>())
-        }
+  init {
+    if (!Paper.book("tags").contains("list")) {
+      Paper.book("tags").write("list", mutableListOf<String>())
     }
-    fun addTag(name : String){
-        val tagList : MutableList<String> = Paper.book().read("tags")
-        tagList.add(name)
-        Paper.book().write("tags",tagList)
-        val map : MutableMap<Int,Any?> = mutableMapOf()
-        Paper.book().write(name,map)
+  }
+  fun addTag(name : String){
+    val tagList : MutableList<String> = Paper.book("tags").read("list")
+    tagList.add(name)
+    Paper.book("tags").write("list",tagList)
+    val map : MutableMap<Date, Pair<Long, Long>> = mutableMapOf()
+    Paper.book("stats").write(name,map)
+  }
+
+  fun loadStatistics(tagName : String): Pair<String,String> {
+    val statsMap : Map<Date, Pair<Long, Long>> = Paper.book("stats").read(tagName)
+    var doneTime: Long = 0L
+    var totalTime: Long = 0L
+    for(date in statsMap.keys){
+      doneTime += statsMap[date]!!.first
+      totalTime += statsMap[date]!!.second
     }
-    fun loadStatistics(tagName : String): Pair<String,String> {
-        val statisticsMap : Map<Date,Pair<Time, Time>> = Paper.book().read(tagName)
-        var doneTime : Time = Time(0,0)
-        var totalTime : Time = Time(0,0)
-        Log.d("DBG",tagName+statisticsMap.toString())
-        for(stat in statisticsMap.keys){
-            doneTime += statisticsMap[stat]!!.first
-            totalTime += statisticsMap[stat]!!.second
-        }
-        return Pair(tagName,"$doneTime / $totalTime")
-    }
+    return Pair(tagName,"$doneTime / $totalTime")
+  }
 }

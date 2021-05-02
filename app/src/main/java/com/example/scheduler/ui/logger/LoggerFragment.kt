@@ -67,7 +67,7 @@ class LoggerFragment : Fragment() {
 
     val event = homeViewModel.getLoggedEvent()
     eventNameText.setText(event.name)
-    val eventTotalTime = (event.endTime - event.startTime).toMillis()
+    val eventTotalTime = (event.endTime.toMillis() - event.startTime.toMillis())
 
     viewModel.cur.observe(viewLifecycleOwner,
       Observer<Long> {

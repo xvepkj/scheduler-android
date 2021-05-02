@@ -14,6 +14,7 @@ import com.example.scheduler.util.DailyUpdateReceiver
 import io.paperdb.Book
 import io.paperdb.Paper
 import java.util.*
+import kotlin.math.round
 
 class HomeViewModel(val app: Application) : AndroidViewModel(app) {
 
@@ -143,13 +144,16 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
       forceUpdate()
       //Statistics Part
       if(e.eventType != EventType.UNTRACKED) {
-        val map: MutableMap<Date, Pair<Time, Time>> = Paper.book().read(e.tag)
-        var current = Pair(Time(0, 0), Time(0, 0))
+        val map: MutableMap<Date, Pair<Long, Long>> = Paper.book("stats").read(e.tag)
+        var current = Pair(0L, 0L)
         if (map.containsKey(Date.current()))
           current = map[Date.current()]!!
-        map[Date.current()] = Pair(current.first,current.second + (e.endTime-e.startTime))
+        map[Date.current()] = Pair(
+          current.first,
+          current.second + (e.endTime.toMillis() - e.startTime.toMillis())
+        )
         Log.d("DBG",map.toString())
-        Paper.book().write(e.tag,map)
+        Paper.book("stats").write(e.tag, map)
       }
     }
     else {
@@ -175,14 +179,17 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
       forceUpdate()
       //Statistics Part
       if(e.eventType != EventType.UNTRACKED){
-        val mapOfTag : MutableMap<Date, Pair<Time, Time>> = Paper.book().read(e.tag)
+        val mapOfTag : MutableMap<Date, Pair<Long, Long>> = Paper.book("stats").read(e.tag)
         val current = mapOfTag[Date.current()]!!
-        var donePart = Time(0,0)
-        if(e.completed==1)
-          donePart = e.endTime - e.startTime
-        mapOfTag[Date.current()]=Pair(current.first - donePart,current.second-(e.endTime - e.startTime))
+        val donePart =
+          if (e.eventType == EventType.LOGGED) {
+            ((e.endTime.toMillis() - e.startTime.toMillis()) * e.log_progress).toLong()
+          } else {
+            (e.endTime.toMillis() - e.startTime.toMillis()) * e.completed
+          }
+        mapOfTag[Date.current()]=Pair(current.first - donePart,current.second-(e.endTime.toMillis() - e.startTime.toMillis()))
         Log.d("DBG",mapOfTag.toString())
-        Paper.book().write(e.tag,mapOfTag)
+        Paper.book("stats").write(e.tag,mapOfTag)
       }
     }
     else {
@@ -201,14 +208,14 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
     his[i] = event
     history.write(Date.current().toString(),his)
     //Statistics Part
-      val mapOfTag : MutableMap<Date, Pair<Time, Time>> = Paper.book().read(event.tag)
+      val mapOfTag : MutableMap<Date, Pair<Long, Long>> = Paper.book("stats").read(event.tag)
       val current = mapOfTag[Date.current()]!!
       if(completed_fraction==0)
-        mapOfTag[Date.current()]=Pair(current.first - (event.endTime-event.startTime),current.second)
+        mapOfTag[Date.current()]=Pair(current.first - (event.endTime.toMillis()-event.startTime.toMillis()),current.second)
       else
-        mapOfTag[Date.current()]=Pair(current.first + (event.endTime-event.startTime),current.second)
+        mapOfTag[Date.current()]=Pair(current.first + (event.endTime.toMillis()-event.startTime.toMillis()),current.second)
       Log.d("DBG",mapOfTag.toString())
-      Paper.book().write(event.tag,mapOfTag)
+      Paper.book("stats").write(event.tag,mapOfTag)
   }
 
 
@@ -230,12 +237,15 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
     his[logged_event_index] = event
     history.write(Date.current().toString(),his)
     //Statistics Part
-    val mapOfTag : MutableMap<Date, Pair<Time, Time>> = Paper.book().read(event.tag)
+    val mapOfTag : MutableMap<Date, Pair<Long, Long>> = Paper.book("stats").read(event.tag)
     val current = mapOfTag[Date.current()]!!
     // TODO: Store statistics as long/long instead of time/time?
-    mapOfTag[Date.current()]=Pair(current.first + (event.endTime-event.startTime) * progress_change,current.second)
+    mapOfTag[Date.current()]=Pair(
+      current.first + round((event.endTime.toMillis()-event.startTime.toMillis()) * progress_change).toLong(),
+      current.second
+    )
     Log.d("DBG",mapOfTag.toString())
-    Paper.book().write(event.tag,mapOfTag)
+    Paper.book("stats").write(event.tag,mapOfTag)
   }
 
   fun updateWorker (w: Worker) {
@@ -245,13 +255,13 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
   fun loadEventsToTag(eventList : MutableList<ScheduledEvent>){
     for(event in eventList){
       if(event.eventType != EventType.UNTRACKED) {
-        val map: MutableMap<Date, Pair<Time, Time>> = Paper.book().read(event.tag)
-        var current = Pair(Time(0, 0), Time(0, 0))
+        val map: MutableMap<Date, Pair<Long, Long>> = Paper.book("stats").read(event.tag)
+        var current = Pair(0L, 0L)
         if (map.containsKey(Date.current()))
           current = map[Date.current()]!!
-        map[Date.current()] = Pair(current.first,current.second + (event.endTime-event.startTime))
+        map[Date.current()] = Pair(current.first,current.second + (event.endTime.toMillis()-event.startTime.toMillis()))
         Log.d("DBG",map.toString())
-        Paper.book().write(event.tag,map)
+        Paper.book("stats").write(event.tag,map)
       }
     }
   }
