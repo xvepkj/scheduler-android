@@ -46,7 +46,7 @@
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="70dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="600dp"
@@ -65,7 +65,7 @@
         android:layout_marginBottom="29dp"
         android:text="About "
         android:textColor="#827F7F"
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView3"
         app:layout_constraintEnd_toEndOf="@id/imageView3"
         app:layout_constraintStart_toStartOf="@id/imageView3"
