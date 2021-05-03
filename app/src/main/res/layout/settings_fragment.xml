@@ -19,13 +19,12 @@
         android:background="#000000"
         android:text="Active Templates"
         android:textColor="#FFFFFF"
+        android:visibility="gone"
         app:backgroundTint="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-
 
 
     <Button
@@ -38,6 +37,7 @@
         android:background="#000000"
         android:text="set alarms"
         android:textColor="#FFFFFF"
+        android:visibility="gone"
         app:backgroundTint="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

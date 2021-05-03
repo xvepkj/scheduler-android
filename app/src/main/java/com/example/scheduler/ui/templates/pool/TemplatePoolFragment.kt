@@ -9,6 +9,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.scheduler.MainActivity
 import com.example.scheduler.R
 import com.example.scheduler.core.ActiveTemplate
 import com.example.scheduler.ui.home.HomeViewModel
@@ -29,6 +30,8 @@ class TemplatePoolFragment : Fragment() {
     savedInstanceState: Bundle?
   ): View? {
     val root = inflater.inflate(R.layout.template_pool_fragment, container, false)
+    (activity as MainActivity?)?.supportActionBar?.title = "Active Templates"
+
     linearLayout = root.findViewById(R.id.templatePoolLinearLayout)
     viewModel = ViewModelProvider(this).get(TemplatePoolViewModel::class.java)
     homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)

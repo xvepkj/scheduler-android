@@ -5,16 +5,16 @@
     android:id="@+id/frameLayout7"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".ui.templates.pool.TemplatePoolFragment">
 
     <ScrollView
         android:id="@+id/scrollView3"
-        android:layout_width="353dp"
-        android:layout_height="458dp"
+        android:layout_width="400dp"
+        android:layout_height="712dp"
         android:layout_marginStart="35dp"
-        android:layout_marginTop="19dp"
+        android:layout_marginTop="2dp"
         android:layout_marginEnd="35dp"
-        android:layout_marginBottom="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,6 +38,7 @@
         android:text="Active templates"
         android:textAlignment="center"
         android:textSize="30sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/scrollView3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

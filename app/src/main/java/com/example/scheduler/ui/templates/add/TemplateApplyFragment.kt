@@ -68,6 +68,9 @@ class TemplateApplyFragment : Fragment() {
     customDateLinearLayout = root.findViewById(R.id.applyCustomDatesList)
     viewModel = ViewModelProvider(requireActivity()).get(TemplateApplyViewModel::class.java)
     homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
+
+    viewModel.customDatesList.clear()
+
     repeat.setOnClickListener(){
       repeatView.visibility = VISIBLE
       customview.visibility = GONE

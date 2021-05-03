@@ -10,9 +10,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.scheduler.MainActivity
@@ -28,6 +26,7 @@ class StatisticsFragment : Fragment() {
     private lateinit var viewModel: StatisticsViewModel
     private lateinit var statsList: LinearLayout
     private lateinit var statsList2: LinearLayout
+    private lateinit var stats_spinner : Spinner
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,6 +37,14 @@ class StatisticsFragment : Fragment() {
         val addTag = root.findViewById<ExtendedFloatingActionButton>(R.id.add_Tag)
         statsList = root.findViewById<LinearLayout>(R.id.statisticsList)
         statsList2 = root.findViewById<LinearLayout>(R.id.statisticsList2)
+        stats_spinner = root.findViewById<Spinner>(R.id.stats_spinner)
+        val array: Array<String> = arrayOf("All time","Today's","Last Week's","Last Month's")
+        val adapter = ArrayAdapter<String>(
+            activity?.applicationContext!!,R.layout.stats_spinner_main, array
+        )
+        adapter.setDropDownViewResource(R.layout.stats_spinner_item);
+        stats_spinner.adapter = adapter
+
         addTag.setOnClickListener{
                 val builder: AlertDialog.Builder = android.app.AlertDialog.Builder(context)
                 builder.setTitle("New Tag")
