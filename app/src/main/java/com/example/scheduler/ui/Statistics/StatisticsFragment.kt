@@ -89,13 +89,13 @@ class StatisticsFragment : Fragment() {
             val tagStats : Pair<String, String> = viewModel.loadStatistics(tag)
             val textView = TextView(activity)
             textView.text = tagStats.first
-            textView.textSize= 20F
+            textView.textSize= 17F
             textView.gravity = Gravity.LEFT
             textView.setTextColor(Color.parseColor("#000000"));
             statsList.addView(textView)
             val textView2 = TextView(activity)
             textView2.text = tagStats.second
-            textView2.textSize= 20F
+            textView2.textSize= 17F
             textView2.gravity = Gravity.RIGHT
             textView2.setTextColor(Color.parseColor("#000000"));
             statsList2.addView(textView2)
