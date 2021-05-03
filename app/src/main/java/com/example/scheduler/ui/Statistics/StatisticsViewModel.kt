@@ -12,7 +12,11 @@ class StatisticsViewModel : ViewModel() {
 
   init {
     if (!Paper.book("tags").contains("list")) {
-      Paper.book("tags").write("list", mutableListOf<String>())
+      val tagList : MutableList<String> = mutableListOf()
+      tagList.add("Miscellaneous")
+      Paper.book("tags").write("list", tagList)
+      val map : MutableMap<Date, Pair<Long, Long>> = mutableMapOf()
+      Paper.book("stats").write("Miscellaneous",map)
     }
   }
   fun addTag(name : String){
