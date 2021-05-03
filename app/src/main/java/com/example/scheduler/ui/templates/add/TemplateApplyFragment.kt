@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -151,6 +152,10 @@ class TemplateApplyFragment : Fragment() {
         refreshCustomDatesList()
       }
       datePicker?.show()
+      datePicker?.getButton(DatePickerDialog.BUTTON_POSITIVE)!!
+        .setTextColor(ContextCompat.getColor(requireActivity(), R.color.dark_pink))
+      datePicker?.getButton(DatePickerDialog.BUTTON_NEGATIVE)!!
+        .setTextColor(ContextCompat.getColor(requireActivity(), R.color.dark_pink))
     }
 
     return root

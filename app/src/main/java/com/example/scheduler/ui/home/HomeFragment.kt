@@ -15,6 +15,7 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -87,6 +88,10 @@ class HomeFragment : Fragment() {
           loadSchedule(d)
         }
         datePicker?.show()
+        datePicker?.getButton(DatePickerDialog.BUTTON_POSITIVE)!!
+          .setTextColor(ContextCompat.getColor(requireActivity(), R.color.dark_pink))
+        datePicker?.getButton(DatePickerDialog.BUTTON_NEGATIVE)!!
+          .setTextColor(ContextCompat.getColor(requireActivity(), R.color.dark_pink))
         true
       }
       else -> super.onOptionsItemSelected(item)

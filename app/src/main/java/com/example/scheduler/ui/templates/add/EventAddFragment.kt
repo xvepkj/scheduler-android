@@ -9,6 +9,7 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -96,6 +97,10 @@ class EventAddFragment : Fragment() {
         )
       }
       timePicker?.show()
+      timePicker?.getButton(TimePickerDialog.BUTTON_POSITIVE)!!
+        .setTextColor(ContextCompat.getColor(requireActivity(), R.color.dark_pink))
+      timePicker?.getButton(TimePickerDialog.BUTTON_NEGATIVE)!!
+        .setTextColor(ContextCompat.getColor(requireActivity(), R.color.dark_pink))
     }
     endTimeTextView.setOnClickListener {
       val timePicker = context?.let {
@@ -108,6 +113,10 @@ class EventAddFragment : Fragment() {
         )
       }
       timePicker?.show()
+      timePicker?.getButton(TimePickerDialog.BUTTON_POSITIVE)!!
+        .setTextColor(ContextCompat.getColor(requireActivity(), R.color.dark_pink))
+      timePicker?.getButton(TimePickerDialog.BUTTON_NEGATIVE)!!
+        .setTextColor(ContextCompat.getColor(requireActivity(), R.color.dark_pink))
     }
 
     addButton.setOnClickListener {

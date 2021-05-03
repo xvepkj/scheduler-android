@@ -29,7 +29,7 @@
         <item name="android:textColor">@drawable/toggle_text_color</item>
     </style>
     <!-- Theme.AppCompat.Light.Dialog -->
-    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
+    <style name="DialogTheme" parent="@style/Theme.AppCompat.Light.Dialog">
         <item name="colorAccent">@color/dark_pink</item>
     </style>
 </resources>
