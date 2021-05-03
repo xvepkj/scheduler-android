@@ -7,6 +7,7 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.core.widget.doOnTextChanged
@@ -16,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.scheduler.MainActivity
 import com.example.scheduler.R
+import com.example.scheduler.core.EventType
 import com.example.scheduler.core.ScheduleTemplate
 import com.example.scheduler.core.ScheduledEvent
 import com.example.scheduler.databinding.TemplateAddFragmentBinding
@@ -114,6 +116,18 @@ class TemplateAddFragment : Fragment() {
       val view: View = layoutInflater.inflate(R.layout.event, null)
       val t = view.findViewById<TextView>(R.id.eventdetails)
       val crossbutton = view.findViewById<ImageButton>(R.id.removeevent)
+      val trackedEventCheckbox = view.findViewById<CheckBox>(R.id.tracked_checkbox)
+      val loggedProgress = view.findViewById<TextView>(R.id.log_progress_text)
+      if(event.eventType == EventType.TRACKED){
+        trackedEventCheckbox.visibility = VISIBLE
+        trackedEventCheckbox.isEnabled = false
+      }
+      if(event.eventType == EventType.LOGGED){
+        loggedProgress.text = "0.0"
+        loggedProgress.visibility = VISIBLE
+        loggedProgress.isEnabled = false
+      }
+
       t.text = event.toString()
       crossbutton.setOnClickListener{
         viewModel.events.value?.removeAt(i)
