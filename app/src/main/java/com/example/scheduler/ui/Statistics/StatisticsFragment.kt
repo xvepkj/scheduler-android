@@ -1,6 +1,7 @@
 package com.example.scheduler.ui.Statistics
 
 import android.app.AlertDialog
+import android.app.DatePickerDialog
 import android.content.DialogInterface
 import android.graphics.Color
 import android.os.Bundle
@@ -11,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.scheduler.MainActivity
@@ -28,8 +30,8 @@ class StatisticsFragment : Fragment() {
     private lateinit var statsList2: LinearLayout
     private lateinit var stats_spinner : Spinner
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         val root =inflater.inflate(R.layout.statistics_fragment, container, false)
         (activity as MainActivity?)?.supportActionBar?.title = "Statistics"
@@ -38,9 +40,9 @@ class StatisticsFragment : Fragment() {
         statsList = root.findViewById<LinearLayout>(R.id.statisticsList)
         statsList2 = root.findViewById<LinearLayout>(R.id.statisticsList2)
         stats_spinner = root.findViewById<Spinner>(R.id.stats_spinner)
-        val array: Array<String> = arrayOf("All time","Today's","Last Week's","Last Month's")
+        val array: Array<String> = arrayOf("All time", "Today's", "Last Week's", "Last Month's")
         val adapter = ArrayAdapter<String>(
-            activity?.applicationContext!!,R.layout.stats_spinner_main, array
+                activity?.applicationContext!!, R.layout.stats_spinner_main, array
         )
         adapter.setDropDownViewResource(R.layout.stats_spinner_item);
         stats_spinner.adapter = adapter
@@ -57,14 +59,19 @@ class StatisticsFragment : Fragment() {
 
                 builder.setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
                     var newTagName = input.text.toString()
-                    Log.d("DBG",newTagName)
+                    Log.d("DBG", newTagName)
                     viewModel.addTag(newTagName)
-                    Log.d("DBG",viewModel.tags.toString())
+                    Log.d("DBG", viewModel.tags.toString())
                     loadStatisticstoUI()
                 })
                 builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
+                val dialog = builder.create()
+                dialog.show()
+                dialog?.getButton(DatePickerDialog.BUTTON_POSITIVE)!!
+                    .setTextColor(ContextCompat.getColor(requireActivity(), R.color.dark_pink))
+                dialog?.getButton(DatePickerDialog.BUTTON_NEGATIVE)!!
+                    .setTextColor(ContextCompat.getColor(requireActivity(), R.color.dark_pink))
 
-                builder.show()
         }
         loadStatisticstoUI()
         return root
@@ -79,7 +86,7 @@ class StatisticsFragment : Fragment() {
         statsList.removeAllViews()
         statsList2.removeAllViews()
         for(tag in viewModel.tags){
-            val tagStats : Pair<String,String> = viewModel.loadStatistics(tag)
+            val tagStats : Pair<String, String> = viewModel.loadStatistics(tag)
             val textView = TextView(activity)
             textView.text = tagStats.first
             textView.textSize= 20F
