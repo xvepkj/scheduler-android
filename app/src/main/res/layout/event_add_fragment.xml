@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout5"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    tools:context=".ui.templates.add.EventAddFragment">
+
+    <EditText
+        android:id="@+id/eventAddNameTextField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="67dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="134dp"
+        android:layout_marginBottom="10dp"
+        android:ems="10"
+        android:hint="Event name"
+        android:inputType="textPersonName"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#757575"
+        app:layout_constraintBottom_toTopOf="@+id/eventAddStartTime"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/eventAddAddButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="67dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="256dp"
+        android:layout_marginBottom="200dp"
+        android:background="@color/dark_pink"
+        android:text="Add"
+        android:textColor="#FEFEFE"
+        app:backgroundTint="@color/dark_pink"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup3" />
+
+    <TextView
+        android:id="@+id/eventAddStartTime"
+        android:layout_width="104dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="67dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="240dp"
+        android:layout_marginBottom="10dp"
+        android:text="Start time"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/eventAddEndTime"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eventAddNameTextField" />
+
+    <TextView
+        android:id="@+id/eventAddEndTime"
+        android:layout_width="104dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="67dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="240dp"
+        android:layout_marginBottom="200dp"
+        android:text="End time"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/eventAddAddButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eventAddStartTime" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup3"
+        android:layout_width="198dp"
+        android:layout_height="146dp"
+        android:layout_marginStart="67dp"
+        android:layout_marginTop="95dp"
+        android:layout_marginEnd="146dp"
+        android:layout_marginBottom="48dp"
+        android:checkedButton="@+id/untracked"
+        app:layout_constraintBottom_toTopOf="@+id/eventAddAddButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eventAddEndTime">
+
+        <RadioButton
+            android:id="@+id/untracked"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/dark_pink"
+            android:text="Untracked"
+            android:textColor="#FEFEFE" />
+
+        <RadioButton
+            android:id="@+id/tracked"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/dark_pink"
+            android:text="Tracked"
+            android:textColor="#FFFFFF" />
+
+        <RadioButton
+            android:id="@+id/logged"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/dark_pink"
+            android:text="Logged"
+            android:textColor="#FFFFFF" />
+    </RadioGroup>
+
+    <Spinner
+        android:id="@+id/select_Tag"
+        android:layout_width="175dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="67dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="170dp"
+        android:layout_marginBottom="64dp"
+        android:background="@color/dark_pink"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/eventAddAddButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup3" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

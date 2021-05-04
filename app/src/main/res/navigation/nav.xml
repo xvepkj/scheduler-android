@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.scheduler.ui.settings.main.SettingsFragment"
+        android:label="settings_fragment"
+        tools:layout="@layout/settings_fragment" >
+        <action
+            android:id="@+id/action_settingsFragment_to_templatePoolFragment"
+            app:destination="@id/templatePoolFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_blankFragment"
+            app:destination="@id/blankFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.scheduler.ui.home.HomeFragment"
+        android:label="home_fragment"
+        tools:layout="@layout/home_fragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_eventAddFragment"
+            app:destination="@id/eventAddFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_loggerFragment"
+            app:destination="@id/loggerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/templateFragment"
+        android:name="com.example.scheduler.ui.templates.main.TemplateFragment"
+        android:label="template_fragment"
+        tools:layout="@layout/template_fragment" >
+        <action
+            android:id="@+id/action_templateFragment_to_templateAddFragment"
+            app:destination="@id/templateAddFragment" />
+        <action
+            android:id="@+id/action_templateFragment_to_templateApplyFragment"
+            app:destination="@id/templateApplyFragment" />
+        <action
+            android:id="@+id/action_templateFragment_to_templatePoolFragment"
+            app:destination="@id/templatePoolFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/templateAddFragment"
+        android:name="com.example.scheduler.ui.templates.add.TemplateAddFragment"
+        android:label="template_add_fragment"
+        tools:layout="@layout/template_add_fragment" >
+        <action
+            android:id="@+id/action_templateAddFragment_to_templateFragment"
+            app:destination="@id/templateFragment" />
+        <action
+            android:id="@+id/action_templateAddFragment_to_eventAddFragment"
+            app:destination="@id/eventAddFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/eventAddFragment"
+        android:name="com.example.scheduler.ui.templates.add.EventAddFragment"
+        android:label="event_add_fragment"
+        tools:layout="@layout/event_add_fragment" >
+        <action
+            android:id="@+id/action_eventAddFragment_to_templateAddFragment"
+            app:destination="@id/templateAddFragment" />
+        <action
+            android:id="@+id/action_eventAddFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/templateApplyFragment"
+        android:name="com.example.scheduler.ui.templates.add.TemplateApplyFragment"
+        android:label="template_apply_fragment"
+        tools:layout="@layout/template_apply_fragment" >
+        <action
+            android:id="@+id/action_templateApplyFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/templatePoolFragment"
+        android:name="com.example.scheduler.ui.templates.pool.TemplatePoolFragment"
+        android:label="template_pool_fragment"
+        tools:layout="@layout/template_pool_fragment" />
+    <fragment
+        android:id="@+id/statisticsfragment"
+        android:name="com.example.scheduler.ui.Statistics.StatisticsFragment"
+        android:label="statistics_fragment"
+        tools:layout="@layout/statistics_fragment" />
+    <fragment
+        android:id="@+id/blankFragment"
+        android:name="com.example.scheduler.ui.settings.about.BlankFragment"
+        android:label="fragment_blank"
+        tools:layout="@layout/about" />
+    <fragment
+        android:id="@+id/loggerFragment"
+        android:name="com.example.scheduler.ui.logger.LoggerFragment"
+        android:label="logger_fragment"
+        tools:layout="@layout/logger_fragment" />
+</navigation>

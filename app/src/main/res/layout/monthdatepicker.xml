@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/maindatepickerlayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="426dp"
+        android:layout_height="55dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.38"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.78">
+
+        <ToggleButton
+            android:id="@+id/date1"
+            style="@style/toggleButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/toggle_bg"
+            android:textOff="1"
+            android:textOn="1" />
+
+        <ToggleButton
+            android:id="@+id/date2"
+            style="@style/toggleButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/toggle_bg"
+            android:textOff="2"
+            android:textOn="2" />
+
+        <ToggleButton
+            android:id="@+id/date3"
+            style="@style/toggleButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/toggle_bg"
+            android:textOff="3"
+            android:textOn="3" />
+
+        <ToggleButton
+            android:id="@+id/date4"
+            style="@style/toggleButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/toggle_bg"
+            android:textOff="4"
+            android:textOn="4" />
+
+        <ToggleButton
+            android:id="@+id/date5"
+            style="@style/toggleButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/toggle_bg"
+            android:textOff="5"
+            android:textOn="5" />
+
+        <ToggleButton
+            android:id="@+id/date6"
+            style="@style/toggleButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/toggle_bg"
+            android:textOff="6"
+            android:textOn="6" />
+
+        <ToggleButton
+            android:id="@+id/date7"
+            style="@style/toggleButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/toggle_bg"
+            android:textOff="7"
+            android:textOn="7" />
+
+        <ToggleButton
+            android:id="@+id/date8"
+            style="@style/toggleButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/toggle_bg"
+            android:textOff="8"
+            android:textOn="8" />
+
+        <ToggleButton
+            android:id="@+id/date9"
+            style="@style/toggleButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/toggle_bg"
+            android:textOff="9"
+            android:textOn="9" />
+
+        <ToggleButton
+            android:id="@+id/date10"
+            style="@style/toggleButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/toggle_bg"
+            android:textOff="10"
+            android:textOn="`10`" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="426dp"
+        android:layout_height="55dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.857">
+
+        <ToggleButton
+            android:id="@+id/date11"
+            style="@style/toggleButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/toggle_bg"
+            android:textOff="11"
+            android:textOn="11" />
+
+        <ToggleButton
+            android:id="@+id/date12"
+            style="@style/toggleButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/toggle_bg"
+            android:textOff="12"
+            android:textOn="12" />
+
+        <ToggleButton
+            android:id="@+id/date13"
+            style="@style/toggleButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/toggle_bg"
+            android:textOff="13"
+            android:textOn="13" />
+
+        <ToggleButton
+            android:id="@+id/date14"
+            style="@style/toggleButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/toggle_bg"
+            android:textOff="14"
+            android:textOn="14" />
+
+        <ToggleButton
+            android:id="@+id/date15"
+            style="@style/toggleButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/toggle_bg"
+            android:textOff="15"
+            android:textOn="15" />
+
+        <ToggleButton
+            android:id="@+id/date16"
+            style="@style/toggleButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/toggle_bg"
+            android:textOff="16"
+            android:textOn="16" />
+
+        <ToggleButton
+            android:id="@+id/date17"
+            style="@style/toggleButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/toggle_bg"
+            android:textOff="17"
+            android:textOn="17" />
+
+        <ToggleButton
+            android:id="@+id/date18"
+            style="@style/toggleButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/toggle_bg"
+            android:textOff="18"
+            android:textOn="18" />
+
+        <ToggleButton
+            android:id="@+id/date19"
+            style="@style/toggleButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/toggle_bg"
+            android:textOff="19"
+            android:textOn="19" />
+
+        <ToggleButton
+            android:id="@+id/date20"
+            style="@style/toggleButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/toggle_bg"
+            android:textOff="20"
+            android:textOn="20" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="426dp"
+        android:layout_height="55dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.857">
+
+        <ToggleButton
+            android:id="@+id/date21"
+            style="@style/toggleButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/toggle_bg"
+            android:textOff="21"
+            android:textOn="21" />
+
+        <ToggleButton
+            android:id="@+id/date22"
+            style="@style/toggleButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/toggle_bg"
+            android:textOff="22"
+            android:textOn="22" />
+
+        <ToggleButton
+            android:id="@+id/date23"
+            style="@style/toggleButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/toggle_bg"
+            android:textOff="23"
+            android:textOn="23" />
+
+        <ToggleButton
+            android:id="@+id/date24"
+            style="@style/toggleButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/toggle_bg"
+            android:textOff="24"
+            android:textOn="24" />
+
+        <ToggleButton
+            android:id="@+id/date25"
+            style="@style/toggleButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/toggle_bg"
+            android:textOff="25"
+            android:textOn="25" />
+
+        <ToggleButton
+            android:id="@+id/date26"
+            style="@style/toggleButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/toggle_bg"
+            android:textOff="26"
+            android:textOn="26" />
+
+        <ToggleButton
+            android:id="@+id/date27"
+            style="@style/toggleButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/toggle_bg"
+            android:textOff="27"
+            android:textOn="27" />
+
+        <ToggleButton
+            android:id="@+id/date28"
+            style="@style/toggleButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/toggle_bg"
+            android:textOff="28"
+            android:textOn="28" />
+
+        <ToggleButton
+            android:id="@+id/date29"
+            style="@style/toggleButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/toggle_bg"
+            android:textOff="29"
+            android:textOn="29" />
+
+        <ToggleButton
+            android:id="@+id/date30"
+            style="@style/toggleButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/toggle_bg"
+            android:textOff="30"
+            android:textOn="30" />
+    </LinearLayout>
+
+</LinearLayout>
