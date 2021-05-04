@@ -56,8 +56,8 @@
 
     <Button
         android:id="@+id/templateAddButton"
-        android:layout_width="70dp"
-        android:layout_height="43dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
@@ -75,8 +75,8 @@
 
     <Button
         android:id="@+id/templateRemoveButton"
-        android:layout_width="109dp"
-        android:layout_height="43dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         android:background="#000000"
@@ -87,15 +87,15 @@
         android:textColor="#FFFFFF"
         app:backgroundTint="@color/button_color"
         app:layout_constraintBottom_toTopOf="@+id/templateDescScrollView"
-        app:layout_constraintStart_toEndOf="@+id/templateApplyButton"
         app:layout_constraintEnd_toStartOf="@id/templateEditButton"
+        app:layout_constraintStart_toEndOf="@+id/templateApplyButton"
         app:layout_constraintTop_toBottomOf="@+id/templateListScrollView"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/templateApplyButton"
-        android:layout_width="85dp"
-        android:layout_height="43dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         android:background="#000000"
@@ -114,14 +114,14 @@
 
     <Button
         android:id="@+id/templateEditButton"
-        android:layout_width="83dp"
-        android:layout_height="43dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:background="#000000"
-        android:scaleX="0.8"
         android:enabled="false"
+        android:scaleX="0.8"
         android:scaleY="0.8"
         android:text="EDIT"
         android:textColor="#FFFFFF"
