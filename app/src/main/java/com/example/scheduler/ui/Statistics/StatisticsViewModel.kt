@@ -27,11 +27,12 @@ class StatisticsViewModel : ViewModel() {
     Paper.book("stats").write(name,map)
   }
 
-  fun loadStatistics(tagName : String): Pair<String,String> {
+  fun loadStatistics(tagName : String, numDays: Int = -1): Pair<String,String> {
     val statsMap : Map<Date, Pair<Long, Long>> = Paper.book("stats").read(tagName)
     var doneTime: Long = 0L
     var totalTime: Long = 0L
     for(date in statsMap.keys){
+      if (numDays != -1 && Date.difference(Date.current(), date) >= numDays) continue
       doneTime += statsMap[date]!!.first
       totalTime += statsMap[date]!!.second
     }
