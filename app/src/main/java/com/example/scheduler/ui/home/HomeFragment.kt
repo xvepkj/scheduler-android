@@ -113,7 +113,7 @@ class HomeFragment : Fragment() {
     linearLayout.removeAllViews()
     for (i in schedule.indices) {
       val event = schedule[i]
-      val view: View = layoutInflater.inflate(R.layout.event, null)
+      val view: View = layoutInflater.inflate(R.layout.event_home, null)
       val eventname = view.findViewById<TextView>(R.id.eventdetails)
       val starttime = view.findViewById<TextView>(R.id.starttime)
       val endtime = view.findViewById<TextView>(R.id.endtime)

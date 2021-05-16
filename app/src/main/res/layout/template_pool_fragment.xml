@@ -10,10 +10,10 @@
 
     <ScrollView
         android:id="@+id/scrollView3"
-        android:layout_width="400dp"
-        android:layout_height="712dp"
+        android:layout_width="393dp"
+        android:layout_height="663dp"
         android:layout_marginStart="35dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="35dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
