@@ -3,8 +3,7 @@
     <item android:bottom="120dp">
         <shape android:shape="rectangle" >
             <corners
-                android:topRightRadius="8dip"
-                android:topLeftRadius="8dip" />
+                />
 
             <gradient
                 android:startColor="@color/lightest_pink"
@@ -15,8 +14,7 @@
     <item android:top="160dp" >
         <shape android:shape="rectangle" >
             <corners
-                android:bottomLeftRadius="8dip"
-                android:bottomRightRadius="8dip" />
+               />
 
             <gradient
                 android:startColor="#ccb9bc"

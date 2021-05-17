@@ -3,8 +3,7 @@
     <item android:left="200dp">
         <shape android:shape="rectangle" >
             <corners
-                android:topRightRadius="8dip"
-                android:topLeftRadius="8dip" />
+                 />
 
             <gradient
                 android:startColor="@color/colorWhite"
@@ -15,8 +14,7 @@
     <item android:right="200dp" >
         <shape android:shape="rectangle" >
             <corners
-                android:bottomLeftRadius="8dip"
-                android:bottomRightRadius="8dip" />
+                 />
 
             <gradient
                 android:startColor="#D1C9CA"
