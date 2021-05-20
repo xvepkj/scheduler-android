@@ -18,6 +18,7 @@
         android:layout_marginBottom="10dp"
         android:ems="10"
         android:hint="Event name"
+        android:backgroundTint="@color/lightest_pink"
         android:inputType="textPersonName"
         android:textColor="#FFFFFF"
         android:textColorHint="#757575"

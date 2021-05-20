@@ -130,6 +130,7 @@
             android:layout_marginTop="50dp"
             android:ems="10"
             android:hint="Frequency"
+            android:backgroundTint="@color/lightest_pink"
             android:inputType="textPersonName"
             android:textColor="#FFFFFF"
             android:textColorHint="#767575"
