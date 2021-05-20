@@ -32,5 +32,24 @@ class ActiveTemplate(val templatename: String, val repeats: Boolean) {
       }
     // TODO
   }
-  override fun toString() = "$templatename,$repeats,${if (repeats) repeatCriteria else ""},$daySelection"
+  override fun toString() : String {
+    var output: String = templatename.toString() + "\n"
+    if (repeats) {
+      output += repeatCriteria.repeatType.toString() + "\n"
+      output += "Start: " + repeatCriteria.startDate.toString() + "\n"
+      if (repeatCriteria.repeatType == RepeatType.WEEKLY) {
+        output += "Weekdays: " + repeatCriteria.list
+      } else if (repeatCriteria.repeatType == RepeatType.MONTHLY) {
+        output += "Dates: " + repeatCriteria.list
+      }
+      else {
+        output += "Frequency: ${repeatCriteria.list[0]}"
+      }
+    }
+    else {
+      output += "CUSTOM SELECTION" + "\n"
+      output += "Dates: $daySelection"
+    }
+    return output
+  }
 }

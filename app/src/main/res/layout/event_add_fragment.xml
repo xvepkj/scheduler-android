@@ -12,6 +12,7 @@
         android:id="@+id/eventAddNameTextField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textCursorDrawable="@drawable/color_cursor"
         android:layout_marginStart="67dp"
         android:layout_marginTop="68dp"
         android:layout_marginEnd="134dp"

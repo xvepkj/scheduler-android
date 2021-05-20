@@ -129,6 +129,7 @@
             android:layout_marginStart="114dp"
             android:layout_marginTop="50dp"
             android:backgroundTint="@color/lightest_pink"
+            android:textCursorDrawable="@drawable/color_cursor"
             android:ems="10"
             android:hint="Frequency"
             android:inputType="textPersonName"

@@ -50,7 +50,7 @@ class TemplatePoolFragment : Fragment() {
     linearLayout.removeAllViews()
     for (i in pool.indices) {
       val activeTemplate : ActiveTemplate = pool[i]
-      val view: View = layoutInflater.inflate(R.layout.event_home, null)
+      val view: View = layoutInflater.inflate(R.layout.active_template_item, null)
       val t = view.findViewById<TextView>(R.id.eventdetails)
       val starttime = view.findViewById<TextView>(R.id.starttime)
       val endtime = view.findViewById<TextView>(R.id.endtime)
