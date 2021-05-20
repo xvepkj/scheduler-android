@@ -40,7 +40,7 @@
         android:scaleX="1.1"
         android:scaleY="1.1"
         android:src="@android:drawable/ic_input_add"
-        app:backgroundTint="#ba6b6c"
+        app:backgroundTint="@color/dark_pink"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/homeScrollView"
         app:layout_constraintStart_toStartOf="@+id/homeScrollView"

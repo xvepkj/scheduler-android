@@ -115,6 +115,8 @@ class TemplateAddFragment : Fragment() {
       val event = events[i]
       val view: View = layoutInflater.inflate(R.layout.event, null)
       val t = view.findViewById<TextView>(R.id.eventdetails)
+      val starttime = view.findViewById<TextView>(R.id.starttime)
+      val endtime = view.findViewById<TextView>(R.id.endtime)
       val crossbutton = view.findViewById<ImageButton>(R.id.removeevent)
       val trackedEventCheckbox = view.findViewById<CheckBox>(R.id.tracked_checkbox)
       val loggedProgress = view.findViewById<TextView>(R.id.log_progress_text)
@@ -128,7 +130,9 @@ class TemplateAddFragment : Fragment() {
         loggedProgress.isEnabled = false
       }
 
-      t.text = event.toString()
+      t.text = event.name
+      starttime.text = event.startTime.toString()
+      endtime.text = event.endTime.toString()
       crossbutton.setOnClickListener{
         viewModel.events.value?.removeAt(i)
         showEvents(events)

@@ -9,11 +9,12 @@
     tools:context=".ui.templates.add.TemplateAddFragment">
 
     <TextView
-        android:layout_width="57dp"
-        android:layout_height="31dp"
+        android:layout_width="wrap_content"
+        android:layout_height="46dp"
         android:layout_marginStart="36dp"
-        android:layout_marginTop="88dp"
-        android:text="Name"
+        android:layout_marginTop="84dp"
+        android:fontFamily="More Fonts..."
+        android:text="Name "
         android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,7 +43,7 @@
         android:layout_marginTop="7dp"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="200dp"
-        android:background="#ef9a9a"
+        android:background="@color/light_pink"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

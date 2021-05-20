@@ -13,11 +13,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.scheduler.MainActivity
 import com.example.scheduler.R
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+
 
 class StatisticsFragment : Fragment() {
 
@@ -54,13 +56,15 @@ class StatisticsFragment : Fragment() {
 
     stats_spinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
       override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        loadStatisticstoUI(when(position) {
-          0 -> COUNT_ALL_TIME
-          1 -> COUNT_TODAY
-          2 -> COUNT_LAST_WEEK
-          3 -> COUNT_LAST_MONTH
-          else -> COUNT_ALL_TIME
-        })
+        loadStatisticstoUI(
+          when (position) {
+            0 -> COUNT_ALL_TIME
+            1 -> COUNT_TODAY
+            2 -> COUNT_LAST_WEEK
+            3 -> COUNT_LAST_MONTH
+            else -> COUNT_ALL_TIME
+          }
+        )
       }
 
       override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -84,7 +88,9 @@ class StatisticsFragment : Fragment() {
         Log.d("DBG", viewModel.tags.toString())
         loadStatisticstoUI(COUNT_ALL_TIME)
       })
-      builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
+      builder.setNegativeButton(
+        "Cancel",
+        DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
       val dialog = builder.create()
       dialog.show()
       dialog?.getButton(DatePickerDialog.BUTTON_POSITIVE)!!
@@ -110,12 +116,16 @@ class StatisticsFragment : Fragment() {
       val textView = TextView(activity)
       textView.text = tagStats.first
       textView.textSize= 17F
+      val typeface = ResourcesCompat.getFont(requireContext(), R.font.biorhyme_light)
+      textView.typeface = typeface
       textView.gravity = Gravity.LEFT
       textView.setTextColor(Color.parseColor("#000000"));
       statsList.addView(textView)
       val textView2 = TextView(activity)
       textView2.text = tagStats.second
       textView2.textSize= 17F
+      val typeface2 = ResourcesCompat.getFont(requireContext(), R.font.biorhyme_light)
+      textView2.typeface = typeface2
       textView2.gravity = Gravity.RIGHT
       textView2.setTextColor(Color.parseColor("#000000"));
       statsList2.addView(textView2)

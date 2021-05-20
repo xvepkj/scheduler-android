@@ -17,7 +17,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#ba6b6c"
+            android:background="@color/dark_pink"
             app:popupTheme="@style/Theme.Scheduler.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>

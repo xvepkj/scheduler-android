@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<TextView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:textSize="14sp"
-    android:gravity="left"
     android:background="@android:color/transparent"
-    android:textColor="@color/black"
     android:drawableRight="@drawable/ic_baseline_arrow_drop_down_24"
     android:drawableTint="@color/black"
-
+    android:fontFamily="@font/biorhyme_light"
+    android:gravity="left"
     android:padding="5dip"
-    />
+    android:textColor="@color/black"
+
+    android:textSize="14sp" />

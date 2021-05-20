@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -18,6 +19,7 @@ import com.example.scheduler.databinding.TemplateFragmentBinding
 import com.example.scheduler.ui.home.HomeViewModel
 import com.example.scheduler.ui.templates.add.TemplateAddViewModel
 import com.example.scheduler.ui.templates.add.TemplateApplyViewModel
+
 
 class TemplateFragment : Fragment() {
 
@@ -78,7 +80,7 @@ class TemplateFragment : Fragment() {
       if(!currentlyapplied)
         templateViewModel.removeTemplate(applyViewModel.template)
       else
-        Toast.makeText(context,"This template is currently applied",Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "This template is currently applied", Toast.LENGTH_SHORT).show()
       showTemplateList(viewModel.getTemplateNames())
     }
     showTemplateList(viewModel.getTemplateNames())
@@ -95,7 +97,9 @@ class TemplateFragment : Fragment() {
     for (name in names) {
       val textView = TextView(activity)
       textView.text = name
-      textView.textSize= 20F
+      textView.textSize= 18F
+      val typeface = ResourcesCompat.getFont(requireContext(), R.font.biorhyme_light)
+      textView.typeface = typeface
       textView.setTextColor(Color.parseColor("#000000"));
       textView.setOnClickListener {
         showTemplateDesc(name)
@@ -115,6 +119,8 @@ class TemplateFragment : Fragment() {
       for (event in template.events) {
       val textView = TextView(activity)
       textView.text = event.toString()
+        val typeface = ResourcesCompat.getFont(requireContext(), R.font.biorhyme_light)
+        textView.typeface = typeface
         textView.setTextColor(Color.parseColor("#000000"));
         binding.templateDescLinearLayout.addView(textView)
     }
