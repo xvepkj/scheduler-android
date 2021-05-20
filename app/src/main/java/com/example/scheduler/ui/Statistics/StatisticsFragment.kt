@@ -73,13 +73,15 @@ class StatisticsFragment : Fragment() {
     }
     addTag.setOnClickListener{
       val builder: AlertDialog.Builder = android.app.AlertDialog.Builder(context)
+      val inflater = this.layoutInflater
+      val dialogView = inflater.inflate(R.layout.custom_dialog_box_edittext, null)
       builder.setTitle("New Tag")
 
-      val input = EditText(context)
+      val input : EditText = dialogView.findViewById(R.id.edit1)
 
-      input.hint = "   Enter Tag name"
+      input.hint = "Enter Tag name"
       input.inputType = InputType.TYPE_CLASS_TEXT
-      builder.setView(input)
+      builder.setView(dialogView)
 
       builder.setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
         var newTagName = input.text.toString()

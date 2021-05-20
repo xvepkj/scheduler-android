@@ -166,6 +166,7 @@ class TemplateApplyFragment : Fragment() {
     for (d in viewModel.customDatesList) {
       val textView = TextView(activity)
       textView.text = d.toString()
+      textView.textSize = 15F
       customDateLinearLayout.addView(textView)
     }
   }

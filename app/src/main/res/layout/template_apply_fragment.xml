@@ -48,7 +48,7 @@
         android:layout_height="5dp"
         android:layout_marginTop="96dp"
         android:layout_marginBottom="454dp"
-        android:background="#AC0412"
+        android:background="@color/dark_pink"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -64,7 +64,7 @@
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="150dp"
         android:orientation="vertical"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -128,9 +128,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="114dp"
             android:layout_marginTop="50dp"
+            android:backgroundTint="@color/lightest_pink"
             android:ems="10"
             android:hint="Frequency"
-            android:backgroundTint="@color/lightest_pink"
             android:inputType="textPersonName"
             android:textColor="#FFFFFF"
             android:textColorHint="#767575"
@@ -154,7 +154,7 @@
         android:layout_marginTop="1dp"
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="150dp"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -177,10 +177,10 @@
 
             <LinearLayout
                 android:id="@+id/applyCustomDatesList"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="96dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:orientation="vertical" />
         </ScrollView>
 
@@ -210,26 +210,28 @@
         android:paddingLeft="18dp"
         android:paddingBottom="8dp"
         android:text="CROSS"
+        android:visibility="gone"
         app:backgroundTint="@color/dark_pink"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/applyTemplateButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider" />
 
-    <Button
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/applyTemplateButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
         android:layout_marginTop="410dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
         android:gravity="bottom"
         android:paddingLeft="25dp"
-        android:paddingBottom="8dp"
-        android:text="TICK"
+        android:paddingBottom="15dp"
+        android:text="Apply"
         app:backgroundTint="@color/dark_pink"
+        app:icon="@drawable/ic_baseline_touch_app_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button4"
         app:layout_constraintTop_toBottomOf="@+id/divider" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
