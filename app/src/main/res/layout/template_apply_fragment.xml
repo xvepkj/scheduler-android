@@ -64,7 +64,7 @@
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="150dp"
         android:orientation="vertical"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -129,12 +129,12 @@
             android:layout_marginStart="114dp"
             android:layout_marginTop="50dp"
             android:backgroundTint="@color/lightest_pink"
-            android:textCursorDrawable="@drawable/color_cursor"
             android:ems="10"
             android:hint="Frequency"
             android:inputType="textPersonName"
             android:textColor="#FFFFFF"
             android:textColorHint="#767575"
+            android:textCursorDrawable="@drawable/color_cursor"
             android:visibility="gone" />
 
         <ca.antonious.materialdaypicker.MaterialDayPicker
@@ -155,7 +155,7 @@
         android:layout_marginTop="1dp"
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="150dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
