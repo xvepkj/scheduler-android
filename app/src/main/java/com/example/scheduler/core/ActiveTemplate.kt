@@ -39,16 +39,16 @@ class ActiveTemplate(val templatename: String, val repeats: Boolean) {
       output += "Start: " + repeatCriteria.startDate.toString() + "\n"
       if (repeatCriteria.repeatType == RepeatType.WEEKLY) {
         val weekdayList : MutableList<String> = mutableListOf()
-        for(day in repeatCriteria.list.indices){
+        for(day in repeatCriteria.list){
           weekdayList.add(
           when(day){
-            0 -> "Sa"
             1 -> "Su"
             2 -> "Mo"
             3 -> "Tu"
             4 -> "We"
             5 -> "Th"
             6 -> "Fr"
+            7 -> "Sa"
             else -> "?"
           })
         }
