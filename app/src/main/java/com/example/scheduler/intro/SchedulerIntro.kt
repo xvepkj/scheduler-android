@@ -24,19 +24,26 @@ class SchedulerIntro : AppIntro2() {
         addSlide(
             AppIntroFragment.newInstance(
                 title = "Add Events",
-                description = "Events are of three types untracked,tracked,logged with the two latter" +
-                        " ones being trackable.You can add tags for these in Stats Screen.",
+                description = "Events are of three types untracked, tracked and logged with the two latter" +
+                        " ones being trackable. You can add tags for events in the Stats Screen.",
                 imageDrawable = R.drawable.add_event,
                 backgroundDrawable = R.drawable.intro_screen2
             ))
         addSlide(
             AppIntroFragment.newInstance(
                 title = "Add Templates",
-                description = "Templates are set of activities you can apply these according to" +
-                        " different criteria in templates screen.Active instance of templates can be " +
-                        "removed using Active templates button.",
+                description = "Templates are a set of activities that you can apply according to" +
+                        " different criteria in the templates screen..",
                 imageDrawable = R.drawable.template,
                 backgroundDrawable = R.drawable.intro_screen1
+            ))
+        addSlide(
+            AppIntroFragment.newInstance(
+                title = "Active Templates",
+                description = "Active Templates are applied instances of a template. You can remove these" +
+                        " in the templates screen.",
+                imageDrawable = R.drawable.active_templates,
+                backgroundDrawable = R.drawable.intro_screen2
             ))
     }
 
