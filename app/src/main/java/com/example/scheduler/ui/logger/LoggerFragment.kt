@@ -70,19 +70,20 @@ class LoggerFragment : Fragment() {
     }
 
     val event = homeViewModel.getLoggedEvent()
-    eventNameText.setText(event.name)
+    eventNameText.text = event.name
     val eventTotalTime = (event.endTime.toMillis() - event.startTime.toMillis())
 
     viewModel.cur.observe(viewLifecycleOwner,
       Observer<Long> {
-        cur -> elapsedText.setText((cur/1000).toString())
+        cur -> elapsedText.text = "%02d:%02d:%02d".format(cur/3600000,(cur/60000)%60,(cur%60000)/1000)
         progressBar.progress = (cur*100/viewModel.getLim()).toInt()
         homeViewModel.updateLoggedEventProgress((1.0 * cur) / eventTotalTime)
       }
     )
 
     viewModel.initialize((eventTotalTime * event.log_progress).toLong(), eventTotalTime)
-    totalText.setText((viewModel.getLim()/1000).toString())
+    val tot = viewModel.getLim()
+    totalText.text = "%02d:%02d:%02d".format(tot/3600000,(tot/60000)%60,(tot%60000)/1000)
 
     return root
   }

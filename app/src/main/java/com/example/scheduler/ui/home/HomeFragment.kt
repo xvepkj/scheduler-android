@@ -130,14 +130,14 @@ class HomeFragment : Fragment() {
         if(selecteddate!=Date.current())
           tracked_checkbutton.isEnabled=false
       } else if (event.eventType == EventType.LOGGED) {
-        val number = event.log_progress*100.0
+        val number = (event.log_progress*100.0)
         val number3digits:Double = String.format("%.3f", number).toDouble()
         val number2digits:Double = String.format("%.2f", number3digits).toDouble()
-        val solution:Double = String.format("%.1f", number2digits).toDouble()
+        val solution: Int = String.format("%.1f", number2digits).toDouble().toInt()
         log_progress_text.visibility = VISIBLE
         if(selecteddate!=Date.current())
           log_progress_text.isEnabled=false
-        log_progress_text.setText(solution.toString())
+        log_progress_text.text = "$solution%"
       }
       tracked_checkbutton.isChecked = event.completed==1
       tracked_checkbutton.setOnClickListener {
