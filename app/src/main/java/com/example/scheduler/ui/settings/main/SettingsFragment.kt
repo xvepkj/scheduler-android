@@ -1,5 +1,6 @@
 package com.example.scheduler.ui.settings.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.scheduler.MainActivity
 import com.example.scheduler.R
+import com.example.scheduler.intro.SchedulerIntro
 import com.example.scheduler.ui.home.HomeViewModel
 
 class SettingsFragment : Fragment() {
@@ -29,11 +31,16 @@ class SettingsFragment : Fragment() {
     val root = inflater.inflate(R.layout.settings_fragment, container, false)
     val button:Button = root.findViewById(R.id.button)
     val about : ImageView = root.findViewById(R.id.imageView3)
+    val tutorial : ImageView = root.findViewById(R.id.imageView4)
     button.setOnClickListener {
       findNavController().navigate(R.id.action_settingsFragment_to_templatePoolFragment)
     }
     about.setOnClickListener{
       findNavController().navigate(R.id.action_settingsFragment_to_blankFragment)
+    }
+    tutorial.setOnClickListener{
+      val i = Intent(activity, SchedulerIntro::class.java)
+      startActivity(i)
     }
     val homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
     root.findViewById<Button>(R.id.buttonSetAlarms).setOnClickListener {

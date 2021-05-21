@@ -17,7 +17,9 @@
             android:name=".util.AlarmReceiver"
             android:enabled="true"
             android:exported="false" />
-
+        <activity android:name="com.example.scheduler.intro.SchedulerIntro"
+            android:label="My Custom AppIntro"
+            android:theme = "@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name=".MainActivity"
             android:theme="@style/Theme.Scheduler.NoActionBar"

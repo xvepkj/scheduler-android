@@ -1,5 +1,6 @@
 package com.example.scheduler
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
@@ -12,8 +13,10 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.scheduler.intro.SchedulerIntro
 import com.google.android.material.navigation.NavigationView
 import io.paperdb.Paper
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,17 +38,23 @@ class MainActivity : AppCompatActivity() {
 
     // Passing each menu ID as a set of Ids because each
     // menu should be considered as top level destinations.
-    appBarConfiguration = AppBarConfiguration(setOf(
-      R.id.settingsFragment,
-      R.id.homeFragment,
-      R.id.statisticsfragment,
-      R.id.templateFragment
-    ), drawerLayout)
+    appBarConfiguration = AppBarConfiguration(
+      setOf(
+        R.id.settingsFragment,
+        R.id.homeFragment,
+        R.id.statisticsfragment,
+        R.id.templateFragment
+      ), drawerLayout
+    )
     setupActionBarWithNavController(navController, appBarConfiguration)
     navView.setupWithNavController(navController)
 
     // Initialize database
     Paper.init(applicationContext)
+    if (!Paper.book().contains("initialized")) {
+      val i = Intent(applicationContext, SchedulerIntro::class.java)
+      startActivity(i)
+    }
   }
 
   override fun onCreateOptionsMenu(menu: Menu): Boolean {

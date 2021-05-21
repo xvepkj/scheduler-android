@@ -61,5 +61,7 @@ dependencies {
     implementation 'io.paperdb:paperdb:2.7.1'
     implementation 'com.google.android:flexbox:2.0.1'
 
+    implementation 'com.github.AppIntro:AppIntro:6.0.0'
+
 
 }
