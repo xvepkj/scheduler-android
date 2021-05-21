@@ -33,7 +33,7 @@ class SchedulerIntro : AppIntro2() {
             AppIntroFragment.newInstance(
                 title = "Add Templates",
                 description = "Templates are a set of activities that you can apply according to" +
-                        " different criteria in the templates screen..",
+                        " different criteria in the templates screen.",
                 imageDrawable = R.drawable.template,
                 backgroundDrawable = R.drawable.intro_screen1
             ))
