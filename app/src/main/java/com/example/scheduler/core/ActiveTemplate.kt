@@ -38,7 +38,21 @@ class ActiveTemplate(val templatename: String, val repeats: Boolean) {
       output += repeatCriteria.repeatType.toString() + "\n"
       output += "Start: " + repeatCriteria.startDate.toString() + "\n"
       if (repeatCriteria.repeatType == RepeatType.WEEKLY) {
-        output += "Weekdays: " + repeatCriteria.list
+        val weekdayList : MutableList<String> = mutableListOf()
+        for(day in repeatCriteria.list.indices){
+          weekdayList.add(
+          when(day){
+            0 -> "Sa"
+            1 -> "Su"
+            2 -> "Mo"
+            3 -> "Tu"
+            4 -> "We"
+            5 -> "Th"
+            6 -> "Fr"
+            else -> "?"
+          })
+        }
+        output += "Weekdays: $weekdayList"
       } else if (repeatCriteria.repeatType == RepeatType.MONTHLY) {
         output += "Dates: " + repeatCriteria.list
       }
