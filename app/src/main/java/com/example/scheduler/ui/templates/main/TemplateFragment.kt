@@ -117,12 +117,14 @@ class TemplateFragment : Fragment() {
     val template = viewModel.getTemplate(name)
     applyViewModel.template = template
       for (event in template.events) {
-      val textView = TextView(activity)
-      textView.text = event.toString()
-        val typeface = ResourcesCompat.getFont(requireContext(), R.font.biorhyme_light)
-        textView.typeface = typeface
-        textView.setTextColor(Color.parseColor("#000000"));
-        binding.templateDescLinearLayout.addView(textView)
+      val view: View = layoutInflater.inflate(R.layout.template_list_item, null)
+      val name = view.findViewById<TextView>(R.id.name_field)
+      val startTime = view.findViewById<TextView>(R.id.start_time)
+      val endTime = view.findViewById<TextView>(R.id.end_time)
+      name.text = event.name
+      startTime.text = event.startTime.toString()
+      endTime.text = event.endTime.toString()
+      binding.templateDescLinearLayout.addView(view)
     }
   }
 }

@@ -33,6 +33,7 @@ class HomeFragment : Fragment() {
   companion object {
     fun newInstance() = HomeFragment()
     var fromhome : Boolean = false
+    var customToFuture : Boolean = false
     var selecteddate : Date = Date.current()
   }
 
@@ -59,11 +60,19 @@ class HomeFragment : Fragment() {
     loggerViewModel = ViewModelProvider(requireActivity()).get(LoggerViewModel::class.java)
 
     viewModel.schedule.observe(viewLifecycleOwner, Observer<List<ScheduledEvent>> { schedule -> loadScheduleToUI(schedule) })
-    loadSchedule(Date.current())
-    selecteddate = Date.current()
+    if(customToFuture) {
+      loadSchedule(selecteddate)
+      customToFuture = false
+    }
+    else {
+      loadSchedule(Date.current())
+      selecteddate = Date.current()
+    }
     addcustomevent = root.findViewById(R.id.addcustomevent)
     addcustomevent.setOnClickListener{
       fromhome = true
+      if(selecteddate!= Date.current())
+        customToFuture = true
       findNavController().navigate(R.id.action_homeFragment_to_eventAddFragment)
     }
     createChannel(getString(R.string.default_channel_id), "channelName")

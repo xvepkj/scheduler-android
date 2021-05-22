@@ -44,8 +44,7 @@ class StatisticsFragment : Fragment() {
     (activity as MainActivity?)?.supportActionBar?.title = "Statistics"
     viewModel = ViewModelProvider(requireActivity()).get(StatisticsViewModel::class.java)
     val addTag = root.findViewById<ExtendedFloatingActionButton>(R.id.add_Tag)
-    statsList = root.findViewById<LinearLayout>(R.id.statisticsList)
-    statsList2 = root.findViewById<LinearLayout>(R.id.statisticsList2)
+    statsList = root.findViewById<LinearLayout>(R.id.linear_layout_stats)
     stats_spinner = root.findViewById<Spinner>(R.id.stats_spinner)
     val array: Array<String> = arrayOf("All time", "Today's", "Last Week's", "Last Month's")
     val adapter = ArrayAdapter<String>(
@@ -112,25 +111,24 @@ class StatisticsFragment : Fragment() {
   }
   fun loadStatisticstoUI(numDays: Int){
     statsList.removeAllViews()
-    statsList2.removeAllViews()
     for(tag in viewModel.tags){
       val tagStats : Pair<String, String> = viewModel.loadStatistics(tag, numDays)
-      val textView = TextView(activity)
+      val view: View = layoutInflater.inflate(R.layout.stats_item, null)
+      val textView = view.findViewById<TextView>(R.id.name_field)
       textView.text = tagStats.first
       textView.textSize= 17F
       val typeface = ResourcesCompat.getFont(requireContext(), R.font.biorhyme_light)
       textView.typeface = typeface
       textView.gravity = Gravity.LEFT
       textView.setTextColor(Color.parseColor("#000000"));
-      statsList.addView(textView)
-      val textView2 = TextView(activity)
+      val textView2 = view.findViewById<TextView>(R.id.statistics_field)
       textView2.text = tagStats.second
+      textView2.gravity = Gravity.RIGHT
       textView2.textSize= 17F
       val typeface2 = ResourcesCompat.getFont(requireContext(), R.font.biorhyme_light)
       textView2.typeface = typeface2
-      textView2.gravity = Gravity.RIGHT
       textView2.setTextColor(Color.parseColor("#000000"));
-      statsList2.addView(textView2)
+      statsList.addView(view)
     }
   }
 }
