@@ -30,6 +30,32 @@ class DailyUpdateReceiver : BroadcastReceiver() {
     history = Paper.book("history")
     extraEvents = Paper.book("extraEvents")
     this.context = context
+    val today = Date.current()
+    val type : Int = intent.getIntExtra("type", 1)
+    if (type!=2){
+      Log.d("DBG", "Tomorrow")
+      val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+      val contentIntent =Intent(context, DailyUpdateReceiver::class.java)
+      val id = System.currentTimeMillis().toInt()
+      val contentPendingIntent = PendingIntent.getBroadcast(
+        context,
+        id,
+        contentIntent,
+        PendingIntent.FLAG_UPDATE_CURRENT
+      )
+      val cal = Date.current().getCalendar()
+      cal.set(Calendar.HOUR_OF_DAY, 0)
+      cal.set(Calendar.MINUTE, 1)
+      if (cal.before(Calendar.getInstance())) {
+        cal.add(Calendar.DAY_OF_YEAR, 1);
+      }
+      Log.d("DBG", "Daily updater: ${cal.timeInMillis}, ${System.currentTimeMillis()}")
+      alarmManager.setExact(
+        AlarmManager.RTC_WAKEUP,
+        cal.timeInMillis,
+        contentPendingIntent
+      )
+    }
     setAlarms()
   }
   fun setAlarms() {
@@ -81,7 +107,13 @@ class DailyUpdateReceiver : BroadcastReceiver() {
   private fun setAlarm(event: ScheduledEvent, id: Int) {
     Log.d("DBG", "Event: $event")
     val contentIntent = Intent(context.applicationContext, AlarmReceiver::class.java)
-    contentIntent.putExtra("event", arrayOf(event.name,event.startTime.toString(),event.endTime.toString()))
+    contentIntent.putExtra(
+      "event", arrayOf(
+        event.name,
+        event.startTime.toString(),
+        event.endTime.toString()
+      )
+    )
     val contentPendingIntent = PendingIntent.getBroadcast(
       context.applicationContext,
       id,
@@ -96,6 +128,6 @@ class DailyUpdateReceiver : BroadcastReceiver() {
     // var triggerTime = System.currentTimeMillis() + t
     val triggerTime = todayCal.timeInMillis
     Log.d("DBG", "alarm after ${(triggerTime - System.currentTimeMillis()) / 1000} seconds")
-    alarmManager.setWindow(AlarmManager.RTC_WAKEUP, triggerTime,1000L, contentPendingIntent)
+    alarmManager.setWindow(AlarmManager.RTC_WAKEUP, triggerTime, 1000L, contentPendingIntent)
   }
 }

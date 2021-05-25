@@ -55,12 +55,11 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
 
     val cal = Date.current().getCalendar()
     cal.set(Calendar.HOUR_OF_DAY, 0)
-    cal.set(Calendar.MINUTE, 22)
+    cal.set(Calendar.MINUTE, 1)
     Log.d("DBG", "Daily updater: ${cal.timeInMillis}, ${System.currentTimeMillis()}")
-    alarmManager.setRepeating(
+    alarmManager.setExact(
       AlarmManager.RTC_WAKEUP,
       cal.timeInMillis,
-      AlarmManager.INTERVAL_DAY,
       contentPendingIntent
     )
   }
@@ -68,6 +67,7 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
   fun forceUpdate() {
     val alarmManager = app.getSystemService(ALARM_SERVICE) as AlarmManager
     val contentIntent = Intent(app.applicationContext, DailyUpdateReceiver::class.java)
+    contentIntent.putExtra("type",2)
     val contentPendingIntent = PendingIntent.getBroadcast(
       app.applicationContext,
       0,
