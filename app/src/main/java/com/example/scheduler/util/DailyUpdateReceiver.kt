@@ -50,11 +50,20 @@ class DailyUpdateReceiver : BroadcastReceiver() {
         cal.add(Calendar.DAY_OF_YEAR, 1);
       }
       Log.d("DBG", "Daily updater: ${cal.timeInMillis}, ${System.currentTimeMillis()}")
-      alarmManager.setExact(
-        AlarmManager.RTC_WAKEUP,
-        cal.timeInMillis,
-        contentPendingIntent
-      )
+      if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+        alarmManager.setExactAndAllowWhileIdle(
+                AlarmManager.RTC_WAKEUP,
+                cal.timeInMillis,
+                contentPendingIntent
+        )
+      }
+      else {
+        alarmManager.setExact(
+                AlarmManager.RTC_WAKEUP,
+                cal.timeInMillis,
+                contentPendingIntent
+        )
+      }
     }
     setAlarms()
   }
