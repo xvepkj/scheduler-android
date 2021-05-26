@@ -26,7 +26,7 @@ class BootCompleteReceiver : BroadcastReceiver() {
 
             val cal = Date.current().getCalendar()
             cal.set(Calendar.HOUR_OF_DAY, 0)
-            cal.set(Calendar.MINUTE, 1)
+            cal.set(Calendar.MINUTE, 0)
             Log.d("DBG", "Daily updater: ${cal.timeInMillis}, ${System.currentTimeMillis()}")
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
                 alarmManager.setExactAndAllowWhileIdle(
