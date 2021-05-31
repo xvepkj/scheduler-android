@@ -5,10 +5,8 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import com.example.scheduler.core.*
 import com.example.scheduler.core.Date
-import com.example.scheduler.core.ScheduledEvent
-import com.example.scheduler.core.Time
-import com.example.scheduler.core.Worker
 import io.paperdb.Book
 import io.paperdb.Paper
 import java.util.*
@@ -101,6 +99,7 @@ class DailyUpdateReceiver : BroadcastReceiver() {
       s.addAll(worker.generate(today))
       s.sortBy { it.startTime }
       history.write(d, s)
+      loadEventsToTag(s)
     }
     val todaySchedule: List<ScheduledEvent> = history.read(today.toString())
 
@@ -138,5 +137,21 @@ class DailyUpdateReceiver : BroadcastReceiver() {
     val triggerTime = todayCal.timeInMillis
     Log.d("DBG", "alarm after ${(triggerTime - System.currentTimeMillis()) / 1000} seconds")
     alarmManager.setWindow(AlarmManager.RTC_WAKEUP, triggerTime, 1000L, contentPendingIntent)
+  }
+  fun loadEventsToTag(eventList: MutableList<ScheduledEvent>){
+    for(event in eventList){
+      if(event.eventType != EventType.UNTRACKED) {
+        val map: MutableMap<Date, Pair<Long, Long>> = Paper.book("stats").read(event.tag)
+        var current = Pair(0L, 0L)
+        if (map.containsKey(Date.current()))
+          current = map[Date.current()]!!
+        map[Date.current()] = Pair(
+          current.first,
+          current.second + (event.endTime.toMillis() - event.startTime.toMillis())
+        )
+        Log.d("DBG", map.toString())
+        Paper.book("stats").write(event.tag, map)
+      }
+    }
   }
 }
