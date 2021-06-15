@@ -5,7 +5,7 @@ class ScheduledEvent (
     var startTime: Time,
     var endTime: Time,
     var eventType: EventType,
-    var tag : String
+    var tagId : Int
 ){
     init{
         //TODO Validation

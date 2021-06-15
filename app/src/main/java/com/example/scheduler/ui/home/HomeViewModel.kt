@@ -154,7 +154,8 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
       forceUpdate()
       //Statistics Part
       if(e.eventType != EventType.UNTRACKED) {
-        val map: MutableMap<Date, Pair<Long, Long>> = Paper.book("stats").read(e.tag)
+        val statList: MutableList<MutableMap<Date, Pair<Long, Long>>> = Paper.book("stats").read("list")
+        val map: MutableMap<Date, Pair<Long, Long>> = statList[e.tagId]
         var current = Pair(0L, 0L)
         if (map.containsKey(Date.current()))
           current = map[Date.current()]!!
@@ -163,7 +164,7 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
           current.second + (e.endTime.toMillis() - e.startTime.toMillis())
         )
         Log.d("DBG", map.toString())
-        Paper.book("stats").write(e.tag, map)
+        Paper.book("stats").write("list", statList)
       }
     }
     else {
@@ -189,7 +190,8 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
       forceUpdate()
       //Statistics Part
       if(e.eventType != EventType.UNTRACKED){
-        val mapOfTag : MutableMap<Date, Pair<Long, Long>> = Paper.book("stats").read(e.tag)
+        val statList: MutableList<MutableMap<Date, Pair<Long, Long>>> = Paper.book("stats").read("list")
+        val mapOfTag : MutableMap<Date, Pair<Long, Long>> = statList[e.tagId]
         val current = mapOfTag[Date.current()]!!
         val donePart =
           if (e.eventType == EventType.LOGGED) {
@@ -202,7 +204,7 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
           current.second - (e.endTime.toMillis() - e.startTime.toMillis())
         )
         Log.d("DBG", mapOfTag.toString())
-        Paper.book("stats").write(e.tag, mapOfTag)
+        Paper.book("stats").write("list", statList)
       }
     }
     else {
@@ -221,7 +223,9 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
     his[i] = event
     history.write(Date.current().toString(), his)
     //Statistics Part
-      val mapOfTag : MutableMap<Date, Pair<Long, Long>> = Paper.book("stats").read(event.tag)
+
+      val statList: MutableList<MutableMap<Date, Pair<Long, Long>>> = Paper.book("stats").read("list")
+      val mapOfTag : MutableMap<Date, Pair<Long, Long>> = statList[event.tagId]
       val current = mapOfTag[Date.current()]!!
       if(completed_fraction==0)
         mapOfTag[Date.current()]=Pair(
@@ -234,7 +238,7 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
           current.second
         )
       Log.d("DBG", mapOfTag.toString())
-      Paper.book("stats").write(event.tag, mapOfTag)
+      Paper.book("stats").write("list", statList)
   }
 
 
@@ -256,7 +260,9 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
     his[logged_event_index] = event
     history.write(Date.current().toString(), his)
     //Statistics Part
-    val mapOfTag : MutableMap<Date, Pair<Long, Long>> = Paper.book("stats").read(event.tag)
+
+    val statList: MutableList<MutableMap<Date, Pair<Long, Long>>> = Paper.book("stats").read("list")
+    val mapOfTag : MutableMap<Date, Pair<Long, Long>> = statList[event.tagId]
     val current = mapOfTag[Date.current()]!!
     // TODO: Store statistics as long/long instead of time/time?
     mapOfTag[Date.current()]=Pair(
@@ -264,7 +270,7 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
       current.second
     )
     Log.d("DBG", mapOfTag.toString())
-    Paper.book("stats").write(event.tag, mapOfTag)
+    Paper.book("stats").write("list", statList)
   }
 
   fun updateWorker(w: Worker) {
@@ -274,7 +280,9 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
   fun loadEventsToTag(eventList: MutableList<ScheduledEvent>){
     for(event in eventList){
       if(event.eventType != EventType.UNTRACKED) {
-        val map: MutableMap<Date, Pair<Long, Long>> = Paper.book("stats").read(event.tag)
+
+        val statList: MutableList<MutableMap<Date, Pair<Long, Long>>> = Paper.book("stats").read("list")
+        val map: MutableMap<Date, Pair<Long, Long>> = statList[event.tagId]
         var current = Pair(0L, 0L)
         if (map.containsKey(Date.current()))
           current = map[Date.current()]!!
@@ -283,7 +291,7 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
           current.second + (event.endTime.toMillis() - event.startTime.toMillis())
         )
         Log.d("DBG", map.toString())
-        Paper.book("stats").write(event.tag, map)
+        Paper.book("stats").write("list", statList)
       }
     }
   }

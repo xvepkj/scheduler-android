@@ -141,7 +141,8 @@ class DailyUpdateReceiver : BroadcastReceiver() {
   fun loadEventsToTag(eventList: MutableList<ScheduledEvent>){
     for(event in eventList){
       if(event.eventType != EventType.UNTRACKED) {
-        val map: MutableMap<Date, Pair<Long, Long>> = Paper.book("stats").read(event.tag)
+        val statList: MutableList<MutableMap<Date, Pair<Long, Long>>> = Paper.book("stats").read("list")
+        val map: MutableMap<Date, Pair<Long, Long>> = statList[event.tagId]
         var current = Pair(0L, 0L)
         if (map.containsKey(Date.current()))
           current = map[Date.current()]!!
@@ -150,7 +151,7 @@ class DailyUpdateReceiver : BroadcastReceiver() {
           current.second + (event.endTime.toMillis() - event.startTime.toMillis())
         )
         Log.d("DBG", map.toString())
-        Paper.book("stats").write(event.tag, map)
+        Paper.book("stats").write("list", statList)
       }
     }
   }

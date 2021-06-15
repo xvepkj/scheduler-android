@@ -8,22 +8,6 @@
     android:background="@drawable/custom_background_statistics"
     tools:context=".ui.Statistics.StatisticsFragment">
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/add_Tag"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="250dp"
-        android:layout_marginTop="500dp"
-        android:clickable="true"
-        android:src="@android:drawable/ic_input_add"
-        android:text="Add Tag"
-        app:backgroundTint="@color/dark_pink"
-        app:icon="@android:drawable/ic_input_add"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ScrollView
         android:id="@+id/scroolview2"
         android:layout_width="382dp"

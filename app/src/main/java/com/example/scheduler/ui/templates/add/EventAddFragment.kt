@@ -78,9 +78,10 @@ class EventAddFragment : Fragment() {
     logged.setOnClickListener{
       spinner.visibility = VISIBLE
     }
-    val array: Array<String> = statisticsViewModel.tags.toTypedArray()
+    // Change to name (id hidden)
+    val array: Array<Int> = statisticsViewModel.getTagIds().toTypedArray()
     Log.d("DBG",statisticsViewModel.tags.toString())
-    val adapter = ArrayAdapter<String>(
+    val adapter = ArrayAdapter<Int>(
       activity?.applicationContext!!,R.layout.spinner_main, array
     )
     adapter.setDropDownViewResource(R.layout.spinner_item);
@@ -136,7 +137,7 @@ class EventAddFragment : Fragment() {
                viewModel.startTime,
                viewModel.endTime,
                eventType,
-               spinner.selectedItem.toString()
+               spinner.selectedItem as Int
              )
            )
         else
@@ -146,7 +147,7 @@ class EventAddFragment : Fragment() {
                viewModel.startTime,
                viewModel.endTime,
                eventType,
-               spinner.selectedItem.toString()
+               spinner.selectedItem as Int
              ),
              HomeFragment.selecteddate
            )

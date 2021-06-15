@@ -43,7 +43,6 @@ class StatisticsFragment : Fragment() {
     val root =inflater.inflate(R.layout.statistics_fragment, container, false)
     (activity as MainActivity?)?.supportActionBar?.title = "Statistics"
     viewModel = ViewModelProvider(requireActivity()).get(StatisticsViewModel::class.java)
-    val addTag = root.findViewById<ExtendedFloatingActionButton>(R.id.add_Tag)
     statsList = root.findViewById<LinearLayout>(R.id.linear_layout_stats)
     stats_spinner = root.findViewById<Spinner>(R.id.stats_spinner)
     val array: Array<String> = arrayOf("All time", "Today's", "Last Week's", "Last Month's")
@@ -70,6 +69,7 @@ class StatisticsFragment : Fragment() {
         Toast.makeText(context, "Nothing selected", Toast.LENGTH_SHORT).show()
       }
     }
+      /*
     addTag.setOnClickListener{
       val builder: AlertDialog.Builder = android.app.AlertDialog.Builder(context)
       val inflater = this.layoutInflater
@@ -100,6 +100,7 @@ class StatisticsFragment : Fragment() {
         .setTextColor(ContextCompat.getColor(requireActivity(), R.color.dark_pink))
 
     }
+       */
     loadStatisticstoUI(COUNT_ALL_TIME)
     return root
   }
@@ -111,8 +112,8 @@ class StatisticsFragment : Fragment() {
   }
   fun loadStatisticstoUI(numDays: Int){
     statsList.removeAllViews()
-    for(tag in viewModel.tags){
-      val tagStats : Pair<String, String> = viewModel.loadStatistics(tag, numDays)
+    viewModel.tags.forEachIndexed { index, tag ->
+      val tagStats : Pair<String, String> = viewModel.loadStatistics(index, numDays)
       val view: View = layoutInflater.inflate(R.layout.stats_item, null)
       val textView = view.findViewById<TextView>(R.id.name_field)
       textView.text = tagStats.first
