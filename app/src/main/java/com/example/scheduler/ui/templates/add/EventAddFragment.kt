@@ -21,6 +21,7 @@ import com.example.scheduler.core.Time
 import com.example.scheduler.ui.Statistics.StatisticsViewModel
 import com.example.scheduler.ui.home.HomeFragment
 import com.example.scheduler.ui.home.HomeViewModel
+import com.example.scheduler.ui.tags.TagsViewModel
 
 
 class EventAddFragment : Fragment() {
@@ -33,6 +34,7 @@ class EventAddFragment : Fragment() {
   private lateinit var templateAddViewModel: TemplateAddViewModel
   private lateinit var homeViewModel : HomeViewModel
   private lateinit var statisticsViewModel : StatisticsViewModel
+  private lateinit var tagsViewModel: TagsViewModel
 
   private lateinit var startTimeTextView: TextView
   private lateinit var endTimeTextView: TextView
@@ -64,6 +66,7 @@ class EventAddFragment : Fragment() {
     templateAddViewModel = ViewModelProvider(requireActivity()).get(TemplateAddViewModel::class.java)
     homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
     statisticsViewModel = ViewModelProvider(requireActivity()).get(StatisticsViewModel::class.java)
+    tagsViewModel = ViewModelProvider(requireActivity()).get(TagsViewModel::class.java)
 
     setStartTime(Time(0, 0))
     setEndTime(Time(0, 0))
@@ -78,10 +81,19 @@ class EventAddFragment : Fragment() {
     logged.setOnClickListener{
       spinner.visibility = VISIBLE
     }
+
     // Change to name (id hidden)
-    val array: Array<Int> = statisticsViewModel.getTagIds().toTypedArray()
-    Log.d("DBG",statisticsViewModel.tags.toString())
-    val adapter = ArrayAdapter<Int>(
+    val tagNames: MutableList<String> = mutableListOf()
+    val tagIds: MutableList<Int> = mutableListOf()
+    tagsViewModel.tags.forEachIndexed { index, tag ->
+      if (tag.isActive) {
+        tagNames.add(tag.name)
+        tagIds.add(index)
+      }
+    }
+
+    val array: Array<String> = tagNames.toTypedArray()
+    val adapter = ArrayAdapter<String>(
       activity?.applicationContext!!,R.layout.spinner_main, array
     )
     adapter.setDropDownViewResource(R.layout.spinner_item);
@@ -137,7 +149,7 @@ class EventAddFragment : Fragment() {
                viewModel.startTime,
                viewModel.endTime,
                eventType,
-               spinner.selectedItem as Int
+               tagIds[spinner.selectedItemPosition]
              )
            )
         else
@@ -147,7 +159,7 @@ class EventAddFragment : Fragment() {
                viewModel.startTime,
                viewModel.endTime,
                eventType,
-               spinner.selectedItem as Int
+               tagIds[spinner.selectedItemPosition]
              ),
              HomeFragment.selecteddate
            )

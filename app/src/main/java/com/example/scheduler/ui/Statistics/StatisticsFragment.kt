@@ -113,23 +113,25 @@ class StatisticsFragment : Fragment() {
   fun loadStatisticstoUI(numDays: Int){
     statsList.removeAllViews()
     viewModel.tags.forEachIndexed { index, tag ->
-      val tagStats : Pair<String, String> = viewModel.loadStatistics(index, numDays)
-      val view: View = layoutInflater.inflate(R.layout.stats_item, null)
-      val textView = view.findViewById<TextView>(R.id.name_field)
-      textView.text = tagStats.first
-      textView.textSize= 17F
-      val typeface = ResourcesCompat.getFont(requireContext(), R.font.biorhyme_light)
-      textView.typeface = typeface
-      textView.gravity = Gravity.LEFT
-      textView.setTextColor(Color.parseColor("#000000"));
-      val textView2 = view.findViewById<TextView>(R.id.statistics_field)
-      textView2.text = tagStats.second
-      textView2.gravity = Gravity.RIGHT
-      textView2.textSize= 17F
-      val typeface2 = ResourcesCompat.getFont(requireContext(), R.font.biorhyme_light)
-      textView2.typeface = typeface2
-      textView2.setTextColor(Color.parseColor("#000000"));
-      statsList.addView(view)
+      if (tag.isActive) {
+        val tagStats : Pair<String, String> = viewModel.loadStatistics(index, numDays)
+        val view: View = layoutInflater.inflate(R.layout.stats_item, null)
+        val textView = view.findViewById<TextView>(R.id.name_field)
+        textView.text = tagStats.first
+        textView.textSize= 17F
+        val typeface = ResourcesCompat.getFont(requireContext(), R.font.biorhyme_light)
+        textView.typeface = typeface
+        textView.gravity = Gravity.LEFT
+        textView.setTextColor(Color.parseColor("#000000"));
+        val textView2 = view.findViewById<TextView>(R.id.statistics_field)
+        textView2.text = tagStats.second
+        textView2.gravity = Gravity.RIGHT
+        textView2.textSize= 17F
+        val typeface2 = ResourcesCompat.getFont(requireContext(), R.font.biorhyme_light)
+        textView2.typeface = typeface2
+        textView2.setTextColor(Color.parseColor("#000000"));
+        statsList.addView(view)
+      }
     }
   }
 }

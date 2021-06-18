@@ -1,5 +1,6 @@
 package com.example.scheduler.ui.tags
 
+import android.graphics.Color
 import androidx.lifecycle.ViewModel
 import com.example.scheduler.core.Date
 import com.example.scheduler.core.Tag
@@ -17,12 +18,16 @@ class TagsViewModel : ViewModel() {
             val statList : MutableList<MutableMap<Date, Pair<Long, Long>>> = mutableListOf()
 
             // id of misc is 0
-            tagList.add(Tag("Misc"))
+            tagList.add(Tag("Misc", Color.WHITE))
             statList.add(mutableMapOf())
 
             Paper.book("tags").write("list", tagList)
             Paper.book("stats").write("list", statList)
         }
+    }
+
+    fun get(id: Int): Tag {
+        return tags[id]
     }
 
     fun add(tag: Tag){
@@ -46,6 +51,7 @@ class TagsViewModel : ViewModel() {
             return
         }
         tagList[index].isActive = false
+        Paper.book("tags").write("list", tagList)
     }
 
     fun modify(index: Int, tag: Tag) {
@@ -55,5 +61,6 @@ class TagsViewModel : ViewModel() {
             return
         }
         tagList[index] = tag
+        Paper.book("tags").write("list", tagList)
     }
 }

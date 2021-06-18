@@ -11,32 +11,12 @@
         android:id="@+id/tag_add_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
+        android:layout_marginStart="161dp"
         android:layout_marginTop="25dp"
+        android:layout_marginEnd="162dp"
         android:text="Add"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView5" />
-
-    <Button
-        android:id="@+id/tag_edit_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="49dp"
-        android:text="Edit"
-        app:layout_constraintEnd_toStartOf="@+id/tag_remove_btn"
-        app:layout_constraintStart_toEndOf="@+id/tag_add_btn"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView5" />
-
-    <Button
-        android:id="@+id/tag_remove_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="25dp"
-        android:text="Delete"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scrollView5" />
 
     <ScrollView

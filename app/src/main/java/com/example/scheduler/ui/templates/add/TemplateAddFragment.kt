@@ -22,6 +22,7 @@ import com.example.scheduler.core.ScheduleTemplate
 import com.example.scheduler.core.ScheduledEvent
 import com.example.scheduler.databinding.TemplateAddFragmentBinding
 import com.example.scheduler.ui.home.HomeFragment
+import com.example.scheduler.ui.tags.TagsViewModel
 import com.example.scheduler.ui.templates.main.TemplateFragment
 import com.example.scheduler.ui.templates.main.TemplateViewModel
 
@@ -37,6 +38,7 @@ class TemplateAddFragment : Fragment() {
   private lateinit var viewModel: TemplateAddViewModel
   private lateinit var templateViewModel: TemplateViewModel
   private lateinit var templateApplyViewModel: TemplateApplyViewModel
+  private lateinit var tagsViewModel: TagsViewModel
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -57,6 +59,7 @@ class TemplateAddFragment : Fragment() {
     viewModel = ViewModelProvider(requireActivity()).get(TemplateAddViewModel::class.java)
     templateViewModel = ViewModelProvider(requireActivity()).get(TemplateViewModel::class.java)
     templateApplyViewModel= ViewModelProvider(requireActivity()).get(TemplateApplyViewModel::class.java)
+    tagsViewModel = ViewModelProvider(requireActivity()).get(TagsViewModel::class.java)
     viewModel.events.observe(viewLifecycleOwner, Observer<List<ScheduledEvent>> { events ->
       showEvents(
         events
@@ -120,6 +123,18 @@ class TemplateAddFragment : Fragment() {
       val crossbutton = view.findViewById<ImageButton>(R.id.removeevent)
       val trackedEventCheckbox = view.findViewById<CheckBox>(R.id.tracked_checkbox)
       val loggedProgress = view.findViewById<TextView>(R.id.log_progress_text)
+
+      // tag info if tracked/logged
+      val tagTextView = view.findViewById<TextView>(R.id.event_tag_info2)
+      tagTextView.visibility = View.GONE
+      if (event.eventType != EventType.UNTRACKED) {
+        tagTextView.visibility = View.VISIBLE
+        var tag = tagsViewModel.get(event.tagId)
+        if (!tag.isActive) tag = tagsViewModel.get(0)
+        tagTextView.setText(tag.name)
+        tagTextView.setBackgroundColor(tag.color)
+      }
+
       if(event.eventType == EventType.TRACKED){
         trackedEventCheckbox.visibility = VISIBLE
         trackedEventCheckbox.isEnabled = false
