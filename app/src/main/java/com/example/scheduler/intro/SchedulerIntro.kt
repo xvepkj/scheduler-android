@@ -25,7 +25,7 @@ class SchedulerIntro : AppIntro2() {
             AppIntroFragment.newInstance(
                 title = "Add Events",
                 description = "Events are of three types untracked, tracked and logged with the two latter" +
-                        " ones being trackable. You can add tags for events in the Stats Screen.",
+                        " ones being trackable. You can add tags for events in the Tags Screen.",
                 imageDrawable = R.drawable.add_event,
                 backgroundDrawable = R.drawable.intro_screen2
             ))

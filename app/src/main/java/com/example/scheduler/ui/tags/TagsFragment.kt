@@ -1,22 +1,27 @@
 package com.example.scheduler.ui.tags
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.DialogInterface
 import android.graphics.Color
-import android.opengl.Visibility
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.drawable.DrawableCompat
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.example.scheduler.MainActivity
 import com.example.scheduler.R
 import com.example.scheduler.core.Tag
+
 
 class TagsFragment : Fragment() {
 
@@ -36,10 +41,12 @@ class TagsFragment : Fragment() {
   private lateinit var spinner: Spinner
   private lateinit var nameInput: EditText
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
     val root = inflater.inflate(R.layout.tags_fragment, container, false)
-
+    (activity as MainActivity?)?.supportActionBar?.title = "Tags"
     linearLayout = root.findViewById(R.id.tag_lin_layout)
     addButton = root.findViewById(R.id.tag_add_btn)
 
@@ -64,7 +71,7 @@ class TagsFragment : Fragment() {
     return root
   }
 
-  fun showDialog (
+  fun showDialog(
     tagName: String,
     tagColor: Int,
     dialogTitle: String,
@@ -78,9 +85,19 @@ class TagsFragment : Fragment() {
     // Customize DialogView
     // setup spinner
     val array: Array<Int> = arrayOf(
-      Color.RED,
-      Color.BLUE,
-      Color.GREEN
+      ResourcesCompat.getColor(resources, R.color.WeldonBlue, null),
+      ResourcesCompat.getColor(resources, R.color.ElectricBrown, null),
+      ResourcesCompat.getColor(resources, R.color.CyberGrape, null),
+      ResourcesCompat.getColor(resources, R.color.Melon, null),
+      ResourcesCompat.getColor(resources, R.color.Flavescent, null),
+      ResourcesCompat.getColor(resources, R.color.Cornsilk, null),
+      ResourcesCompat.getColor(resources, R.color.MagicMint, null),
+      ResourcesCompat.getColor(resources, R.color.DeepSaffron, null),
+      ResourcesCompat.getColor(resources, R.color.LightGold, null),
+      ResourcesCompat.getColor(resources, R.color.PhilippineSilver, null),
+      ResourcesCompat.getColor(resources, R.color.Deer, null),
+      ResourcesCompat.getColor(resources, R.color.Bone, null),
+      ResourcesCompat.getColor(resources, R.color.PaleRobinEggBlue, null)
     )
     val customAdapter = object : BaseAdapter() {
       override fun getCount(): Int {
@@ -96,21 +113,16 @@ class TagsFragment : Fragment() {
       }
 
       override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val view = layoutInflater.inflate(R.layout.spinner_item, null) as TextView
+        var view : TextView = layoutInflater.inflate(R.layout.spinner_item, null) as TextView
         view.setBackgroundColor(array[position])
-        view.setText(array[position].toString())
         return view
       }
-
     }
     /*
     val adapter = ArrayAdapter<Int>(
       activity?.applicationContext!!,R.layout.spinner_main, array
-    )
-    adapter.setDropDownViewResource(R.layout.spinner_item);
-     */
+    )*/
     spinner.adapter = customAdapter
-
     // Given color should be selected
     // TODO: Fix
     var colorPos = 0
@@ -131,7 +143,7 @@ class TagsFragment : Fragment() {
     builder.setTitle(dialogTitle)
     builder.setView(dialogView)
     builder.setPositiveButton("OK", positiveCallback)
-    builder.setNegativeButton( "Cancel", { dialog, which -> dialog.cancel() })
+    builder.setNegativeButton("Cancel", { dialog, which -> dialog.cancel() })
 
     val dialog = builder.create()
     dialog.show()
@@ -143,13 +155,14 @@ class TagsFragment : Fragment() {
       .setTextColor(ContextCompat.getColor(requireActivity(), R.color.dark_pink))
   }
 
+  @SuppressLint("NewApi")
   fun loadTagList() {
     linearLayout.removeAllViews()
     viewModel.tags.forEachIndexed { index, tag ->
       if (tag.isActive) {
         val view: View = layoutInflater.inflate(R.layout.tag, null)
+        val framelayout : ConstraintLayout = view.findViewById(R.id.frameLayout11)
         val tagNameTextView = view.findViewById<TextView>(R.id.tag_name)
-        val tagColorTextView = view.findViewById<TextView>(R.id.tag_color_view)
         val editButton = view.findViewById<ImageButton>(R.id.tag_edit_button)
         val removeButton = view.findViewById<ImageButton>(R.id.tag_remove_button)
 
@@ -160,7 +173,6 @@ class TagsFragment : Fragment() {
         }
 
         editButton.setOnClickListener {
-          Toast.makeText(context, "Edit Tag: ${index}", Toast.LENGTH_SHORT).show()
           showDialog(
             tag.name,
             tag.color,
@@ -176,15 +188,22 @@ class TagsFragment : Fragment() {
         removeButton.setOnClickListener {
           val builder = AlertDialog.Builder(context)
           builder.setMessage("Are you sure?")
-            .setPositiveButton("Yes", { dialog, which ->
+          builder.setPositiveButton("Yes", { dialog, which ->
               viewModel.remove(index)
               loadTagList()
             })
-            .setNegativeButton("No", { dialog, which -> dialog.cancel() })
-            .show()
+          builder.setNegativeButton("No", { dialog, which -> dialog.cancel() })
+          val dialog = builder.create()
+          dialog.show()
+          // Aesthetic
+          dialog?.getButton(DatePickerDialog.BUTTON_POSITIVE)!!
+            .setTextColor(ContextCompat.getColor(requireActivity(), R.color.dark_pink))
+          dialog?.getButton(DatePickerDialog.BUTTON_NEGATIVE)!!
+            .setTextColor(ContextCompat.getColor(requireActivity(), R.color.dark_pink))
         }
         tagNameTextView.setText(tag.name)
-        tagColorTextView.setBackgroundColor(tag.color)
+        val framebackground = DrawableCompat.wrap(framelayout.background)
+        DrawableCompat.setTint(framebackground,tag.color);
         linearLayout.addView(view)
       }
     }
@@ -194,5 +213,4 @@ class TagsFragment : Fragment() {
     super.onActivityCreated(savedInstanceState)
     // TODO: Use the ViewModel
   }
-
 }

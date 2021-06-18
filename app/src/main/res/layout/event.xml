@@ -13,6 +13,19 @@
         android:layout_marginTop="0dp"
         android:background="@color/lightest_pink">
 
+        <ImageButton
+            android:id="@+id/event_tag_color_template"
+            android:layout_width="39dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="64dp"
+            android:layout_marginBottom="16dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/removeevent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_circle_24" />
+
         <TextView
             android:id="@+id/eventdetails"
             android:layout_width="170dp"
@@ -33,7 +46,7 @@
             android:layout_width="30dp"
             android:layout_height="29dp"
             android:layout_marginTop="11dp"
-            android:layout_marginEnd="30dp"
+            android:layout_marginEnd="23dp"
             android:layout_marginBottom="11dp"
             android:visibility="gone"
             app:buttonTint="@color/dark_pink"
@@ -87,7 +100,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="11dp"
-            android:layout_marginEnd="30dp"
+            android:layout_marginEnd="23dp"
             android:layout_marginBottom="11dp"
             android:textColor="@color/button_color"
             android:visibility="gone"
@@ -95,16 +108,6 @@
             app:layout_constraintEnd_toStartOf="@+id/removeevent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="100%" />
-
-        <TextView
-            android:id="@+id/event_tag_info2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="20dp"
-            app:layout_constraintStart_toEndOf="@+id/eventdetails"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="tag" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -18,7 +18,7 @@ class TagsViewModel : ViewModel() {
             val statList : MutableList<MutableMap<Date, Pair<Long, Long>>> = mutableListOf()
 
             // id of misc is 0
-            tagList.add(Tag("Misc", Color.WHITE))
+            tagList.add(Tag("Misc", Color.parseColor("#B4B4B4")))
             statList.add(mutableMapOf())
 
             Paper.book("tags").write("list", tagList)

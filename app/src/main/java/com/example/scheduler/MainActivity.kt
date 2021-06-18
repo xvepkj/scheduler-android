@@ -43,7 +43,8 @@ class MainActivity : AppCompatActivity() {
         R.id.settingsFragment,
         R.id.homeFragment,
         R.id.statisticsfragment,
-        R.id.templateFragment
+        R.id.templateFragment,
+        R.id.tagsFragment
       ), drawerLayout
     )
     setupActionBarWithNavController(navController, appBarConfiguration)

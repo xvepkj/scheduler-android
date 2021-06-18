@@ -9,6 +9,7 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
+    <color name="Platinum">#EAE7E5</color>
     <color name="white">#FFFFFFFF</color>
     <color name="colorWhite">#FFFFFF</color>
 
@@ -16,4 +17,19 @@
     <color name="daySelectedTextColor">@android:color/white</color>
     <color name="dayDeselected">#3D3D3D</color>
     <color name="dayDeselectedTextColor">@android:color/white</color>
+
+    //colors for tags
+    <color name="WeldonBlue">#8092AD</color>
+    <color name="PaleRobinEggBlue">#93E1E1</color>
+    <color name="MagicMint">#B8F7D4</color>
+    <color name="Cornsilk">#FBFCDC</color>
+    <color name="Flavescent">#F7E891</color>
+    <color name="Melon">#F8B8A2</color>
+    <color name="CyberGrape">#7C658E</color>
+    <color name="ElectricBrown">#B7595B</color>
+    <color name="Bone">#E2DFC6</color>
+    <color name="DeepSaffron">#FF9B31</color>
+    <color name="LightGold">#AF9500</color>
+    <color name="PhilippineSilver">#39412C</color>
+    <color name="Deer">#AD8A56</color>
 </resources>

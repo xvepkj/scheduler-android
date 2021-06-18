@@ -1,9 +1,11 @@
 package com.example.scheduler.ui.home
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -123,6 +125,7 @@ class HomeFragment : Fragment() {
   }
 
   // Load schedule to UI
+  @SuppressLint("NewApi")
   fun loadScheduleToUI(schedule: List<ScheduledEvent>) {
     linearLayout.removeAllViews()
     for (i in schedule.indices) {
@@ -136,14 +139,15 @@ class HomeFragment : Fragment() {
       val log_progress_text = view.findViewById<TextView>(R.id.log_progress_text)
 
       // tag info if tracked/logged
-      val tagTextView = view.findViewById<TextView>(R.id.event_tag_info)
-      tagTextView.visibility = View.GONE
+      val tagColor = view.findViewById<ImageButton>(R.id.event_tag_color)
+      tagColor.visibility = View.GONE
       if (event.eventType != EventType.UNTRACKED) {
-        tagTextView.visibility = View.VISIBLE
+        tagColor.visibility = View.VISIBLE
         var tag = tagsViewModel.get(event.tagId)
         if (!tag.isActive) tag = tagsViewModel.get(0)
-        tagTextView.setText(tag.name)
-        tagTextView.setBackgroundColor(tag.color)
+        tagColor.setColorFilter(
+          tag.color,
+          PorterDuff.Mode.SRC_ATOP)
       }
 
       eventname.text = event.name

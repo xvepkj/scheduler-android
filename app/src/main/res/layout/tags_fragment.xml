@@ -5,23 +5,27 @@
     android:id="@+id/frameLayout10"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".ui.tags.TagsFragment">
 
-    <Button
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/tag_add_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="161dp"
-        android:layout_marginTop="25dp"
         android:layout_marginEnd="162dp"
-        android:text="Add"
+        android:layout_marginBottom="89dp"
+        android:text="Add Tag"
+        app:backgroundTint="@color/dark_pink"
+        app:icon="@drawable/ic_baseline_tag_24"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scrollView5" />
 
     <ScrollView
         android:id="@+id/scrollView5"
-        android:layout_width="356dp"
+        android:layout_width="370dp"
         android:layout_height="569dp"
         android:layout_marginStart="25dp"
         android:layout_marginTop="25dp"

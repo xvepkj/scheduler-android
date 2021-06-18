@@ -1,5 +1,7 @@
 package com.example.scheduler.ui.templates.add
 
+import android.annotation.SuppressLint
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -112,6 +114,7 @@ class TemplateAddFragment : Fragment() {
     // TODO: Use the ViewModel
   }
 
+  @SuppressLint("NewApi")
   fun showEvents(events: List<ScheduledEvent>) {
     binding.templateAddEventList.removeAllViews()
     for (i in events.indices) {
@@ -125,14 +128,15 @@ class TemplateAddFragment : Fragment() {
       val loggedProgress = view.findViewById<TextView>(R.id.log_progress_text)
 
       // tag info if tracked/logged
-      val tagTextView = view.findViewById<TextView>(R.id.event_tag_info2)
-      tagTextView.visibility = View.GONE
+      val tagColorView = view.findViewById<ImageButton>(R.id.event_tag_color_template)
+      tagColorView.visibility = View.GONE
       if (event.eventType != EventType.UNTRACKED) {
-        tagTextView.visibility = View.VISIBLE
+        tagColorView.visibility = View.VISIBLE
         var tag = tagsViewModel.get(event.tagId)
         if (!tag.isActive) tag = tagsViewModel.get(0)
-        tagTextView.setText(tag.name)
-        tagTextView.setBackgroundColor(tag.color)
+        tagColorView.setColorFilter(
+          tag.color,
+          PorterDuff.Mode.SRC_ATOP)
       }
 
       if(event.eventType == EventType.TRACKED){

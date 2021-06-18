@@ -77,8 +77,9 @@ class TemplateFragment : Fragment() {
       for(active_template in homeViewModel.worker.getPool())
         if(active_template.templatename == applyViewModel.template.name)
           currentlyapplied = true
-      if(!currentlyapplied)
-        templateViewModel.removeTemplate(applyViewModel.template)
+      if(!currentlyapplied){
+        binding.templateDescLinearLayout.removeAllViews()
+        templateViewModel.removeTemplate(applyViewModel.template)}
       else
         Toast.makeText(context, "This template is currently applied", Toast.LENGTH_SHORT).show()
       showTemplateList(viewModel.getTemplateNames())

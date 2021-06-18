@@ -15,7 +15,7 @@
             android:title="TEMPLATES" />
         <item
             android:id="@+id/tagsFragment"
-            android:icon="@drawable/ic_baseline_format_list_numbered_24"
+            android:icon="@drawable/ic_baseline_tag_24"
             android:title="TAGS" />
         <item
             android:id="@+id/statisticsfragment"
