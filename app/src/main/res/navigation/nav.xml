@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.example.scheduler.ui.settings.main.SettingsFragment"
+        android:name="com.xve.scheduler.ui.settings.main.SettingsFragment"
         android:label="settings_fragment"
         tools:layout="@layout/settings_fragment" >
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.scheduler.ui.home.HomeFragment"
+        android:name="com.xve.scheduler.ui.home.HomeFragment"
         android:label="home_fragment"
         tools:layout="@layout/home_fragment" >
         <action
@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/templateFragment"
-        android:name="com.example.scheduler.ui.templates.main.TemplateFragment"
+        android:name="com.xve.scheduler.ui.templates.main.TemplateFragment"
         android:label="template_fragment"
         tools:layout="@layout/template_fragment" >
         <action
@@ -46,7 +46,7 @@
     </fragment>
     <fragment
         android:id="@+id/templateAddFragment"
-        android:name="com.example.scheduler.ui.templates.add.TemplateAddFragment"
+        android:name="com.xve.scheduler.ui.templates.add.TemplateAddFragment"
         android:label="template_add_fragment"
         tools:layout="@layout/template_add_fragment" >
         <action
@@ -58,7 +58,7 @@
     </fragment>
     <fragment
         android:id="@+id/eventAddFragment"
-        android:name="com.example.scheduler.ui.templates.add.EventAddFragment"
+        android:name="com.xve.scheduler.ui.templates.add.EventAddFragment"
         android:label="event_add_fragment"
         tools:layout="@layout/event_add_fragment" >
         <action
@@ -70,7 +70,7 @@
     </fragment>
     <fragment
         android:id="@+id/templateApplyFragment"
-        android:name="com.example.scheduler.ui.templates.add.TemplateApplyFragment"
+        android:name="com.xve.scheduler.ui.templates.add.TemplateApplyFragment"
         android:label="template_apply_fragment"
         tools:layout="@layout/template_apply_fragment" >
         <action
@@ -79,27 +79,27 @@
     </fragment>
     <fragment
         android:id="@+id/templatePoolFragment"
-        android:name="com.example.scheduler.ui.templates.pool.TemplatePoolFragment"
+        android:name="com.xve.scheduler.ui.templates.pool.TemplatePoolFragment"
         android:label="template_pool_fragment"
         tools:layout="@layout/template_pool_fragment" />
     <fragment
         android:id="@+id/statisticsfragment"
-        android:name="com.example.scheduler.ui.Statistics.StatisticsFragment"
+        android:name="com.xve.scheduler.ui.Statistics.StatisticsFragment"
         android:label="statistics_fragment"
         tools:layout="@layout/statistics_fragment" />
     <fragment
         android:id="@+id/blankFragment"
-        android:name="com.example.scheduler.ui.settings.about.BlankFragment"
+        android:name="com.xve.scheduler.ui.settings.about.BlankFragment"
         android:label="fragment_blank"
         tools:layout="@layout/about" />
     <fragment
         android:id="@+id/loggerFragment"
-        android:name="com.example.scheduler.ui.logger.LoggerFragment"
+        android:name="com.xve.scheduler.ui.logger.LoggerFragment"
         android:label="logger_fragment"
         tools:layout="@layout/logger_fragment" />
     <fragment
         android:id="@+id/tagsFragment"
-        android:name="com.example.scheduler.ui.tags.TagsFragment"
+        android:name="com.xve.scheduler.ui.tags.TagsFragment"
         android:label="tags_fragment"
         tools:layout="@layout/tags_fragment" />
 </navigation>

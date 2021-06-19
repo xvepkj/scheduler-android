@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.scheduler">
+    package="com.xve.scheduler">
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <application
         android:allowBackup="true"
@@ -10,24 +10,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Scheduler">
         <receiver
-            android:name=".util.DailyUpdateReceiver"
+            android:name="com.xve.scheduler.util.DailyUpdateReceiver"
             android:enabled="true"
             android:exported="false" />
         <receiver
-            android:name=".util.BootCompleteReceiver">
+            android:name="com.xve.scheduler.util.BootCompleteReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".util.AlarmReceiver"
+            android:name="com.xve.scheduler.util.AlarmReceiver"
             android:enabled="true"
             android:exported="false" />
-        <activity android:name="com.example.scheduler.intro.SchedulerIntro"
+        <activity android:name="com.xve.scheduler.intro.SchedulerIntro"
             android:label="My Custom AppIntro"
             android:theme = "@style/Theme.AppCompat.NoActionBar"/>
         <activity
-            android:name=".MainActivity"
+            android:name="com.xve.scheduler.MainActivity"
             android:theme="@style/Theme.Scheduler.NoActionBar"
             android:windowSoftInputMode="adjustNothing">
             <intent-filter>
