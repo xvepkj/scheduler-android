@@ -10,17 +10,13 @@
 
     <ScrollView
         android:id="@+id/templateListScrollView"
-        android:layout_width="350dp"
-        android:layout_height="240dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="350dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="@drawable/template_fragment_window"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintBottom_toTopOf="@+id/guideline8"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toTopOf="@+id/guideline7">
 
         <LinearLayout
             android:id="@+id/templateListLinearLayout"
@@ -30,22 +26,27 @@
             android:paddingLeft="5dp"
             android:paddingTop="5dp"
             android:paddingRight="5dp"
-            android:paddingBottom="5dp" />
+            android:paddingBottom="5dp">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline5"
+                android:layout_width="33dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal" />
+        </LinearLayout>
     </ScrollView>
 
     <ScrollView
         android:id="@+id/templateDescScrollView"
-        android:layout_width="350dp"
-        android:layout_height="240dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="79dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="@drawable/template_fragment_window"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/templateListScrollView">
+        app:layout_constraintBottom_toTopOf="@+id/guideline11"
+        app:layout_constraintEnd_toEndOf="@id/guideline4"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/guideline2"
+        app:layout_constraintTop_toTopOf="@+id/guideline10"
+        app:layout_constraintVertical_bias="0.533">
 
         <LinearLayout
             android:id="@+id/templateDescLinearLayout"
@@ -62,7 +63,6 @@
         android:id="@+id/templateAddButton"
         android:layout_width="wrap_content"
         android:layout_height="49dp"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/button_shape"
@@ -75,7 +75,7 @@
         app:backgroundTint="@color/button_color"
         app:layout_constraintBottom_toTopOf="@+id/templateDescScrollView"
         app:layout_constraintEnd_toStartOf="@+id/templateApplyButton"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/templateListScrollView"
         app:layout_constraintTop_toBottomOf="@+id/templateListScrollView"
         app:layout_constraintVertical_bias="0.0" />
 
@@ -126,7 +126,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/button_shape"
         android:enabled="false"
@@ -138,7 +137,7 @@
         android:textColor="#FFFFFF"
         app:backgroundTint="@color/button_color"
         app:layout_constraintBottom_toTopOf="@+id/templateDescScrollView"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/templateListScrollView"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/templateRemoveButton"
         app:layout_constraintTop_toBottomOf="@+id/templateListScrollView"
@@ -148,14 +147,62 @@
         android:id="@+id/active_templates"
         android:layout_width="237dp"
         android:layout_height="55dp"
-        android:layout_marginStart="34dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="20dp"
         android:clickable="true"
         android:text="Active Templates"
         android:textColor="#FFFFFF"
         app:backgroundTint="#000000"
         app:icon="@drawable/ic_baseline_feedback_24"
         app:iconTint="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/templateListScrollView"
+        app:layout_constraintBottom_toTopOf="@+id/guideline7"
+        app:layout_constraintStart_toStartOf="@+id/guideline2" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.08"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="822dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_percent="0.93" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.16689466"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.49521205"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.626539"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.95"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

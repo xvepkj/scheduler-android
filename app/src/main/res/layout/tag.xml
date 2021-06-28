@@ -8,11 +8,11 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/frameLayout11"
-        android:layout_width="370dp"
+        android:layout_width="0dp"
         android:layout_height="56dp"
-        android:layout_marginStart="4dp"
         android:background="@drawable/tag_shape"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline16"
+        app:layout_constraintStart_toStartOf="@+id/guideline15"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
@@ -62,4 +62,21 @@
         android:background="@color/white"
         app:layout_constraintTop_toBottomOf="@+id/frameLayout11"
         tools:layout_editor_absoluteX="-16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.04"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="822dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_percent="0.94" />
 </androidx.constraintlayout.widget.ConstraintLayout>

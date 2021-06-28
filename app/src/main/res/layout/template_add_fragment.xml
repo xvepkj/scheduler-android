@@ -9,46 +9,45 @@
     tools:context=".ui.templates.add.TemplateAddFragment">
 
     <TextView
+        android:id="@+id/textView15"
         android:layout_width="wrap_content"
         android:layout_height="46dp"
-        android:layout_marginStart="36dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="84dp"
         android:fontFamily="More Fonts..."
         android:text="Name "
         android:textColor="#000000"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guideline9"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/template_add_name_field"
         android:layout_width="259dp"
         android:layout_height="46dp"
+        android:layout_marginStart="18dp"
         android:layout_marginTop="76dp"
-        android:layout_marginEnd="40dp"
-        android:ems="10"
         android:backgroundTint="@color/lightest_pink"
-        android:textCursorDrawable="@drawable/color_cursor"
+        android:ems="10"
         android:hint="Template Name"
         android:inputType="textPersonName"
         android:textColor="#000000"
         android:textColorHint="#6F6E6E"
+        android:textCursorDrawable="@drawable/color_cursor"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView15"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
         android:id="@+id/scrollView4"
-        android:layout_width="363dp"
+        android:layout_width="0dp"
         android:layout_height="358dp"
-        android:layout_marginStart="39dp"
         android:layout_marginTop="7dp"
-        android:layout_marginEnd="40dp"
         android:layout_marginBottom="200dp"
         android:background="@color/light_pink"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline6"
+        app:layout_constraintStart_toStartOf="@+id/guideline9"
         app:layout_constraintTop_toBottomOf="@+id/textView">
 
         <LinearLayout
@@ -139,5 +138,22 @@
         app:layout_constraintStart_toStartOf="@+id/scrollView4"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_edit_24" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="822dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_percent="0.94" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.06"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
