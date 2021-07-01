@@ -89,7 +89,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.06566347"
+        app:layout_constraintGuide_percent="0.067031465"
         app:layout_constraintTop_toTopOf="parent" />
 
 
