@@ -27,11 +27,13 @@ class Date (val day: Int, val month: Int, val year: Int){
 
   fun getCalendar() : Calendar{
     val cal = Calendar.getInstance()
-    cal.set(year,month-1,day)
-    cal.set(Calendar.MILLISECOND,0)
-    cal.set(Calendar.HOUR,0)
-    cal.set(Calendar.MINUTE,0)
-    cal.set(Calendar.SECOND,0)
+    cal.apply {
+      set(year,month-1,day)
+      set(Calendar.MILLISECOND,0)
+      set(Calendar.HOUR,0)
+      set(Calendar.MINUTE,0)
+      set(Calendar.SECOND,0)
+    }
     return cal
   }
 
