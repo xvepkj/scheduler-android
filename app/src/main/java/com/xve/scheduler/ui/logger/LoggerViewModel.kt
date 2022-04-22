@@ -78,11 +78,8 @@ class LoggerViewModel(private val app: Application) : AndroidViewModel(app) {
     if (t >= lim) finish()
   }
 
-  private fun min (a: Long, b: Long) : Long {
-    return if (a < b) a else b
-  }
+  private fun min (a: Long, b: Long) = if (a < b) a else b
 
-  fun getLim(): Long {
-    return lim
-  }
+  fun getLim() = lim
+
 }
