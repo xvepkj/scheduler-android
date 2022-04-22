@@ -96,9 +96,8 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
   fun addToPool(activeTemplate: ActiveTemplate) {
     if (activeTemplate.satisfies(Date.current())) {
       val template : ScheduleTemplate = Paper.book("templates").read(activeTemplate.templatename)
-      for (e in template.events) {
+      for (e in template.events)
         addCustomEvent(e, Date.current())
-      }
     }
     val w = worker
     w.addToPool(activeTemplate)
@@ -208,9 +207,9 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
       }
     }
     else {
-      val events: MutableList<ScheduledEvent> = extraEvents.read(d.toString())
+      val events: MutableList<ScheduledEvent> = extraEvents.read(d)
       events.removeAt(i)
-      extraEvents.write(d.toString(), events)
+      extraEvents.write(d, events)
     }
   }
   fun updateEvent(i: Int, completed_fraction: Int){
@@ -243,14 +242,11 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
 
 
   /* For retrieving logged event */
-  fun getLoggedEvent() : ScheduledEvent {
-    val his : MutableList<ScheduledEvent> = history.read(Date.current().toString())
-    return his[logged_event_index]
-  }
+  fun getLoggedEvent() =
+    (history.read(Date.current().toString()) as MutableList<ScheduledEvent>)[logged_event_index]
 
   /* For logged events */
   fun updateLoggedEventProgress(progress: Double) {
-    Log.d("DBG", "$logged_event_index $progress")
     val his : MutableList<ScheduledEvent> = history.read(Date.current().toString())
     Log.d("DBG", his.toString())
     val event = his[logged_event_index]
@@ -273,9 +269,8 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
     Paper.book("stats").write("list", statList)
   }
 
-  fun updateWorker(w: Worker) {
-    Paper.book().write("worker", w)
-  }
+  fun updateWorker(w: Worker) = Paper.book().write("worker", w)
+
 
   fun loadEventsToTag(eventList: MutableList<ScheduledEvent>){
     for(event in eventList){
@@ -295,44 +290,4 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
       }
     }
   }
-  /*
-  fun setAlarms() {
-    // set alarms for events of current date
-
-    // remove all alarms: for each id in ids, remove alarm
-    val alarmManager = app.getSystemService(ALARM_SERVICE) as AlarmManager
-    for (p in pendingIntents) alarmManager.cancel(p)
-    pendingIntents.clear()
-
-    // Get today's schedule: from history
-    // val todaySchedule: List<ScheduledEvent> = history.read(Date.current().toString())
-    val todaySchedule = worker.generate(Date.current()) // for now
-    for (i in todaySchedule.indices) {
-      val e = todaySchedule[i]
-      if (e.startTime > Time.now()) setAlarm(todaySchedule[i], i)
-    }
-    // for events with start time > current time, set alarms
-  }
-  private fun setAlarm(event: ScheduledEvent, id: Int) {
-    val contentIntent = Intent(app.applicationContext, AlarmReceiver::class.java)
-    contentIntent.putExtra("event", event.toString())
-    val contentPendingIntent = PendingIntent.getBroadcast(
-      app.applicationContext,
-      id,
-      contentIntent,
-      PendingIntent.FLAG_UPDATE_CURRENT
-    )
-    pendingIntents.add(contentPendingIntent)
-    val alarmManager = app.getSystemService(ALARM_SERVICE) as AlarmManager
-    val todayCal = Date.current().getCalendar()
-    todayCal.set(Calendar.HOUR_OF_DAY, event.startTime.h)
-    todayCal.set(Calendar.MINUTE, event.startTime.m)
-
-    // var triggerTime = System.currentTimeMillis() + t
-    val triggerTime = todayCal.timeInMillis
-    Log.d("DBG", "alarm after ${(triggerTime - System.currentTimeMillis()) / 1000} seconds")
-
-    alarmManager.setWindow(AlarmManager.RTC_WAKEUP, triggerTime,1000L, contentPendingIntent)
-  }
-   */
 }
