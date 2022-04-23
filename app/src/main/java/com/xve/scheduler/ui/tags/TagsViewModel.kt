@@ -46,20 +46,16 @@ class TagsViewModel : ViewModel() {
 
     fun remove(index: Int) {
         val tagList : MutableList<Tag> = Paper.book("tags").read("list")
-        if (index <= 0 || index >= tagList.size) {
-            // Show in log maybe
-            return
-        }
+        if (index <= 0 || index >= tagList.size) return
         tagList[index].isActive = false
         Paper.book("tags").write("list", tagList)
     }
 
     fun modify(index: Int, tag: Tag) {
         val tagList : MutableList<Tag> = Paper.book("tags").read("list")
-        if (index <= 0 || index >= tagList.size) {
-            // Show in log maybe
-            return
-        }
+
+        if (index <= 0 || index >= tagList.size) return
+
         tagList[index] = tag
         Paper.book("tags").write("list", tagList)
     }
