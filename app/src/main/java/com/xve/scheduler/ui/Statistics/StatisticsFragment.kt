@@ -27,17 +27,21 @@ class StatisticsFragment : Fragment() {
 
   private lateinit var viewModel: StatisticsViewModel
   private lateinit var statsList: LinearLayout
-  private lateinit var statsList2: LinearLayout
   private lateinit var stats_spinner : Spinner
+
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
     val root =inflater.inflate(R.layout.statistics_fragment, container, false)
+
     (activity as MainActivity?)?.supportActionBar?.title = "Statistics"
+
     viewModel = ViewModelProvider(requireActivity()).get(StatisticsViewModel::class.java)
+
     statsList = root.findViewById<LinearLayout>(R.id.linear_layout_stats)
     stats_spinner = root.findViewById<Spinner>(R.id.stats_spinner)
+
     val array: Array<String> = arrayOf("All time", "Today's", "Last Week's", "Last Month's")
     val adapter = ArrayAdapter<String>(
       activity?.applicationContext!!, R.layout.stats_spinner_main, array
@@ -62,38 +66,7 @@ class StatisticsFragment : Fragment() {
         Toast.makeText(context, "Nothing selected", Toast.LENGTH_SHORT).show()
       }
     }
-      /*
-    addTag.setOnClickListener{
-      val builder: AlertDialog.Builder = android.app.AlertDialog.Builder(context)
-      val inflater = this.layoutInflater
-      val dialogView = inflater.inflate(R.layout.custom_dialog_box_edittext, null)
-      builder.setTitle("New Tag")
 
-      val input : EditText = dialogView.findViewById(R.id.edit1)
-
-      input.hint = "Enter Tag name"
-      input.inputType = InputType.TYPE_CLASS_TEXT
-      builder.setView(dialogView)
-
-      builder.setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
-        var newTagName = input.text.toString()
-        Log.d("DBG", newTagName)
-        viewModel.addTag(newTagName)
-        Log.d("DBG", viewModel.tags.toString())
-        loadStatisticstoUI(COUNT_ALL_TIME)
-      })
-      builder.setNegativeButton(
-        "Cancel",
-        DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
-      val dialog = builder.create()
-      dialog.show()
-      dialog?.getButton(DatePickerDialog.BUTTON_POSITIVE)!!
-        .setTextColor(ContextCompat.getColor(requireActivity(), R.color.dark_pink))
-      dialog?.getButton(DatePickerDialog.BUTTON_NEGATIVE)!!
-        .setTextColor(ContextCompat.getColor(requireActivity(), R.color.dark_pink))
-
-    }
-       */
     loadStatisticstoUI(COUNT_ALL_TIME)
     return root
   }
@@ -103,26 +76,33 @@ class StatisticsFragment : Fragment() {
     viewModel = ViewModelProvider(this).get(StatisticsViewModel::class.java)
     // TODO: Use the ViewModel
   }
+
   fun loadStatisticstoUI(numDays: Int){
     statsList.removeAllViews()
     viewModel.tags.forEachIndexed { index, tag ->
       if (tag.isActive) {
+
         val tagStats : Pair<String, String> = viewModel.loadStatistics(index, numDays)
         val view: View = layoutInflater.inflate(R.layout.stats_item, null)
+
         val textView = view.findViewById<TextView>(R.id.name_field)
-        textView.text = tagStats.first
-        textView.textSize= 17F
-        val typeface = ResourcesCompat.getFont(requireContext(), R.font.biorhyme_light)
-        textView.typeface = typeface
-        textView.gravity = Gravity.LEFT
-        textView.setTextColor(Color.parseColor("#000000"));
+        textView.apply {
+          text = tagStats.first
+          textSize= 17F
+          typeface = ResourcesCompat.getFont(requireContext(), R.font.biorhyme_light)
+          gravity = Gravity.LEFT
+          setTextColor(Color.parseColor("#000000"))
+        }
+
         val textView2 = view.findViewById<TextView>(R.id.statistics_field)
-        textView2.text = tagStats.second
-        textView2.gravity = Gravity.RIGHT
-        textView2.textSize= 17F
-        val typeface2 = ResourcesCompat.getFont(requireContext(), R.font.biorhyme_light)
-        textView2.typeface = typeface2
-        textView2.setTextColor(Color.parseColor("#000000"));
+        textView2.apply {
+          text = tagStats.second
+          gravity = Gravity.RIGHT
+          textSize= 17F
+          typeface = ResourcesCompat.getFont(requireContext(), R.font.biorhyme_light)
+          setTextColor(Color.parseColor("#000000"));
+        }
+
         statsList.addView(view)
       }
     }
