@@ -7,7 +7,6 @@ import android.content.DialogInterface
 import android.graphics.Color
 import android.os.Bundle
 import android.text.InputType
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,10 +23,6 @@ import com.xve.scheduler.core.Tag
 
 
 class TagsFragment : Fragment() {
-
-  companion object {
-    fun newInstance() = TagsFragment()
-  }
 
   private lateinit var viewModel: TagsViewModel
 
@@ -46,7 +41,9 @@ class TagsFragment : Fragment() {
     savedInstanceState: Bundle?
   ): View? {
     val root = inflater.inflate(R.layout.tags_fragment, container, false)
+
     (activity as MainActivity?)?.supportActionBar?.title = "Tags"
+
     linearLayout = root.findViewById(R.id.tag_lin_layout)
     addButton = root.findViewById(R.id.tag_add_btn)
 
@@ -54,14 +51,9 @@ class TagsFragment : Fragment() {
 
     addButton.setOnClickListener {
       showDialog(
-        "",
-        Color.WHITE,
-        "Add tag",
+        dialogTitle = "Add tag",
         positiveCallback = { dialog, which ->
-          val tagName = nameInput.text.toString()
-          val tagColor = spinner.selectedItem as Int
-          Log.d("DBG", "${tagName}, ${tagColor}")
-          viewModel.add(Tag(tagName, tagColor))
+          viewModel.add(Tag(name = nameInput.text.toString(), color = spinner.selectedItem as Int))
           loadTagList()
         }
       )
@@ -72,8 +64,8 @@ class TagsFragment : Fragment() {
   }
 
   fun showDialog(
-    tagName: String,
-    tagColor: Int,
+    tagName: String = "",
+    tagColor: Int = Color.WHITE,
     dialogTitle: String,
     positiveCallback: (DialogInterface, Int) -> Unit
   ) {
@@ -84,75 +76,56 @@ class TagsFragment : Fragment() {
 
     // Customize DialogView
     // setup spinner
-    val array: Array<Int> = arrayOf(
-      ResourcesCompat.getColor(resources, R.color.WeldonBlue, null),
-      ResourcesCompat.getColor(resources, R.color.ElectricBrown, null),
-      ResourcesCompat.getColor(resources, R.color.CyberGrape, null),
-      ResourcesCompat.getColor(resources, R.color.Melon, null),
-      ResourcesCompat.getColor(resources, R.color.Flavescent, null),
-      ResourcesCompat.getColor(resources, R.color.Cornsilk, null),
-      ResourcesCompat.getColor(resources, R.color.MagicMint, null),
-      ResourcesCompat.getColor(resources, R.color.DeepSaffron, null),
-      ResourcesCompat.getColor(resources, R.color.LightGold, null),
-      ResourcesCompat.getColor(resources, R.color.PhilippineSilver, null),
-      ResourcesCompat.getColor(resources, R.color.Deer, null),
-      ResourcesCompat.getColor(resources, R.color.Bone, null),
-      ResourcesCompat.getColor(resources, R.color.PaleRobinEggBlue, null)
-    )
+
+    val arrayColors: Array<Int> = getColors()
+
     val customAdapter = object : BaseAdapter() {
-      override fun getCount(): Int {
-        return array.size
-      }
 
-      override fun getItem(position: Int): Any {
-        return array[position]
-      }
+      override fun getCount() = arrayColors.size
 
-      override fun getItemId(position: Int): Long {
-        return position.toLong()
-      }
+      override fun getItem(position: Int) = arrayColors[position]
 
-      override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        var view : TextView = layoutInflater.inflate(R.layout.spinner_item, null) as TextView
-        view.setBackgroundColor(array[position])
-        return view
-      }
+      override fun getItemId(position: Int) = position.toLong()
+
+      override fun getView(position: Int, convertView: View?, parent: ViewGroup?) =
+        (layoutInflater.inflate(R.layout.spinner_item, null) as TextView).apply {
+          setBackgroundColor(arrayColors[position])
+        }
     }
-    /*
-    val adapter = ArrayAdapter<Int>(
-      activity?.applicationContext!!,R.layout.spinner_main, array
-    )*/
+
     spinner.adapter = customAdapter
     // Given color should be selected
     // TODO: Fix
     var colorPos = 0
-    for (i in array.indices) {
-      if (array[i] == tagColor) {
+    for (i in arrayColors.indices)
+      if (arrayColors[i] == tagColor) {
         colorPos = i
         break
       }
-    }
+
     spinner.setSelection(colorPos)
 
-    nameInput.hint = "Enter Tag name"
-    nameInput.inputType = InputType.TYPE_CLASS_TEXT
-    nameInput.setText(tagName)
+    nameInput.apply {
+      hint = "Enter Tag name"
+      InputType.TYPE_CLASS_TEXT
+      setText(tagName)
+    }
 
     // Build dialog box containing DialogView
-    val builder: AlertDialog.Builder = android.app.AlertDialog.Builder(context)
-    builder.setTitle(dialogTitle)
-    builder.setView(dialogView)
-    builder.setPositiveButton("OK", positiveCallback)
-    builder.setNegativeButton("Cancel", { dialog, which -> dialog.cancel() })
-
-    val dialog = builder.create()
-    dialog.show()
-
-    // Aesthetic
-    dialog?.getButton(DatePickerDialog.BUTTON_POSITIVE)!!
-      .setTextColor(ContextCompat.getColor(requireActivity(), R.color.dark_pink))
-    dialog?.getButton(DatePickerDialog.BUTTON_NEGATIVE)!!
-      .setTextColor(ContextCompat.getColor(requireActivity(), R.color.dark_pink))
+    AlertDialog.Builder(context). apply {
+      setTitle(dialogTitle)
+      setView(dialogView)
+      setPositiveButton("OK", positiveCallback)
+      setNegativeButton("Cancel") { dialog, which -> dialog.cancel() }
+      val dialog = create()
+      dialog.apply {
+        show()
+        getButton(DatePickerDialog.BUTTON_POSITIVE)!!
+          .setTextColor(ContextCompat.getColor(requireActivity(), R.color.dark_pink))
+        getButton(DatePickerDialog.BUTTON_NEGATIVE)!!
+          .setTextColor(ContextCompat.getColor(requireActivity(), R.color.dark_pink))
+      }
+    }
   }
 
   @SuppressLint("NewApi")
@@ -161,7 +134,7 @@ class TagsFragment : Fragment() {
     viewModel.tags.forEachIndexed { index, tag ->
       if (tag.isActive) {
         val view: View = layoutInflater.inflate(R.layout.tag, null)
-        val framelayout : ConstraintLayout = view.findViewById(R.id.frameLayout11)
+        val frameLayout : ConstraintLayout = view.findViewById(R.id.frameLayout11)
         val tagNameTextView = view.findViewById<TextView>(R.id.tag_name)
         val editButton = view.findViewById<ImageButton>(R.id.tag_edit_button)
         val removeButton = view.findViewById<ImageButton>(R.id.tag_remove_button)
@@ -186,31 +159,36 @@ class TagsFragment : Fragment() {
           )
         }
         removeButton.setOnClickListener {
-          val builder = AlertDialog.Builder(context)
-          builder.setMessage("Are you sure?")
-          builder.setPositiveButton("Yes", { dialog, which ->
+          AlertDialog.Builder(context).apply {
+            setMessage("Are you sure?")
+            setPositiveButton("Yes") { dialog, which ->
               viewModel.remove(index)
               loadTagList()
-            })
-          builder.setNegativeButton("No", { dialog, which -> dialog.cancel() })
-          val dialog = builder.create()
-          dialog.show()
-          // Aesthetic
-          dialog?.getButton(DatePickerDialog.BUTTON_POSITIVE)!!
-            .setTextColor(ContextCompat.getColor(requireActivity(), R.color.dark_pink))
-          dialog?.getButton(DatePickerDialog.BUTTON_NEGATIVE)!!
-            .setTextColor(ContextCompat.getColor(requireActivity(), R.color.dark_pink))
+              setNegativeButton("No") { dialog, which -> dialog.cancel() }
+              val dialog = create()
+              dialog.apply {
+                dialog.show()
+                getButton(DatePickerDialog.BUTTON_POSITIVE)!!
+                  .setTextColor(ContextCompat.getColor(requireActivity(), R.color.dark_pink))
+                getButton(DatePickerDialog.BUTTON_NEGATIVE)!!
+                  .setTextColor(ContextCompat.getColor(requireActivity(), R.color.dark_pink))
+              }
+            }
+          }
         }
-        tagNameTextView.setText(tag.name)
-        val framebackground = DrawableCompat.wrap(framelayout.background)
-        DrawableCompat.setTint(framebackground,tag.color);
+        tagNameTextView.text = tag.name
+        DrawableCompat.setTint(DrawableCompat.wrap(frameLayout.background),tag.color)
         linearLayout.addView(view)
       }
     }
   }
 
-  override fun onActivityCreated(savedInstanceState: Bundle?) {
-    super.onActivityCreated(savedInstanceState)
-    // TODO: Use the ViewModel
+  private fun getColors() : Array<Int> {
+    val arrayColorIds = arrayOf(R.color.WeldonBlue, R.color.ElectricBrown, R.color.CyberGrape, R.color.Melon, R.color.Flavescent, R.color.Cornsilk, R.color.MagicMint,
+      R.color.DeepSaffron,R.color.LightGold,  R.color.PhilippineSilver,  R.color.Deer, R.color.Bone, R.color.PaleRobinEggBlue)
+    val arrayNew = mutableListOf<Int>()
+    for(id in arrayColorIds)
+      arrayNew.add(ResourcesCompat.getColor(resources,id, null))
+    return arrayNew.toTypedArray()
   }
 }
