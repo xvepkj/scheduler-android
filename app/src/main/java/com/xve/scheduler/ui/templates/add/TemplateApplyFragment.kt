@@ -78,9 +78,10 @@ class TemplateApplyFragment : Fragment(), View.OnClickListener {
   private fun refreshCustomDatesList() {
     binding.applyCustomDatesList.removeAllViews()
     for (d in viewModel.customDatesList) {
-      val textView = TextView(activity)
-      textView.text = d.toString()
-      textView.textSize = 15F
+      val textView = TextView(activity).apply {
+        text = d.toString()
+        textSize = 15F
+      }
       binding.applyCustomDatesList.addView(textView)
     }
   }
@@ -101,16 +102,6 @@ class TemplateApplyFragment : Fragment(), View.OnClickListener {
     binding.templateapplymonthly.isChecked -> RepeatType.MONTHLY
     binding.templateapplyfrequency.isChecked -> RepeatType.FREQUENCY
     else -> RepeatType.MONTHLY // For now
-  }
-
-  private fun getIntAccordingToNum(d : MaterialDayPicker. Weekday) = when(d) {
-    MaterialDayPicker.Weekday.SUNDAY -> 1
-    MaterialDayPicker.Weekday.MONDAY -> 2
-    MaterialDayPicker.Weekday.TUESDAY -> 3
-    MaterialDayPicker.Weekday.WEDNESDAY -> 4
-    MaterialDayPicker.Weekday.THURSDAY -> 5
-    MaterialDayPicker.Weekday.FRIDAY -> 6
-    MaterialDayPicker.Weekday.SATURDAY -> 7
   }
 
   @RequiresApi(Build.VERSION_CODES.N)
@@ -146,7 +137,7 @@ class TemplateApplyFragment : Fragment(), View.OnClickListener {
       val repeatType = getRepeatType()
       val list: MutableList<Int> = mutableListOf()
       when (repeatType) {
-        RepeatType.WEEKLY -> for (d in binding.dayPicker.selectedDays) list.add(getIntAccordingToNum(d))
+        RepeatType.WEEKLY -> for (d in binding.dayPicker.selectedDays) list.add(d.ordinal + 1)
         RepeatType.FREQUENCY -> list.add(binding.enterfrequency.text.toString().toInt())
         RepeatType.MONTHLY -> list.addAll(getSelectedDates())
       }
