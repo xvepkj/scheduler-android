@@ -102,18 +102,17 @@ class TemplateAddFragment : Fragment() {
         tagColorView.setColorFilter(tag.color, PorterDuff.Mode.SRC_ATOP)
       }
 
-      if(event.eventType == EventType.TRACKED)
-        trackedEventCheckbox.apply {
+      when(event.eventType) {
+        EventType.TRACKED -> trackedEventCheckbox.apply {
           visibility = VISIBLE
           isEnabled = false
         }
-
-      if(event.eventType == EventType.LOGGED)
-        loggedProgress. apply {
+        EventType.LOGGED -> loggedProgress. apply {
           text = "0.0"
           visibility = VISIBLE
           isEnabled = false
         }
+      }
 
       t.text = event.name
       starttime.text = event.startTime.toString()
