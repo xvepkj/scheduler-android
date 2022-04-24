@@ -30,10 +30,6 @@ import com.xve.scheduler.ui.templates.main.TemplateViewModel
 
 class TemplateAddFragment : Fragment() {
 
-  companion object {
-    fun newInstance() = TemplateAddFragment()
-  }
-
   private var _binding: TemplateAddFragmentBinding? = null
   private val binding get() = _binding!!
 
@@ -48,16 +44,9 @@ class TemplateAddFragment : Fragment() {
     savedInstanceState: Bundle?
   ): View? {
     _binding = TemplateAddFragmentBinding.inflate(inflater, container, false)
-    if(TemplateFragment.TemplateEdit) {
-      (activity as MainActivity?)?.supportActionBar?.title = "Edit Template"
-      binding.templateEditFinish.visibility= VISIBLE
-      binding.templateAddFinish.visibility = GONE
-    }
-    else {
-      (activity as MainActivity?)?.supportActionBar?.title = "New Template"
-      binding.templateEditFinish.visibility= GONE
-      binding.templateAddFinish.visibility = VISIBLE
-    }
+    if(TemplateFragment.TemplateEdit) setUIForAddEditTemplate("Edit Template", GONE, VISIBLE)
+    else setUIForAddEditTemplate("New Template", VISIBLE, GONE)
+
     viewModel = ViewModelProvider(requireActivity()).get(TemplateAddViewModel::class.java)
     templateViewModel = ViewModelProvider(requireActivity()).get(TemplateViewModel::class.java)
     templateApplyViewModel= ViewModelProvider(requireActivity()).get(TemplateApplyViewModel::class.java)
@@ -70,48 +59,23 @@ class TemplateAddFragment : Fragment() {
     Log.d("DBG",viewModel.template_name)
     val templateNames : List<String> = templateViewModel.getTemplateNames()
     binding.templateAddNameField.doOnTextChanged{_,_,_,_ ->
-      val input = binding.templateAddNameField.text.toString()
-      for(templateName in templateNames) {
-        if (!TemplateFragment.TemplateEdit && input.trim().equals(templateName, ignoreCase = true)) {
-          binding.templateAddNameField.error = "Template Name should be unique"
-          break
-        }
-        else
-          binding.templateAddNameField.error = null
-      }
+      setTemplateNameError(templateNames, binding.templateAddNameField.text.toString())
     }
     binding.templateAddNameField.isEnabled = !TemplateFragment.TemplateEdit
     binding.templateAddFinish.isEnabled = !TemplateFragment.TemplateEdit
     binding.templateEditFinish.isEnabled = TemplateFragment.TemplateEdit
     binding.templateAddNameField.setText(viewModel.template_name)
     binding.templateAddEventAdd.setOnClickListener {
-      // viewModel.addEvent(ScheduledEvent("test", Time(0, 0), Time(1, 0)))
       HomeFragment.fromhome = false
       viewModel.template_name = binding.templateAddNameField.text.toString()
       findNavController().navigate(R.id.action_templateAddFragment_to_eventAddFragment)
     }
 
-    binding.templateAddFinish.setOnClickListener {
-      val newTemplate = ScheduleTemplate(binding.templateAddNameField.text.toString())
-      for (e in viewModel.events.value!!) newTemplate.add(e)
-      templateViewModel.addTemplate(newTemplate)
-      viewModel.clear()
-      findNavController().navigate(R.id.action_templateAddFragment_to_templateFragment)
-    }
+    binding.templateAddFinish.setOnClickListener { templateAddEdit(false) }
 
-    binding.templateEditFinish.setOnClickListener {
-      val newTemplate = ScheduleTemplate(binding.templateAddNameField.text.toString())
-      for (e in viewModel.events.value!!) newTemplate.add(e)
-      templateViewModel.removeTemplate(templateApplyViewModel.template)
-      templateViewModel.addTemplate(newTemplate)
-      viewModel.clear()
-      findNavController().navigate(R.id.action_templateAddFragment_to_templateFragment)
-    }
+    binding.templateEditFinish.setOnClickListener { templateAddEdit(true) }
+
     return binding.root
-  }
-  override fun onActivityCreated(savedInstanceState: Bundle?) {
-    super.onActivityCreated(savedInstanceState)
-    // TODO: Use the ViewModel
   }
 
   @SuppressLint("NewApi")
@@ -129,24 +93,25 @@ class TemplateAddFragment : Fragment() {
 
       // tag info if tracked/logged
       val tagColorView = view.findViewById<ImageButton>(R.id.event_tag_color_template)
-      tagColorView.visibility = View.GONE
+      tagColorView.visibility = GONE
+
       if (event.eventType != EventType.UNTRACKED) {
-        tagColorView.visibility = View.VISIBLE
+        tagColorView.visibility = VISIBLE
         var tag = tagsViewModel.get(event.tagId)
         if (!tag.isActive) tag = tagsViewModel.get(0)
-        tagColorView.setColorFilter(
-          tag.color,
-          PorterDuff.Mode.SRC_ATOP)
+        tagColorView.setColorFilter(tag.color, PorterDuff.Mode.SRC_ATOP)
       }
 
-      if(event.eventType == EventType.TRACKED){
-        trackedEventCheckbox.visibility = VISIBLE
-        trackedEventCheckbox.isEnabled = false
-      }
-      if(event.eventType == EventType.LOGGED){
-        loggedProgress.text = "0.0"
-        loggedProgress.visibility = VISIBLE
-        loggedProgress.isEnabled = false
+      when(event.eventType) {
+        EventType.TRACKED -> trackedEventCheckbox.apply {
+          visibility = VISIBLE
+          isEnabled = false
+        }
+        EventType.LOGGED -> loggedProgress. apply {
+          text = "0.0"
+          visibility = VISIBLE
+          isEnabled = false
+        }
       }
 
       t.text = event.name
@@ -157,6 +122,32 @@ class TemplateAddFragment : Fragment() {
         showEvents(events)
       }
       binding.templateAddEventList.addView(view)
+    }
+  }
+
+  private fun templateAddEdit(isEdit : Boolean){
+    val newTemplate = ScheduleTemplate(binding.templateAddNameField.text.toString())
+    for (e in viewModel.events.value!!) newTemplate.add(e)
+    if(isEdit) templateViewModel.removeTemplate(templateApplyViewModel.template)
+    templateViewModel.addTemplate(newTemplate)
+    viewModel.clear()
+    findNavController().navigate(R.id.action_templateAddFragment_to_templateFragment)
+  }
+
+  private fun setUIForAddEditTemplate(title : String, visibilityAdd : Int, visibilityEdit: Int) {
+    (activity as MainActivity?)?.supportActionBar?.title = title
+    binding.templateAddFinish.visibility = visibilityAdd
+    binding.templateEditFinish.visibility= visibilityEdit
+  }
+
+  private fun setTemplateNameError(templateNames : List<String>, input : String) {
+    for(templateName in templateNames) {
+      if (!TemplateFragment.TemplateEdit && input.trim().equals(templateName, ignoreCase = true)) {
+        binding.templateAddNameField.error = "Template Name should be unique"
+        break
+      }
+      else
+        binding.templateAddNameField.error = null
     }
   }
 }
