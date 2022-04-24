@@ -17,35 +17,21 @@ import com.xve.scheduler.ui.home.HomeViewModel
 
 class SettingsFragment : Fragment() {
 
-  companion object {
-    fun newInstance() = SettingsFragment()
-  }
-
   private lateinit var viewModel: SettingsViewModel
-
-  private lateinit var button: Button
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
+
     (activity as MainActivity?)?.supportActionBar?.title = "Settings"
     val root = inflater.inflate(R.layout.settings_fragment, container, false)
-    val button:Button = root.findViewById(R.id.button)
+
     val about : ImageView = root.findViewById(R.id.imageView3)
     val tutorial : ImageView = root.findViewById(R.id.imageView4)
-    button.setOnClickListener {
-      findNavController().navigate(R.id.action_settingsFragment_to_templatePoolFragment)
-    }
-    about.setOnClickListener{
-      findNavController().navigate(R.id.action_settingsFragment_to_blankFragment)
-    }
-    tutorial.setOnClickListener{
-      val i = Intent(activity, SchedulerIntro::class.java)
-      startActivity(i)
-    }
-    val homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
-    root.findViewById<Button>(R.id.buttonSetAlarms).setOnClickListener {
-      homeViewModel.forceUpdate()
-    }
+
+    about.setOnClickListener{ findNavController().navigate(R.id.action_settingsFragment_to_blankFragment) }
+
+    tutorial.setOnClickListener{ startActivity(Intent(activity, SchedulerIntro::class.java)) }
+
     return root
   }
 
@@ -54,5 +40,4 @@ class SettingsFragment : Fragment() {
     viewModel = ViewModelProvider(this).get(SettingsViewModel::class.java)
     // TODO: Use the ViewModel
   }
-
 }
