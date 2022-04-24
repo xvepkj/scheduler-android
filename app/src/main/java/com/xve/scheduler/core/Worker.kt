@@ -3,6 +3,7 @@ package com.xve.scheduler.core
 import io.paperdb.Paper
 
 class Worker {
+
   private var pool: MutableList<ActiveTemplate> = mutableListOf()
 
   fun generate (date: Date): List<ScheduledEvent> {
@@ -22,7 +23,5 @@ class Worker {
     pool.removeAt(index)
   }
 
-  fun getPool(): List<ActiveTemplate> {
-    return pool
-  }
+  fun getPool(): List<ActiveTemplate> = pool
 }
