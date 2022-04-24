@@ -47,8 +47,6 @@ class TemplatePoolFragment : Fragment() {
       val activeTemplate : ActiveTemplate = pool[i]
       val view: View = layoutInflater.inflate(R.layout.active_template_item, null)
       val t = view.findViewById<TextView>(R.id.eventdetails)
-      view.findViewById<TextView>(R.id.starttime)
-      view.findViewById<TextView>(R.id.endtime)
       val crossbutton = view.findViewById<ImageButton>(R.id.removeevent)
       t.text = activeTemplate.toString()
       crossbutton.setOnClickListener{
