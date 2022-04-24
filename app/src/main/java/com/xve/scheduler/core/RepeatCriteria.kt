@@ -21,7 +21,5 @@ class RepeatCriteria (val startDate: Date,
     }
   }
 
-  override fun toString(): String {
-    return "(start:$startDate, ${repeatType.toString()}, $list)"
-  }
+  override fun toString() = "(start:$startDate, $repeatType, $list)"
 }
