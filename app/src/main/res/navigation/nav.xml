@@ -89,7 +89,7 @@
         tools:layout="@layout/statistics_fragment" />
     <fragment
         android:id="@+id/blankFragment"
-        android:name="com.xve.scheduler.ui.settings.about.BlankFragment"
+        android:name="com.xve.scheduler.ui.settings.about.AboutFragment"
         android:label="fragment_blank"
         tools:layout="@layout/about" />
     <fragment
