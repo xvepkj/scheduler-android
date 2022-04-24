@@ -77,19 +77,19 @@ class TagsFragment : Fragment() {
     // Customize DialogView
     // setup spinner
 
-    val array: Array<Int> = getColors()
+    val arrayColors: Array<Int> = getColors()
 
     val customAdapter = object : BaseAdapter() {
 
-      override fun getCount() = array.size
+      override fun getCount() = arrayColors.size
 
-      override fun getItem(position: Int) = array[position]
+      override fun getItem(position: Int) = arrayColors[position]
 
       override fun getItemId(position: Int) = position.toLong()
 
       override fun getView(position: Int, convertView: View?, parent: ViewGroup?) =
         (layoutInflater.inflate(R.layout.spinner_item, null) as TextView).apply {
-          setBackgroundColor(array[position])
+          setBackgroundColor(arrayColors[position])
         }
     }
 
@@ -97,8 +97,8 @@ class TagsFragment : Fragment() {
     // Given color should be selected
     // TODO: Fix
     var colorPos = 0
-    for (i in array.indices)
-      if (array[i] == tagColor) {
+    for (i in arrayColors.indices)
+      if (arrayColors[i] == tagColor) {
         colorPos = i
         break
       }
