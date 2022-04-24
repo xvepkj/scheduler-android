@@ -29,7 +29,7 @@ import com.xve.scheduler.core.EventType
 import com.xve.scheduler.core.ScheduledEvent
 import com.xve.scheduler.ui.logger.LoggerViewModel
 import com.xve.scheduler.ui.tags.TagsViewModel
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.xve.scheduler.databinding.HomeFragmentBinding
 
 class HomeFragment : Fragment() {
 
@@ -40,26 +40,23 @@ class HomeFragment : Fragment() {
     var selecteddate : Date = Date.current()
   }
 
+  private var _binding: HomeFragmentBinding? = null
+  private val binding get() = _binding!!
+
   private lateinit var viewModel: HomeViewModel
 
   // For obtaining tag info
   private lateinit var tagsViewModel: TagsViewModel
-
-  private lateinit var linearLayout: LinearLayout
-  private lateinit var addcustomevent : FloatingActionButton
   private lateinit var loggerViewModel: LoggerViewModel
 
   override fun onCreateView(
           inflater: LayoutInflater, container: ViewGroup?,
           savedInstanceState: Bundle?
   ): View? {
-    val root = inflater.inflate(R.layout.home_fragment, container, false)
-
+    _binding = HomeFragmentBinding.inflate(inflater, container, false)
     // Initialize UI elements
-    linearLayout = root.findViewById(R.id.homeLinearLayout)
 
     setHasOptionsMenu(true)
-    (activity as MainActivity?)?.supportActionBar?.title = "Hello"
 
     // viewModel related stuff
     viewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
@@ -75,8 +72,7 @@ class HomeFragment : Fragment() {
       loadSchedule(Date.current())
       selecteddate = Date.current()
     }
-    addcustomevent = root.findViewById(R.id.addcustomevent)
-    addcustomevent.setOnClickListener{
+    binding.addcustomevent.setOnClickListener{
       fromhome = true
       if(selecteddate!= Date.current())
         customToFuture = true
@@ -84,13 +80,7 @@ class HomeFragment : Fragment() {
     }
     createChannel(getString(R.string.default_channel_id), "channelName")
 
-    return root
-  }
-
-  override fun onActivityCreated(savedInstanceState: Bundle?) {
-    super.onActivityCreated(savedInstanceState)
-    // TODO: Use the ViewModel
-
+    return binding.root
   }
 
   @RequiresApi(Build.VERSION_CODES.N)
@@ -103,11 +93,13 @@ class HomeFragment : Fragment() {
           selecteddate = d
           loadSchedule(d)
         }
-        datePicker?.show()
-        datePicker?.getButton(DatePickerDialog.BUTTON_POSITIVE)!!
-          .setTextColor(ContextCompat.getColor(requireActivity(), R.color.dark_pink))
-        datePicker?.getButton(DatePickerDialog.BUTTON_NEGATIVE)!!
-          .setTextColor(ContextCompat.getColor(requireActivity(), R.color.dark_pink))
+        datePicker?.let {
+          it.show()
+          it.getButton(DatePickerDialog.BUTTON_POSITIVE)!!
+            .setTextColor(ContextCompat.getColor(requireActivity(), R.color.dark_pink))
+          it.getButton(DatePickerDialog.BUTTON_NEGATIVE)!!
+            .setTextColor(ContextCompat.getColor(requireActivity(), R.color.dark_pink))
+        }
         true
       }
       else -> super.onOptionsItemSelected(item)
@@ -127,7 +119,7 @@ class HomeFragment : Fragment() {
   // Load schedule to UI
   @SuppressLint("NewApi")
   fun loadScheduleToUI(schedule: List<ScheduledEvent>) {
-    linearLayout.removeAllViews()
+    binding.homeLinearLayout.removeAllViews()
     for (i in schedule.indices) {
       val event = schedule[i]
       val view: View = layoutInflater.inflate(R.layout.event_home, null)
@@ -187,7 +179,7 @@ class HomeFragment : Fragment() {
           selecteddate= Date.current()
           loadSchedule(Date.current())
       }
-      linearLayout.addView(view)
+      binding.homeLinearLayout.addView(view)
     }
   }
 
@@ -202,10 +194,12 @@ class HomeFragment : Fragment() {
       )
       // TODO: Step 2.6 disable badges for this channel
 
-      notificationChannel.enableLights(true)
-      notificationChannel.lightColor = Color.RED
-      notificationChannel.enableVibration(true)
-      notificationChannel.description = "Schedule Stuff"
+      notificationChannel.apply {
+        enableLights(true)
+        lightColor = Color.RED
+        enableVibration(true)
+        description = "Schedule Stuff"
+      }
 
       val notificationManager = requireActivity().getSystemService(
               NotificationManager::class.java
