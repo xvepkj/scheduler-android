@@ -24,7 +24,6 @@ import com.xve.scheduler.ui.templates.add.TemplateApplyViewModel
 class TemplateFragment : Fragment() {
 
   companion object {
-    fun newInstance() = TemplateFragment()
     var TemplateEdit : Boolean = false
   }
 
@@ -36,7 +35,7 @@ class TemplateFragment : Fragment() {
   private lateinit var homeViewModel: HomeViewModel
   private lateinit var templateViewModel: TemplateViewModel
   private lateinit var templateAddViewModel: TemplateAddViewModel
-  private lateinit var templateName : EditText
+
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
@@ -88,28 +87,24 @@ class TemplateFragment : Fragment() {
     return binding.root
   }
 
-  override fun onActivityCreated(savedInstanceState: Bundle?) {
-    super.onActivityCreated(savedInstanceState)
-    // TODO: Use the ViewModel
-  }
-
-  fun showTemplateList(names: List<String>) {
+  private fun showTemplateList(names: List<String>) {
     binding.templateListLinearLayout.removeAllViews()
     for (name in names) {
       val textView = TextView(activity)
-      textView.text = name
-      textView.textSize= 18F
-      val typeface = ResourcesCompat.getFont(requireContext(), R.font.biorhyme_light)
-      textView.typeface = typeface
-      textView.setTextColor(Color.parseColor("#000000"));
-      textView.setOnClickListener {
-        showTemplateDesc(name)
+      textView.apply {
+        text = name
+        textSize= 18F
+        typeface = ResourcesCompat.getFont(requireContext(), R.font.biorhyme_light)
+        setTextColor(Color.parseColor("#000000"));
+        setOnClickListener {
+          showTemplateDesc(name)
+        }
       }
       binding.templateListLinearLayout.addView(textView)
     }
   }
 
-  fun showTemplateDesc(name: String) {
+  private fun showTemplateDesc(name: String) {
     binding.templateDescLinearLayout.removeAllViews()
     binding.templateApplyButton.isEnabled = true
     binding.templateEditButton.isEnabled = true
