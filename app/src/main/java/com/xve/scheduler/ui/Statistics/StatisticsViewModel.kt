@@ -26,5 +26,7 @@ class StatisticsViewModel : ViewModel() {
   }
 
   private fun getStatisticsDisplayString(done : Time, total : Time) =
-    "${done.h.toString() + "h" + done.m.toString() + "m"} / ${total.h.toString() + "h" + total.m.toString() + "m"}"
+    "${getFormattedTimeString(done)} / ${getFormattedTimeString(total)}"
+
+  private fun getFormattedTimeString(time : Time) = time.h.toString() + "h" + time.m.toString() + "m"
 }
