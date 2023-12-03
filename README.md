@@ -7,7 +7,7 @@ Scheduler App for Android - Available on [PlayStore](https://play.google.com/sto
 ## Features 
 - Maintain Daily schedule using events
 - Make templates to manage repeating events
-- Keep track of your progress my using checked/tracked events
+- Keep track of your progress by using checked/tracked events
 - Divide your event types using tags
 
 
