@@ -34,7 +34,7 @@ class AlarmReceiver : BroadcastReceiver()  {
       context,
       NOTIFICATION_ID,
       contentIntent,
-      PendingIntent.FLAG_UPDATE_CURRENT
+      PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
     )
     val eventArray = receivedIntent.getStringArrayExtra("event")
     val builder = NotificationCompat.Builder(context, PRIMARY_CHANNEL_ID)

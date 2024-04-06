@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.xve.scheduler">
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -14,6 +16,7 @@
             android:enabled="true"
             android:exported="false" />
         <receiver
+            android:exported="true"
             android:name="com.xve.scheduler.util.BootCompleteReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
@@ -28,6 +31,7 @@
             android:theme = "@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name="com.xve.scheduler.MainActivity"
+            android:exported="true"
             android:theme="@style/Theme.Scheduler.NoActionBar"
             android:windowSoftInputMode="adjustNothing">
             <intent-filter>

@@ -39,7 +39,7 @@ class DailyUpdateReceiver : BroadcastReceiver() {
         context,
         id,
         contentIntent,
-        PendingIntent.FLAG_UPDATE_CURRENT
+        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
       )
       val cal = Date.current().getCalendar()
       cal.set(Calendar.HOUR_OF_DAY, 0)
@@ -81,7 +81,7 @@ class DailyUpdateReceiver : BroadcastReceiver() {
         context.applicationContext,
         i,
         contentIntent,
-        PendingIntent.FLAG_UPDATE_CURRENT
+        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
       )
       alarmManager.cancel(contentPendingIntent)
     }
@@ -126,7 +126,7 @@ class DailyUpdateReceiver : BroadcastReceiver() {
       context.applicationContext,
       id,
       contentIntent,
-      PendingIntent.FLAG_UPDATE_CURRENT
+      PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
     )
     pendingIntents.add(contentPendingIntent)
     val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager

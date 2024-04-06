@@ -50,7 +50,7 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
       app.applicationContext,
       0,
       contentIntent,
-      PendingIntent.FLAG_UPDATE_CURRENT
+      PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
     )
 
     val cal = Date.current().getCalendar()
@@ -81,7 +81,7 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
       app.applicationContext,
       0,
       contentIntent,
-      PendingIntent.FLAG_UPDATE_CURRENT
+      PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
     )
 
     Log.d("DBG", "Force update")
